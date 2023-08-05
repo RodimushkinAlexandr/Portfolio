@@ -23,7 +23,7 @@ export class MovieController {
         return this.movieService.getAllMovies()
     }
 
-    @Get('/filter')
+    @Post('/filter')
     getGenreComedy(@Body() dto: CreateMovieDto) {
         return this.movieService.getFilterComedy(dto)
     }
