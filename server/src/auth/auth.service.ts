@@ -1,9 +1,9 @@
 import {HttpException, HttpStatus, Injectable, UnauthorizedException} from '@nestjs/common';
-import {CreateUserDto} from "../users/dto/create-user.dto";
 import {UsersService} from "../users/users.service";
-import {JwtService} from "@nestjs/jwt";
-import * as bcrypt from 'bcryptjs'
-import { User } from 'src/users/schema/users.schema';
+import { User } from 'src/users/schema/user.schema';
+import { JwtService } from '@nestjs/jwt';
+import { jwtConstants } from './constansec';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class AuthService {
@@ -11,34 +11,58 @@ export class AuthService {
     constructor(private userService: UsersService,
                 private jwtService: JwtService) {}
 
-    async login(userDto: CreateUserDto) {
-        const user = await this.validateUser(userDto)
-        return this.generateToken(user)
-    }
+    async validateUser(username: string): Promise<User | null> {
+        const user = await this.userService.findOne(username)
 
-    async registration(userDto: CreateUserDto) {
-        const candidate = await this.userService.getUserByEmail(userDto.email);
-        if (candidate) {
-            throw new HttpException('Пользователь с таким email существует', HttpStatus.BAD_REQUEST);
-        }
-        const hashPassword = await bcrypt.hash(userDto.password, 5);
-        const user = await this.userService.createUser({...userDto, password: hashPassword})
-        return this.generateToken(user)
-    }
+        if(!user) {return null}
 
-    private async generateToken(user: User) {
-        const payload = {email: user.email}
+        return user
+    }           
+
+    async generateAccessToken(user: User) {
         return {
-            token: this.jwtService.sign(payload)
+            access_token: this.jwtService.sign({user})
         }
     }
 
-    private async validateUser(userDto: CreateUserDto) {
-        const user = await this.userService.getUserByEmail(userDto.email);
-        const passwordEquals = await bcrypt.compare(userDto.password, user.password);
-        if (user && passwordEquals) {
-            return user;
+    async generateRefreshToken(userId: string) {
+        return {
+            refresh_token: this.jwtService.sign(
+                { userId },
+                {
+                    secret: jwtConstants.secret,
+                    expiresIn: '30d'
+                },
+            )
         }
-        throw new UnauthorizedException({message: 'Некорректный емайл или пароль'})
     }
+
+    verifyToken(token: string) {
+        try{
+            return this.jwtService.verify(token);
+        } catch(error) {
+            return {error: error.message}
+        }
+    }
+
+    parseJwt(token: string) {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split('')
+            .map(function (c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join(''),
+        );
+    
+        return JSON.parse(jsonPayload);
+      }
+
+      async getUserByTokenData(token: string): Promise<User> {
+        const parserTokenData = this.parseJwt(token);
+
+        return await this.userService.findOne(parserTokenData.user.username);
+      }
 }

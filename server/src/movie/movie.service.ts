@@ -1,31 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { User, UserDocument } from 'src/users/schema/users.schema';
+import { User, UsersDocument } from 'src/users/schema/user.schema';
 import { Movie, MovieDocument } from './schemas/movie-schema';
 import { HttpService } from '@nestjs/axios'
-import { Observable } from 'rxjs';
-import { AxiosResponse } from 'axios';
-import {HttpException, HttpStatus,  UnauthorizedException} from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.tdo';
-import { FileService, FileType } from 'src/file/file.service';
-import { FavoritesMovies, FavoritesMoviesDocument } from 'src/favorites-movies/schema/favorites-movies.schema';
 
 
 @Injectable()
 export class MovieService {
 
     constructor(@InjectModel(Movie.name) private moviesService: Model<MovieDocument>,
-                @InjectModel(FavoritesMovies.name) private FavoritesMoviesModel: Model<FavoritesMoviesDocument>,
-                @InjectModel(User.name) private userModel: Model<UserDocument>,
-                private fileService: FileService,
+                @InjectModel(User.name) private userModel: Model<UsersDocument>,
                 private readonly httpService: HttpService) {}
-
-    async create(dto: CreateMovieDto, poster ): Promise<Movie> {
-        const posterPath = this.fileService.createFile(FileType.IMAGE, poster)
-        const movie = await this.moviesService.create({...dto, poster: posterPath})
-        return movie
-    }
 
     async getAllMovies() {
         let movies = await this.moviesService.find()

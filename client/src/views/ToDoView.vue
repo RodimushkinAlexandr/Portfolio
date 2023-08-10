@@ -1,16 +1,11 @@
 <template>
-  <main>
    
-  </main>
-</template>
 
+</template>
 <script setup lang="ts">
 
 
-
-
 </script>
-
-<style>
- 
+<style lang="">
+    
 </style>
