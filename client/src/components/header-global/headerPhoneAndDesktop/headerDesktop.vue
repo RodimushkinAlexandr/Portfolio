@@ -1,46 +1,65 @@
-<!-- <template>
-    <aside class="aside" :class="{ 'swap__menu': swap, 'openLitle': openLitle }">
+<script setup lang="ts">
+import { ref } from 'vue';
+
+    const swap = ref(false)
+
+    const swapFunc = () => {
+        swap.value = !swap.value;
+    }
+
+</script>
+<template>
+    <header class="header" @mousemove="swap = true" @mouseout="swap = false" :class="swap ? 'open' : 'close'">
+        <nav class="header__nav">
+            <div class="header__item header__item-user">
+                <div class="header__image"></div>
+                <p @mousemove="swap = true" class="header__username" v-if="swap">Name</p>
+            </div>
+            <RouterLink to="/" class="header__item">
+                <v-icon  icon="mdi mdi-home" size="30" color="white"></v-icon>
+                <p @mousemove="swap = true" class="header__item-name" v-if="swap">Home</p>
+            </RouterLink>
+            <RouterLink to="/" class="header__item">
+                <v-icon  icon="mdi mdi-wallet" size="30" color="white"></v-icon>
+                <p @mousemove="swap = true" class="header__item-name" v-if="swap">Wallet</p>
+            </RouterLink>
+            <RouterLink to="/" class="header__item">
+                <v-icon  icon="mdi mdi-checkbox-marked-circle-plus-outline" size="30" color="white"></v-icon>
+                <p @mousemove="swap = true" class="header__item-name" v-if="swap">ToDo</p>
+            </RouterLink>
+            <RouterLink to="/" class="header__item">
+                <v-icon  icon="mdi mdi-weather-cloudy" size="30" color="white"></v-icon>
+                <p @mousemove="swap = true"  class="header__item-name" v-if="swap">Weather</p>
+            </RouterLink>
+            <RouterLink to="/" class="header__item">
+                <v-icon  icon="mdi mdi-filmstrip" size="30" color="white"></v-icon>
+                <p @mousemove="swap = true" class="header__item-name" v-if="swap">Movies</p>
+            </RouterLink>
+        </nav>
+        <!-- <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/">About</RouterLink> -->
+    </header>
+    <!-- <aside class="aside" :class="{ 'swap__menu': swap, 'openLitle': openLitle }">
         <router-link to="/" @click="swap = false">
-            <div class="logo text"><span class="material-symbols-outlined">cottage</span></div>
+            <div class="logo text"></div>
         </router-link>
         <div class="button-swap__menu" @mouseenter="openLitle = true" @mouseleave="openLitle = false">
             <button type="button" class="btn__swap btn__laptop" @click="swap = !swap" @touchstart="swapFunc">
-                <span class="material-symbols-outlined btn">double_arrow</span>
+                
             </button>
         </div>
         <div class="menu__list" @click="swap = false">
-            <router-link to="/Movies">
-                <span class="material-symbols-outlined">hd</span>
-                <span class="text">Movies</span>
-            </router-link>
-            <router-link to="/Weather">
-                <span class="material-symbols-outlined">thermostat</span>
-                <span class="text">Weather</span>
-            </router-link>
-            <router-link to="/ToDo">
-                <span class="material-symbols-outlined">checklist</span>
-                <span class="text">ToDo</span>
-            </router-link>
-            <router-link to="/Wallet">
-                <span class="material-symbols-outlined">account_balance_wallet</span>
-                <span class="text">Wallet</span>
-            </router-link>
-            <router-link id="router__position-bottom" to="/User">
-                <span class="material-symbols-outlined">settings</span>
-                <span class="text">Settings</span>
+            <router-link to="/">
+                
             </router-link>
         </div>
-    </aside>
+    </aside> -->
 </template>
 
-<script lang="ts" setup>
-
-    // name: 'my-aside-desktop',
-    
-</script>
 
 <style lang="scss" scoped>
-.aside {
+
+.header {
     width: 64px;
     background-color: #394C60;
     min-height: 100vh;
@@ -48,14 +67,59 @@
     display: flex;
     flex-direction: column;
     padding: 16px;
-
-    color: #EFECE7;
     transition: width .3s ease-out;
 
     position: fixed;
     top: 0;
     left: 0;
     z-index: 99;
+
+    &.open {
+        width: 200px;
+    }
+// .header__nav
+
+&__nav {
+    display: flex;
+    flex-direction: column;
+}
+
+// .header__item
+
+&__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+ &-name{
+    margin-left: 10px;
+    color: white;
+ }
+}
+
+// .header__item-user
+
+&__item-user {
+    flex-direction: column;
+    margin-bottom: 50px;
+
+}
+&__image {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: aliceblue;
+}
+
+&__username{
+    position:fixed;
+    top: 45px;
+    margin-top: 5px;
+}
+}
+
+.header {
+   
     
     a.router-link-active,
         a.hover {
@@ -77,7 +141,7 @@
         color: #FFFFFF;
 
 
-        span {
+        i {
             font-size: 32px;
         }
     }
@@ -94,7 +158,7 @@
             outline: none;
             appearance: none;
 
-            span {
+            i {
                 transform: translate(6px, 0px);
                 color: #FFFFFF;
                 font-size: 24px;
@@ -180,7 +244,7 @@
             transform: rotate(180deg);
 
             .btn__swap {
-                span {
+                i {
 
                     &:hover {
                         transform: translate(11px, 0px);
@@ -213,4 +277,4 @@
         bottom: 0;
     }
 }
-</style> -->
+</style>
