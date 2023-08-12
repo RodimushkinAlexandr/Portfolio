@@ -1,16 +1,23 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import { ref } from 'vue';
 import headerGlobal from './components/header-global/headerGlobal.vue';
+import router from './router';
+import { AuthStore } from './stores/Auth';
 
-const btn = ref(false)
+const authStore = AuthStore()
+
+if (!authStore.isAuth) {
+  router.push({ path: '/Authorization' })
+}
+
 </script>
 
 <template>
   <div class="wrapper">
     <headerGlobal />
-    <main class="main">
-      <RouterView />  
+    <main class="main" >
+      <RouterView  />  
     </main>
   </div>
  

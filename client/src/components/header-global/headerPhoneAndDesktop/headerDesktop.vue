@@ -35,25 +35,14 @@ import { ref } from 'vue';
                 <v-icon  icon="mdi mdi-filmstrip" size="30" color="white"></v-icon>
                 <p @mousemove="swap = true" class="header__item-name" v-if="swap">Movies</p>
             </RouterLink>
+            <RouterLink to="/" class="header__item flex_bottom">
+                <v-icon  icon="mdi mdi-cog" size="30" color="white"></v-icon>
+                <p @mousemove="swap = true" class="header__item-name" v-if="swap">Movies</p>
+            </RouterLink>
         </nav>
         <!-- <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/">About</RouterLink> -->
     </header>
-    <!-- <aside class="aside" :class="{ 'swap__menu': swap, 'openLitle': openLitle }">
-        <router-link to="/" @click="swap = false">
-            <div class="logo text"></div>
-        </router-link>
-        <div class="button-swap__menu" @mouseenter="openLitle = true" @mouseleave="openLitle = false">
-            <button type="button" class="btn__swap btn__laptop" @click="swap = !swap" @touchstart="swapFunc">
-                
-            </button>
-        </div>
-        <div class="menu__list" @click="swap = false">
-            <router-link to="/">
-                
-            </router-link>
-        </div>
-    </aside> -->
 </template>
 
 
@@ -91,6 +80,11 @@ import { ref } from 'vue';
     align-items: center;
     margin-bottom: 10px;
 
+    &.flex_bottom{
+        position: fixed;
+        bottom: 10px;
+    }
+
  &-name{
     margin-left: 10px;
     color: white;
@@ -118,163 +112,5 @@ import { ref } from 'vue';
 }
 }
 
-.header {
-   
-    
-    a.router-link-active,
-        a.hover {
-            color: #9e6209;
 
-            .material-symbols-outlined,
-            .text {
-                transition: all ease-out .3s;
-                color: #9e6209;
-            }
-        }
-
-    &.openLitle {
-        width: 70px;
-    }
-
-    .logo {
-        margin: 16px 0px 16px 0px;
-        color: #FFFFFF;
-
-
-        i {
-            font-size: 32px;
-        }
-    }
-
-    .button-swap__menu {
-        position: relative;
-        top: 0;
-        margin-bottom: 32px;
-        transition: all ease-out .3s;
-        cursor: pointer;
-
-        .btn__swap {
-            background: none;
-            outline: none;
-            appearance: none;
-
-            i {
-                transform: translate(6px, 0px);
-                color: #FFFFFF;
-                font-size: 24px;
-                display: block;
-                transition: all ease-out .3s;
-
-                &:hover {
-                    transform: translate(11px, 0px);
-                    color: #9e6209;
-                }
-            }
-        }
-    }
-
-    .menu__list {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-
-
-        #router__position-bottom {
-            position: fixed;
-            bottom: 0;
-        }
-
-        a {
-            margin-bottom: 17px;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            cursor: pointer;
-            transition: all ease-out .3s;
-
-            &:hover {
-
-                .material-symbols-outlined,
-                .text {
-                    color: #9e6209;
-                    transition: all ease-out .3s;
-
-                }
-            }
-        }
-
-
-        a.router-link-active,
-        a.hover {
-            .material-symbols-outlined,
-            .text {
-                transition: all ease-out .3s;
-                color: #9e6209;
-            }
-        }
-
-        .material-symbols-outlined {
-            color: #FFFFFF;
-            font-size: 28px;
-            text-align: center;
-        }
-
-        .text {
-            opacity: 0;
-            visibility: hidden;
-            font-size: 0px;
-            color: #FFFFFF;
-
-            transform: translate(-15px);
-            transition: all .2s ease-out;
-        }
-    }
-
-    &.swap__menu {
-        width: 300px;
-
-        &.openLitle {
-            width: 300px;
-
-        }
-
-        .button-swap__menu {
-            top: - 50px;
-            align-self: flex-end;
-            transform: rotate(180deg);
-
-            .btn__swap {
-                i {
-
-                    &:hover {
-                        transform: translate(11px, 0px);
-                        color: #9e6209;
-                    }
-
-                }
-            }
-        }
-
-        .menu__list {
-            .text {
-                margin-left: 10px;
-                opacity: 1;
-                visibility: visible;
-                font-size: 24px;
-                transform: translate(0px);
-            }
-        }
-    }
-}
-
-@media (max-width: 768px) {
-    .aside {
-        width: 100%;
-        max-height: 200px;
-
-        flex-direction: row;
-        top: 90vh;
-        bottom: 0;
-    }
-}
 </style>
