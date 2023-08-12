@@ -6,14 +6,13 @@ import { ref } from 'vue';
     const swapFunc = () => {
         swap.value = !swap.value;
     }
-
 </script>
 <template>
     <header class="header" @mousemove="swap = true" @mouseout="swap = false" :class="swap ? 'open' : 'close'">
         <nav class="header__nav">
             <div class="header__item header__item-user">
                 <div class="header__image"></div>
-                <p @mousemove="swap = true" class="header__username" v-if="swap">Name</p>
+                <p @mousemove="swap = true" class="header__username" v-if="swap">{{  }}</p>
             </div>
             <RouterLink to="/" class="header__item">
                 <v-icon  icon="mdi mdi-home" size="30" color="white"></v-icon>

@@ -29,12 +29,12 @@ export const AuthStore = defineStore({
                     localStorage.setItem('auth', JSON.stringify(userData.data))
                 }
             } catch (e) {
-
+                console.log(e)
             }
         },
         async registration() {
             try {
-                const userData = await api.post('/auth/registration/',{...this.authUser})
+                const userData = await api.post('/auth/registration/', this.authUser)
                 console.log(userData)
 
                 if(userData.status == 200) {
@@ -42,7 +42,7 @@ export const AuthStore = defineStore({
                     localStorage.setItem('auth', JSON.stringify(userData.data))
                 }
             } catch (e) {
-
+                console.log(e)
             }
         }
     }

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MoviesView from '../views/MoviesView.vue'
 import ToDo from '../views/ToDoView.vue'
-import LoginRegistration from '@/views/LoginRegistration.vue'
+import Auth from '@/views/Auth.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,8 +18,8 @@ const router = createRouter({
     },
     {
       path: '/Authorization',
-      name: 'LoginRegistration',
-      component: LoginRegistration
+      name: 'Auth',
+      component: Auth
     }
   ]
 })

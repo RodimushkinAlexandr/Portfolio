@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { AuthStore } from '@/stores/Auth'
-import router from '@/router';
 
 const authStore = AuthStore()
 const loading = ref<boolean>(false)
@@ -16,20 +15,23 @@ const rules = [
       ]
 
 const auth = () => {
-    if(authStore.authUser.username && authStore.authUser.password.length) {
+    if(authStore.authUser.username && authStore.authUser.password) {
        
         loading.value = true
         setTimeout(() => (loading.value = false), 1000)
         
-        if (isLoginForm) {
+        if (isLoginForm.value) {
             setTimeout(() => {
+                console.log('login')
                 authStore.login() 
             }, 1000)
 
         } 
         
-        if(!isLoginForm) {
+        if(!isLoginForm.value) {
             setTimeout(() => {
+                console.log('registr')
+
                 authStore.registration() 
             }, 1000)
         }

@@ -18,7 +18,7 @@ export class Cost {
   @Prop({ required: true, default: new Date() })
   data: Date;
 
-  @Prop({ required: true, default: 1 })
+  @Prop({ required: true})
   userId: string;
 }
 
