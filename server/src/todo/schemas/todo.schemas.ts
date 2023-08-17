@@ -1,26 +1,23 @@
-// import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-// import { ObjectId } from 'mongodb';
-// import { Document } from 'mongoose';
-// import * as mongoose from 'mongoose'
-// import { User } from 'src/users/schema/users.schema';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 
-// export type ToDoDocument = ToDo & Document;
+export type ToDoDocument = ToDo & Document;
 
-// @Schema()
-// export class ToDo {
+@Schema()
+export class ToDo {
     
-//   @Prop()
-//   title: string;
+  @Prop({ required: true})
+  title: string;
 
-//   @Prop()
-//   description: string;
+  @Prop()
+  description: string;
 
-//   @Prop({default: false})
-//   completed: boolean;
+  @Prop({default: false})
+  completed: boolean;
 
-//   @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'User'})
-//   user: User;
-// }
+  @Prop({ required: true})
+  userId: string;
+}
 
-// export const ToDoSchema = SchemaFactory.createForClass(ToDo);
+export const ToDoSchema = SchemaFactory.createForClass(ToDo);

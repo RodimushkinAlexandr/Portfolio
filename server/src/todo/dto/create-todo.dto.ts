@@ -1,14 +1,15 @@
-// import { IsEmail, IsString, Length } from "class-validator";
-// import {ObjectId} from "mongoose";
+import { IsNotEmpty } from "class-validator";
+import {ObjectId} from "mongoose";
 
 
-// export class CreateToDoDto {
+export class CreateToDoDto {
 
-//     @Length(1, 40, {message: 'Не меньше 1 и не больше 30 символов'})
-//     readonly title:string;
+    @IsNotEmpty()
+    readonly title:string;
 
-//     @Length(1, 40, {message: 'Не меньше 1 и не больше 60 символов'})
-//     readonly description:string;
+    @IsNotEmpty()
+    readonly description:string;
 
-//     readonly userId: ObjectId;
-// }
+    readonly userId: string;
+}
+

@@ -2,17 +2,16 @@ import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateCostDto {
 
-    @IsNotEmpty()
-    readonly text: string;
+    readonly comment: string;
 
     @IsNotEmpty()
     readonly price: number;
 
     @IsNotEmpty()
-    readonly category: string;
+    readonly category:string
 
     @IsNotEmpty()
-    readonly data: Date;
+    readonly date: Date;
 
     @IsOptional()
     readonly userId: string;

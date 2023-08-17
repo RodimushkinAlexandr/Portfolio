@@ -1,26 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { AuthStore } from '@/stores/Auth';
 
-    const swap = ref(false)
+const authStore = AuthStore()
 
-    const swapFunc = () => {
-        swap.value = !swap.value;
-    }
+const swap = ref(false)
+const swapFunc = () => {
+    swap.value = !swap.value;
+}
+
 </script>
 <template>
     <header class="header" @mousemove="swap = true" @mouseout="swap = false" :class="swap ? 'open' : 'close'">
         <nav class="header__nav">
             <div class="header__item header__item-user">
                 <div class="header__image"></div>
-                <p @mousemove="swap = true" class="header__username" v-if="swap">{{  }}</p>
+                <p @mousemove="swap = true" class="header__username" v-if="swap">{{ authStore.authUser.username }}</p>
             </div>
             <RouterLink to="/" class="header__item">
                 <v-icon  icon="mdi mdi-home" size="30" color="white"></v-icon>
                 <p @mousemove="swap = true" class="header__item-name" v-if="swap">Home</p>
             </RouterLink>
-            <RouterLink to="/" class="header__item">
+            <RouterLink to="/Cost" class="header__item">
                 <v-icon  icon="mdi mdi-wallet" size="30" color="white"></v-icon>
-                <p @mousemove="swap = true" class="header__item-name" v-if="swap">Wallet</p>
+                <p @mousemove="swap = true" class="header__item-name" v-if="swap">Cost</p>
             </RouterLink>
             <RouterLink to="/" class="header__item">
                 <v-icon  icon="mdi mdi-checkbox-marked-circle-plus-outline" size="30" color="white"></v-icon>

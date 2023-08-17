@@ -1,19 +1,16 @@
-// import { Module, forwardRef } from '@nestjs/common';
-// import { TodoController } from './todo.controller';
-// import { TodoService } from './todo.service';
-// import { MongooseModule } from '@nestjs/mongoose';
-// import { ToDo, ToDoSchema } from './schemas/todo.schemas';
-// import { UsersSchema, User } from 'src/users/schema/users.schema';
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from 'src/auth/auth.module';
+import { ToDoSchema, ToDo } from './schemas/todo.schemas';
+import { ToDoService } from './todo.service';
+import { ToDoController } from './todo.controller'
 
-// @Module({
-//     controllers: [TodoController],
-//     providers: [TodoService],
-//     imports: [
-//         MongooseModule.forFeature([{name: User.name, schema: UsersSchema}]),
-//         MongooseModule.forFeature([{name: ToDo.name, schema: ToDoSchema}]),
-//     ],
-//     exports: [
-//         TodoService
-//     ]
-// })
-// export class TodoModule {}
+@Module({
+    imports: [
+        MongooseModule.forFeature([{name: ToDo.name, schema: ToDoSchema}]),
+        AuthModule
+    ],
+    providers: [ToDoService],
+    controllers: [ToDoController]
+})
+export class CostModule {}

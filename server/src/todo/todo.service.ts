@@ -1,44 +1,42 @@
-// import { Injectable } from '@nestjs/common';
-// import { InjectModel } from '@nestjs/mongoose';
-// import { ToDo, ToDoDocument } from './schemas/todo.schemas';
-// import { Model, ObjectId } from 'mongoose';
-// import { CreateToDoDto } from './dto/create-todo.dto';
-// import { User, UsersDocument } from 'src/users/schema/users.schema';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { ToDo, ToDoDocument } from './schemas/todo.schemas';
+import { CreateToDoDto } from './dto/create-todo.dto';
 
-// @Injectable()
-// export class TodoService {
+@Injectable()
+export class ToDoService {
+  constructor(
+    @InjectModel(ToDo.name) private toDoModel: Model<ToDoDocument>,
+  ) {}
 
-//     constructor(@InjectModel(ToDo.name) private toDoModel: Model<ToDoDocument>,
-//                 @InjectModel(User.name) private userModel: Model<UsersDocument>) {}
+  async findAll(): Promise<ToDo[]> {
+    return this.toDoModel.find();
+  }
 
-//     async createToDo(dto: CreateToDoDto): Promise<ToDo> {
-//         const user = await this.userModel.findById(dto.userId);
-//         const newtodo = await this.toDoModel.create({...dto})
-//         user.todo.push(newtodo._id)
-//         await user.save();
-//         return newtodo;
-//     }
+  async findOne(id: string): Promise<ToDo> {
+    return this.toDoModel.findOne({ _id: id });
+  }
 
-//     async putComplitedToDoForUser(id: ObjectId): Promise<ToDo>  {
-//         const todo = await this.toDoModel.findByIdAndUpdate(id)
-//         todo.completed = !todo.completed
-//         await todo.save()
-//         return todo
-//     }
+  async create(createToDoDto: CreateToDoDto): Promise<ToDo> {
+    const createdCost = new this.toDoModel(createToDoDto);
+    return createdCost.save();
+  }
 
-//     async deleteTodoForUser(id: ObjectId): Promise<ObjectId> {
-//         const todo = await this.toDoModel.findByIdAndDelete(id)
-//         return todo.id
-//     }
- 
-//     async getToDoForUser(id: ObjectId): Promise<ToDo[]> {
-//         const user = await this.userModel.findById(id)
-//         const todos = (await this.getAllToDo()).filter((item) => -1 !== user.todo.indexOf(item.id))
-//         return todos
-//     }
+//   async update(updateCostDto: UpdateCostDto, id: string): Promise<ToDo> {
+//     await this.costsModel.updateOne(
+//       { _id: id },
+//       {
+//         $set: {
+//           ...updateCostDto,
+//         },
+//       },
+//     );
 
-//     async getAllToDo() {
-//         const todos = await this.toDoModel.find({})
-//         return todos;
-//     }
-// }
+//     return this.findOne(id);
+//   }
+
+  async delete(id: string): Promise<void> {
+    await this.toDoModel.deleteOne({ _id: id });
+  }
+}

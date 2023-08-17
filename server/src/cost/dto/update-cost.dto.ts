@@ -2,15 +2,14 @@ import { IsNotEmpty } from 'class-validator';
 
 export class UpdateCostDto {
 
-    @IsNotEmpty()
-    readonly text: string;
+    readonly comment: string;
 
     @IsNotEmpty()
     readonly price: number;
 
     @IsNotEmpty()
-    readonly category: string;
+    readonly category:string
 
     @IsNotEmpty()
-    readonly data: Date;
+    readonly date: Date;
 }

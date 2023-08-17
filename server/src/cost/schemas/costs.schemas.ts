@@ -6,17 +6,17 @@ export type CostsDocument = Cost & Document;
 @Schema()
 export class Cost {
 
-  @Prop({ required: true })
-  text: string;
+  @Prop()
+  comment: string;
 
   @Prop({ required: true })
   price: number;
 
+  @Prop({ required: true, default: new Date() })
+  date: Date;
+
   @Prop({ required: true })
   category: string;
-
-  @Prop({ required: true, default: new Date() })
-  data: Date;
 
   @Prop({ required: true})
   userId: string;

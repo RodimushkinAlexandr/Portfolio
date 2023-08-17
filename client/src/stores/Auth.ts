@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
-import axios from 'axios'
 import api from '../api/axiosClient'
+import refreshTokenUser from '@/api/axiosRefreshToken'
 
 interface AuthState {
     authUser: AuthUser
@@ -15,36 +15,43 @@ export const AuthStore = defineStore({
                 username: '',
                 password: ''
             },
-            isAuth: false  
+            isAuth: false,
         }
     },
     actions: {
-        async login() {
+        async login(): Promise<void> {
             try {
                 const userData = await api.post('/auth/login/', this.authUser)
-                console.log(userData)
-
                 if(userData.status == 200) {
-                    this.isAuth = true
                     localStorage.setItem('auth', JSON.stringify(userData.data))
+                    this.userAuthentication()
                 }
             } catch (e) {
                 console.log(e)
             }
         },
-        async registration() {
+        async registration(): Promise<void> {
             try {
                 const userData = await api.post('/auth/registration/', this.authUser)
-                console.log(userData)
-
-                if(userData.status == 200) {
-                    this.isAuth = true
-                    localStorage.setItem('auth', JSON.stringify(userData.data))
+                if(userData.status == 201) {
+                    await this.login()
                 }
             } catch (e) {
                 console.log(e)
             }
-        }
+        },
+        async userAuthentication(): Promise<void> {
+            if (localStorage.getItem('auth')) {
+                try{
+                    const user = JSON.parse(localStorage.getItem('auth') || '{}')
+                    this.isAuth = true;
+                    this.authUser.username = user.username
+                } catch(e) {
+                    console.log(e)
+                }
+
+            }
+        },
     }
 })
 
