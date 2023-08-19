@@ -13,4 +13,4 @@ import { ToDoController } from './todo.controller'
     providers: [ToDoService],
     controllers: [ToDoController]
 })
-export class CostModule {}
+export class ToDoModule {}

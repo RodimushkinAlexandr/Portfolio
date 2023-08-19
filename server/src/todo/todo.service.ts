@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ToDo, ToDoDocument } from './schemas/todo.schemas';
 import { CreateToDoDto } from './dto/create-todo.dto';
+import { UpdateToDoDto } from './dto/update-todo.dto';
 
 @Injectable()
 export class ToDoService {
@@ -11,7 +12,7 @@ export class ToDoService {
   ) {}
 
   async findAll(): Promise<ToDo[]> {
-    return this.toDoModel.find();
+    return this.toDoModel.find()
   }
 
   async findOne(id: string): Promise<ToDo> {
@@ -19,22 +20,22 @@ export class ToDoService {
   }
 
   async create(createToDoDto: CreateToDoDto): Promise<ToDo> {
-    const createdCost = new this.toDoModel(createToDoDto);
-    return createdCost.save();
+    const createdToDo = new this.toDoModel(createToDoDto);
+    return createdToDo.save();
   }
 
-//   async update(updateCostDto: UpdateCostDto, id: string): Promise<ToDo> {
-//     await this.costsModel.updateOne(
-//       { _id: id },
-//       {
-//         $set: {
-//           ...updateCostDto,
-//         },
-//       },
-//     );
+  async update(updateToDoDto: UpdateToDoDto, id: string): Promise<ToDo> {
+    await this.toDoModel.updateOne(
+      { _id: id },
+      {
+        $set: {
+          ...updateToDoDto,
+        },
+      },
+    );
 
-//     return this.findOne(id);
-//   }
+    return this.findOne(id);
+  }
 
   async delete(id: string): Promise<void> {
     await this.toDoModel.deleteOne({ _id: id });

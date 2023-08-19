@@ -8,13 +8,13 @@ export type ToDoDocument = ToDo & Document;
 export class ToDo {
     
   @Prop({ required: true})
-  title: string;
-
-  @Prop()
-  description: string;
+  text: string;
 
   @Prop({default: false})
-  completed: boolean;
+  complited: boolean;
+
+  @Prop({default: false})
+  selected: boolean
 
   @Prop({ required: true})
   userId: string;

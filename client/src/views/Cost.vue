@@ -20,9 +20,6 @@ const selectedMenu = ref<string>('cost')
 </template>
 
 <style lang="scss">
-    .cost{
-        max-width: 380px;
-    }
     .btn{
         color: aliceblue;
     }

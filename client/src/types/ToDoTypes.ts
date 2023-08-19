@@ -1,7 +1,6 @@
 export default interface Task {
-    _id: string
-    title: string
-    description: string
-    completed: boolean
-    userId: string
+    text: string
+    complited: boolean
+    selected: boolean
+    _id: string | undefined
 }

@@ -6,6 +6,7 @@ import configuration from './config/configuration';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CostModule } from './cost/costs.module';
+import { ToDoModule } from './todo/todo.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CostModule } from './cost/costs.module';
     UsersModule,
     AuthModule,
     CostModule,
+    ToDoModule
   ],
 })
 export class AppModule {}

@@ -1,0 +1,62 @@
+   
+   
+ .input__wrapper{
+    position: relative;
+    width: 100%;
+
+    p{
+      color: #b92323;
+      position: absolute;
+      height: 0px;
+      top: 0px;
+      left: 10px;
+      opacity: 0;
+      transition: all ease-in-out .3s;
+    } 
+
+    input {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      background-color: #303135;
+      border: 1px solid #262626;
+      color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0px 5px 30px 2px rgba(0, 0, 0, 0.64);    
+      border-radius: 8px;
+      font-size: 18px;
+      padding: 14px;
+      transition: all ease .5s;
+
+      &:focus {
+          border: 1px solid #9747FF;
+      }
+    }
+
+    &.error {
+      p{
+        top: 56px;
+        opacity: 1;
+        height: 100%;
+
+      }
+
+      input{
+        border-color: #b92323;
+        margin-bottom: 20px;
+      }
+    }
+}
+
+
+
+
+   input[type="text"]::-webkit-outer-spin-button,
+   input[type="text"]::-webkit-inner-spin-button {
+       -webkit-appearance: none; // Yeah, yeah everybody write about it
+   }
+   input[type='text'],
+   input[type="text"]:hover,
+   input[type="text"]:focus {
+       appearance: none;
+       -moz-appearance: textfield;
+   }

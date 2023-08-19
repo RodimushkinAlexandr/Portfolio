@@ -19,13 +19,13 @@ const iconColor = categories.filter(item => item.value == props.cost.category)[0
 
 
 
-const changedCost = reactive<Cost>({
-            comment: '',
-            price: '',
-            category: null,
-            date: new Date(),
-            _id: undefined
-})
+// const changedCost = reactive<Cost>({
+//             comment: '',
+//             price: '',
+//             category: null,
+//             date: new Date(),
+//             _id: undefined
+// })
 
 </script>
 

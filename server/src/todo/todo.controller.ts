@@ -16,6 +16,7 @@ import {
   import { JWTGuard } from 'src/auth/guards/jwt.guard';
 import { ToDoService } from './todo.service';
 import { CreateToDoDto } from './dto/create-todo.dto';
+import { UpdateToDoDto } from './dto/update-todo.dto';
   
   @Controller('todo')
   export class ToDoController {
@@ -51,15 +52,15 @@ import { CreateToDoDto } from './dto/create-todo.dto';
       });
     }
   
-    // @UseGuards(JWTGuard)
-    // @Patch(':id')
-    // @HttpCode(HttpStatus.OK)
-    // async updateCost(
-    //   @Body() updateCostDto: UpdateCostDto,
-    //   @Param('id') id: string,
-    // ) {
-    //   return await this.costsService.update(updateCostDto, id);
-    // }
+    @UseGuards(JWTGuard)
+    @Patch(':id')
+    @HttpCode(HttpStatus.OK)
+    async updateCost(
+      @Body() updateToDoDto: UpdateToDoDto,
+      @Param('id') id: string,
+    ) {
+      return await this.toDoService.update(updateToDoDto, id);
+    }
   
     @UseGuards(JWTGuard)
     @Delete(':id')

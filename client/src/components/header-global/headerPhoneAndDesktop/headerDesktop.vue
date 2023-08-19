@@ -18,14 +18,14 @@ const swapFunc = () => {
                 <p @mousemove="swap = true" class="header__username" v-if="swap">{{ authStore.authUser.username }}</p>
             </div>
             <RouterLink to="/" class="header__item">
-                <v-icon  icon="mdi mdi-home" size="30" color="white"></v-icon>
+                <v-icon  icon="mdi mdi-home" size="30" color="blue-grey-lighten-1"></v-icon>
                 <p @mousemove="swap = true" class="header__item-name" v-if="swap">Home</p>
             </RouterLink>
             <RouterLink to="/Cost" class="header__item">
                 <v-icon  icon="mdi mdi-wallet" size="30" color="white"></v-icon>
                 <p @mousemove="swap = true" class="header__item-name" v-if="swap">Cost</p>
             </RouterLink>
-            <RouterLink to="/" class="header__item">
+            <RouterLink to="/ToDo" class="header__item">
                 <v-icon  icon="mdi mdi-checkbox-marked-circle-plus-outline" size="30" color="white"></v-icon>
                 <p @mousemove="swap = true" class="header__item-name" v-if="swap">ToDo</p>
             </RouterLink>

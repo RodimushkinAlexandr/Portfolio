@@ -2,6 +2,7 @@ import {defineStore } from 'pinia'
 import api from '../api/axiosClient'
 import refreshTokenUser from '@/api/axiosRefreshToken'
 import type Cost from '@/types/CostTypes'
+import type Categories from '@/types/CategoryTypes'
 
 
 interface CostStore {
@@ -16,7 +17,7 @@ export const CostStore = defineStore({
         return {
             cost: {
                 comment: '',
-                price: '',
+                price: null,
                 category: null,
                 date: new Date(),
                 _id: undefined
@@ -73,9 +74,11 @@ export const CostStore = defineStore({
         //     } catch (e) {
         //         console.log(e)
         //     }
-        // },
+        // }, 
         async resetCost(): Promise<void>  {
-            this.cost.comment = this.cost.price = this.cost.category = '';
+            this.cost.comment = ''
+            this.cost.price = null
+            this.cost.category = null
             this.cost.date = new Date();
         }
     }
@@ -88,9 +91,3 @@ export const CostStore = defineStore({
 //     date: Date
 //     _id: string | undefined
 // }
-
-interface Categories {
-    value: string
-    icon: string
-    color: string
-}

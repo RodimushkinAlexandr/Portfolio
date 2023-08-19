@@ -49,7 +49,6 @@ const selectedMenu = computed({
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 380px;
     box-shadow: 0 5px 30px 2px rgba(0,0,0,.64);
     background-color: #333333;
     border-radius: 8px;
@@ -84,17 +83,6 @@ const selectedMenu = computed({
         border-color: #FFF;
         transform: scale(1.1);
     }
-}
-
-    
-@media (max-width: 768px) {
-    .cost {
-
-    &__menu-list {
-        margin: 0px 0px 30px 0px;
-        
-    }
-}
 }
 }
 </style>

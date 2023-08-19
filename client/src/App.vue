@@ -4,6 +4,7 @@ import headerGlobal from './components/header-global/headerGlobal.vue';
 import router from './router';
 import { AuthStore } from './stores/Auth';
 
+
 const authStore = AuthStore()
 
 authStore.userAuthentication()
@@ -23,6 +24,7 @@ if (!authStore.isAuth) {
 <template>
   <div class="wrapper">
     <headerGlobal />
+    
     <main class="main">
       <RouterView  />  
     </main>

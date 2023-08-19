@@ -27,10 +27,15 @@ const calendarFn = (weeks: any[]) => {
 
 <style>
   .dp__theme_light{
-    --dp-background-color: #333333;
+    --dp-background-color: #303135;
     --dp-text-color: #9f9fa1;
-    --dp-border-color: #333333;
+    --dp-border-color: #303135;
   }
+  .dp__input{
+    border-radius: 8px;
+    height: 50px;
+  }
+
   .dp__pointer {
     height: 56px;
 
