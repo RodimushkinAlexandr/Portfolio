@@ -67,6 +67,7 @@ const auth = () => {
                     :rules="rules"
                     label="Password"
                     elevation="24"
+                    type="password"
                 ></v-text-field>
                 <v-btn 
                     :loading="loading"

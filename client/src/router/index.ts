@@ -1,16 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MoviesView from '../views/MoviesView.vue'
+import Movies from '../views/Movies.vue'
 import ToDo from '../views/ToDoView.vue'
 import Auth from '@/views/Auth.vue'
 import Cost from '@/views/Cost.vue'
+import Weather from '@/views/Weather.vue'
+import Settings from '@/views/Settings.vue'
+import Main from '@/views/Main.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: MoviesView
+      name: 'Main',
+      component: Main
     },
     {
       path: '/Cost',
@@ -26,6 +29,21 @@ const router = createRouter({
       path: '/ToDo',
       name: 'ToDo',
       component: ToDo
+    },
+    {
+      path: '/Weather',
+      name: 'Weather',
+      component: Weather
+    },
+    {
+      path: '/Settings',
+      name: 'Settings',
+      component: Settings
+    },
+    {
+      path: '/Movies',
+      name: 'Movies',
+      component: Movies
     }
   ]
 })

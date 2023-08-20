@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import headerGlobal from './components/header-global/headerGlobal.vue';
+import headerGlobal from './components/Headers/HeaderGlobal/Global.vue';
 import router from './router';
 import { AuthStore } from './stores/Auth';
 

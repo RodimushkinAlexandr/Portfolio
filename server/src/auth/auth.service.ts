@@ -4,6 +4,7 @@ import { User } from 'src/users/schema/user.schema';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constansec';
 import { ObjectId } from 'mongodb';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -65,4 +66,5 @@ export class AuthService {
 
         return await this.userService.findOne(parserTokenData.user.username);
       }
+
 }

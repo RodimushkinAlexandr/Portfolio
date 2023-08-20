@@ -1,11 +1,11 @@
-
 <script setup lang="ts">
 import { ref } from 'vue';
+import MyOption from './MyOption.vue'
 
 const props = defineProps<{
     name: string,
     selected: string,
-    options: object[]
+    options: string[]
 }>()
 
 const emit = defineEmits<{
@@ -32,7 +32,7 @@ const optionSelected = (option:string):void => {
         </div>
         <div class="select__list-wrapper" :class="{ show: isShow }">
             <ul class="select__list">
-                <my-option-custom v-for="option in options" :option="option" @selected="optionSelected" />
+                <MyOption v-for="option in options" :option="option" @selected="optionSelected"></MyOption>
             </ul>
         </div>
     </div>

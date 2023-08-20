@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CostModule } from './cost/costs.module';
 import { ToDoModule } from './todo/todo.module';
+import { MovieModule } from './movie/movie.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ToDoModule } from './todo/todo.module';
       load: [configuration],
     }),
     UsersModule,
+    MovieModule,
     AuthModule,
     CostModule,
     ToDoModule

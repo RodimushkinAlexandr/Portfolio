@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import api from '../api/axiosClient'
-import refreshTokenUser from '@/api/axiosRefreshToken'
+import type AuthUser from '@/types/UserAuthTypes'
 
 interface AuthState {
     authUser: AuthUser
@@ -55,9 +55,5 @@ export const AuthStore = defineStore({
     }
 })
 
-interface AuthUser {
-    username: string
-    password: string
-}
 
 

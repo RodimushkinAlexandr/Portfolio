@@ -1,4 +1,4 @@
-import {Body, Controller, Get, HttpStatus, Post, Res, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Res, UseGuards} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
 import {CreateUserDto} from "../auth/dto/create-user.dto"
 import { UsersService } from 'src/users/users.service';
@@ -9,6 +9,8 @@ import { LoginGuard } from './guards/login.guard';
 import { AuthService } from './auth.service';
 import { RefreshJWTGuard } from './guards/refresh-jwt.giard';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { JWTGuard } from './guards/jwt.guard';
 
 @ApiTags('Авторизация')
 @Controller('auth')
@@ -29,7 +31,7 @@ export class AuthController {
       const refresh = await this.authService.generateRefreshToken(user._id as string)
   
       res.statusCode = HttpStatus.OK;
-      return res.send({...access, ...refresh, username: user.username});
+      return res.send({...access, ...refresh, username: user.username, genreMovies: user.genreMovies, city: user.city});
     }
     
     @UseGuards(RegistrationGuard)
@@ -76,4 +78,26 @@ export class AuthController {
       });
     }
   }
+
+  @UseGuards(JWTGuard)
+  @Patch(':id')
+  @HttpCode(HttpStatus.OK)
+  async updateUser(
+    @Body() updateUserDto: UpdateUserDto,
+    @Param('id') id: string,
+  ) {
+    return await this.usersService.update(updateUserDto, id);
+  }
+
+  // findOne
+  @Post('change')
+    async changeUser(
+      @Body() updateUserDto: UpdateUserDto,
+      @Res() res: Response,
+    ) {
+      const user = await this.usersService.findOne(updateUserDto.username)
+      const updateUser = await this.usersService.update(updateUserDto, user._id as string)
+      return res.send(updateUser);
+    }
+
 }

@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { User, UsersDocument } from './schema/user.schema';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { LoginUserDto } from '../auth/dto/login-user.dto'
+import { UpdateUserDto } from 'src/auth/dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -37,5 +38,18 @@ export class UsersService {
 
   async findOne(username: string): Promise<User> {
     return this.usersModel.findOne({ username });
+  }
+
+  async update(updateUserDto: UpdateUserDto, id: string): Promise<User> {
+    await this.usersModel.updateOne(
+      { _id: id },
+      {
+        $set: {
+          ...updateUserDto,
+        },
+      },
+    );
+
+    return await this.findOne(updateUserDto.username);
   }
 }

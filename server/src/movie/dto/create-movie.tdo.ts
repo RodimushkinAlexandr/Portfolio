@@ -10,5 +10,4 @@ export class CreateMovieDto {
     readonly countries: string[];
     readonly poster: string[];
     readonly rating: string[];
-
 }

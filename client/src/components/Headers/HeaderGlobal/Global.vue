@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import headerDesktop from './headerPhoneAndDesktop/headerDesktop.vue'
-import headerPhone from './headerPhoneAndDesktop/headerPhone.vue'
+import headerDesktop from './toDesctopGlobal.vue'
+import headerPhone from './toPhoneGlobal.vue'
 
 
 const desktop = ref(true)

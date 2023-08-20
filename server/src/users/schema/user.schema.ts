@@ -12,6 +12,12 @@ export class User {
   @Prop({ required: true })
   password: string;
 
+  @Prop({default: ''})
+  city: string
+
+  @Prop({default: ''})
+  genreMovies: string
+
   _id: mongoose.Types.ObjectId | string;
 }
 

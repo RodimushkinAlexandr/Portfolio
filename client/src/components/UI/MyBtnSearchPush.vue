@@ -1,7 +1,7 @@
 <template>
     <button class="btn" :style="{ 'background-color': props.background }">
         <slot></slot>
-        <span :class="props.icon"></span>
+        <span v-if="icon" :style="{'margin-left': '3px'}" :class="props.icon"></span>
     </button>
 </template>
 
@@ -33,13 +33,6 @@ const props = withDefaults(defineProps<Props>(), {
     flex: 0 0 auto;
     color: rgba(255, 255, 255, 0.9);
     box-shadow: 0px 5px 30px 9px rgba(0, 0, 0, 0.64);
-    
-    :not(:last-child) {
-        margin-right: 3px;
-    }
 
-    .span{
-        margin-left: 5px;
-    }
 }
 </style>

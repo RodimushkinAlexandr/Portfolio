@@ -3,16 +3,20 @@ import { ref, } from 'vue';
 
 const props = defineProps<{
     rules: Function,
-    value: string
+    modelValue: string
     placeholder: string,
 }>()
 
 const emit =  defineEmits<{
-    (e: 'input', value: string): void
+    (e: 'update:modelValue', modelValue: string): void
  }>()
 
-const validate = () => textValidate.value = props.rules(props.value)
 const textValidate = ref<string>('')
+
+const validate = () => {
+  textValidate.value = props.rules(props.modelValue)
+  
+}
 
 </script>
 
@@ -20,8 +24,8 @@ const textValidate = ref<string>('')
    <div class="input__wrapper" :class="textValidate.length > 0 ? 'error' : ''">
         <input 
           :placeholder="placeholder"
-          :value="value"
-          @input="$emit('input', ($event.target as HTMLInputElement).value)"
+          :value="modelValue"
+          @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
           type="text" 
           @blur="validate"
         />

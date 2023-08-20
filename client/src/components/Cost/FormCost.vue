@@ -8,7 +8,7 @@ import MyBtnSearchPush from '../UI/MyBtnSearchPush.vue';
 
 const costStore = CostStore()
 
-const rulesPrice= (value:number) => {  
+const rulesPrice = (value:number) => {  
           if (!value) return 'This field is required'      
           return ''
         }

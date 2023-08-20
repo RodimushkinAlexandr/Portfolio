@@ -5,25 +5,25 @@ import { User, UsersDocument } from 'src/users/schema/user.schema';
 import { Movie, MovieDocument } from './schemas/movie-schema';
 import { HttpService } from '@nestjs/axios'
 import { CreateMovieDto } from './dto/create-movie.tdo';
+import { FilterMovieDto } from './dto/filter-movie.dto';
 
 
 @Injectable()
 export class MovieService {
 
-    constructor(@InjectModel(Movie.name) private moviesService: Model<MovieDocument>,
-                @InjectModel(User.name) private userModel: Model<UsersDocument>,
-                private readonly httpService: HttpService) {}
+    constructor(@InjectModel(Movie.name) private moviesService: Model<MovieDocument>) {}
 
     async getAllMovies() {
-        let movies = await this.moviesService.find()
-        let arr = []
-        for (let i = 0; i < movies.length; i++) {
-            if(arr.includes(movies[i].name)) {
-                await this.deleteOneMovie(movies[i]._id)
-            } else {
-                arr.push(movies[i].name)
-            }
-        }
+        const movies = await this.moviesService.find()
+        
+        // let arr = []
+        // for (let i = 0; i < movies.length; i++) {
+        //     if(arr.includes(movies[i].name)) {
+        //         await this.deleteOneMovie(movies[i]._id)
+        //     } else {
+        //         arr.push(movies[i].name)
+        //     }
+        // }
         console.log(movies.length)
         return movies;
     }
@@ -46,14 +46,41 @@ export class MovieService {
         return movies
     }
  
-    async getFilterComedy(dto: CreateMovieDto): Promise<Movie[]> {
+    async getMoviesFilter(dto: FilterMovieDto): Promise<Movie[]> {
         
         let movies = await this.getAllMovies()
+        console.log(movies.length)
 
-            dto.year == 'all' ? '' : movies = movies.filter(movie => movie.year == dto.year)
+        dto.year == 'all' ? '' : movies = movies.filter(movie => movie.year == dto.year)
             Object.values(dto.genres[0]).join() == 'all' ? '' : movies = movies.filter(movie => this.getfilterMovies(movie.genres, dto.genres))
             Object.values(dto.countries[0]).join() == 'all' ? '' : movies = movies.filter(movie => this.getfilterMovies(movie.countries, dto.countries))
             return movies
+    }
+
+    async getAllFilters(): Promise<object> {
+        let movies = await this.getAllMovies()
+        const filterGenre = []
+        const filterYear = []
+        const filterCountries = []
+
+        movies.map((item) => {
+            item.genres.map((filter) => {
+                if(filterGenre.includes((Object.values(filter)).join())) return false
+                filterGenre.push((Object.values(filter)).join())
+            })
+            item.countries.map((filter) => {
+                if(filterCountries.includes((Object.values(filter)).join())) return false
+                filterCountries.push((Object.values(filter)).join())
+            })
+            if(filterYear.includes(item.year)) return false
+            filterYear.push(item.year)
+        })
+        const allFilters = {
+            genres: filterGenre,
+            years: filterYear,
+            countries: filterCountries
+        }
+        return allFilters
     }
 
     getfilterMovies(data, filterDto): boolean {
@@ -83,7 +110,21 @@ export class MovieService {
 
     // async allMov(): Promise<Movie[]> {
     //     const movies = await this.moviesService.insertMany( 
-           
-    //     )
+            
+    //         )
     //     return }
+    // async getAllMoviesAndRemoveDuplicate() {
+    //     const movies = await this.moviesService.find()
+        
+    //     // let arr = []
+    //     // for (let i = 0; i < movies.length; i++) {
+    //     //     if(arr.includes(movies[i].name)) {
+    //     //         await this.deleteOneMovie(movies[i]._id)
+    //     //     } else {
+    //     //         arr.push(movies[i].name)
+    //     //     }
+    //     // }
+    //     console.log(movies.length)
+    //     return movies;
+    // }
 }

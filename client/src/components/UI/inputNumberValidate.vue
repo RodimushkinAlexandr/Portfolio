@@ -22,7 +22,7 @@ const textValidate = ref<string>('')
         <input 
           :placeholder="placeholder"
           :value="modelValue"
-          @input=""
+          @input="$emit('update:modelValue', Number(($event.target as HTMLInputElement).value))"
           type="number" 
           @blur="validate"
         />
