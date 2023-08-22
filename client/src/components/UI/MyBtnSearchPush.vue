@@ -1,10 +1,3 @@
-<template>
-    <button class="btn" :style="{ 'background-color': props.background }">
-        <slot></slot>
-        <span v-if="icon" :style="{'margin-left': '3px'}" :class="props.icon"></span>
-    </button>
-</template>
-
 <script setup lang="ts">
 
 export interface Props {
@@ -18,6 +11,13 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 </script>
+
+<template>
+    <button class="btn" :style="{ 'background-color': props.background }">
+        <slot></slot>
+        <span v-if="icon" :style="{'margin-left': '3px'}" :class="props.icon"></span>
+    </button>
+</template>
 
 <style lang="scss" scoped>
 .btn {

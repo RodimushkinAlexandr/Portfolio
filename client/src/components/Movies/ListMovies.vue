@@ -2,42 +2,24 @@
 
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+import type MoviesList from '@/types/ListMoviesTypes';
 
-// export default {
-//     props: {
-//         movies: Array
-//     },
-//     components: { 
-//         Swiper,  SwiperSlide
-//     },
-//     setup() {
-//       const onSwiper = (swiper) => {
-//       };
-//       const onSlideChange = () => {
-//       };
-//       return {
-//         onSwiper,
-//         onSlideChange,
-//         modules: [Navigation, Pagination, Scrollbar],
-//       };
-//     },
-// }
+const props = defineProps<{
+    movies: MoviesList[]
+}>()
 </script>
 
 <template>
-    <Swiper  
+    <swiper  
         class="swiper"
         :grabCursor="true"
         >
-        <SwiperSlide class="movieList__item">
-            <!-- <div id="div__wrapper-img"><img :src="movie.poster.previewUrl" alt=""><span></span></div>
+        <swiper-slide v-for="movie in movies"  class="movieList__item">
+            <div id="div__wrapper-img"><img :src="movie.poster[0].previewUrl" alt=""><span></span></div>
             <p @click="$emit('look', movie)" class="slide__button">Look</p>
-            <p class="movie__name">{{ movie.name }}</p> -->
-        </SwiperSlide>
-    </Swiper>
+            <p class="movie__name">{{ movie.name }}</p>
+        </swiper-slide>
+    </swiper>
 </template>
 
 <style lang="scss" scoped>

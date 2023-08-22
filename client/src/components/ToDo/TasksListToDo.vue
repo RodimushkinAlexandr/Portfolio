@@ -29,10 +29,9 @@ const selectedTask = (task: Task) => {
             @remove="removeTask">
         </TasksItemToDo>
     </transition-group>
-    <p>{{ todoStore.sizeComplited }}</p>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .list {
     display: flex;
     flex-direction: column;

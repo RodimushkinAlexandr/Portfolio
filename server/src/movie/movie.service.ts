@@ -6,6 +6,7 @@ import { Movie, MovieDocument } from './schemas/movie-schema';
 import { HttpService } from '@nestjs/axios'
 import { CreateMovieDto } from './dto/create-movie.tdo';
 import { FilterMovieDto } from './dto/filter-movie.dto';
+import { kMaxLength } from 'buffer';
 
 
 @Injectable()
@@ -24,7 +25,6 @@ export class MovieService {
         //         arr.push(movies[i].name)
         //     }
         // }
-        console.log(movies.length)
         return movies;
     }
 
@@ -49,19 +49,21 @@ export class MovieService {
     async getMoviesFilter(dto: FilterMovieDto): Promise<Movie[]> {
         
         let movies = await this.getAllMovies()
-        console.log(movies.length)
 
-        dto.year == 'all' ? '' : movies = movies.filter(movie => movie.year == dto.year)
-            Object.values(dto.genres[0]).join() == 'all' ? '' : movies = movies.filter(movie => this.getfilterMovies(movie.genres, dto.genres))
-            Object.values(dto.countries[0]).join() == 'all' ? '' : movies = movies.filter(movie => this.getfilterMovies(movie.countries, dto.countries))
-            return movies
+        if (dto.year) movies = movies.filter(movie => movie.year == dto.year)
+        if (dto.genre)  movies = movies.filter(movie => movie.genres.map(genre => Object.values(genre).join()).includes(dto.genre))
+        if (dto.country)  movies = movies.filter(movie => movie.countries.map(country => Object.values(country).join()).includes(dto.country))
+
+        // dto?.genres ? movies = movies.filter(movie => this.getfilterMovies(movie.genres, dto.genres)) : '' 
+        // dto?.countries ?  movies = movies.filter(movie => this.getfilterMovies(movie.countries, dto.countries)) : ''
+        return movies
     }
 
     async getAllFilters(): Promise<object> {
         let movies = await this.getAllMovies()
-        const filterGenre = []
-        const filterYear = []
-        const filterCountries = []
+        let filterGenre = []
+        let filterYear = []
+        let filterCountries = []
 
         movies.map((item) => {
             item.genres.map((filter) => {
@@ -75,6 +77,7 @@ export class MovieService {
             if(filterYear.includes(item.year)) return false
             filterYear.push(item.year)
         })
+        filterYear = filterYear.sort((a, b) => a - b).reverse()
         const allFilters = {
             genres: filterGenre,
             years: filterYear,

@@ -3,6 +3,7 @@ import { MovieService } from './movie.service';
 import { Model, ObjectId } from 'mongoose';
 import { CreateMovieDto } from './dto/create-movie.tdo';
 import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
+import { FilterMovieDto } from './dto/filter-movie.dto';
 
 @Controller('movie')
 export class MovieController {
@@ -20,7 +21,7 @@ export class MovieController {
     }
 
     @Post('/filter')
-    getGenreComedy(@Body() dto: CreateMovieDto) {
+    getGenreComedy(@Body() dto: FilterMovieDto) {
         return this.movieService.getMoviesFilter(dto)
     }
 

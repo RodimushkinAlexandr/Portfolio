@@ -3,19 +3,22 @@ import { computed } from 'vue';
 import type menuHeaderGrey from '@/types/MenuHeaderGreyTypes';
 import icon from '@/components/UI/icon.vue';
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits<{
+    (e: 'update:modelValue', modelValue: string): void
+}>()
 
 const props = defineProps<{
     modelValue: string
-    contents: menuHeaderGrey[]
+    contentMenu: menuHeaderGrey[]
 }>()
+
 
 const selectedMenu = computed({
     get() {
         return props.modelValue
     }, 
-    set(value:string) {
-        emit('update:modelValue', value)
+    set(modelValue:string) {
+        emit('update:modelValue', modelValue)
     }
 })
 
@@ -24,9 +27,9 @@ const selectedMenu = computed({
 <template>  
     <header class="header">
         <form class="header__menu-list">
-            <label v-for="content in contents" :id="content.text"  :for="content.text" class="header__menu-item" :class=" selectedMenu == content.text ? 'active' :'' " >{{ content.text }}
-                <icon :icon="content.icon" :color="content.color" />
-                <input v-model="selectedMenu" :value="content.text" type="radio" name="header-menu" class="header__input" :id="content.text">
+            <label v-for="content in contentMenu" :key="content.text"  :for="content.text" class="header__menu-item" :class=" modelValue == content.text ? 'active' :'' " >{{ content.text.toLocaleUpperCase() }}
+                <icon :icon="content.icon" :color="content.color" class="icon" />
+                <input :value="content.text" v-model="selectedMenu" type="radio" name="header-menu" class="header__input" :id="content.text" />
             </label>
         </form>
     </header>
@@ -53,12 +56,11 @@ const selectedMenu = computed({
 
 &__menu-item {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 5px;
-    padding: 10px;
+    justify-content: center;
+    padding: 15px 5px;
+    min-width: 103px;
     border-radius: 8px 8px;
-    min-width: 64px;
     cursor: pointer;
     transition: all .3s ease;
     border: 1px solid #333333;
@@ -77,6 +79,10 @@ const selectedMenu = computed({
         box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.8);
         border-color: #FFF;
         transform: scale(1.1);
+    }
+
+    .icon{
+        margin-left: 3px;
     }
 }
 }

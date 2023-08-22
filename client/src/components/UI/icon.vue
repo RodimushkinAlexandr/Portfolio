@@ -16,19 +16,28 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-    <div >
+    <div class="wrapper__icon">
        <span :class="icon"></span>
     </div>
 </template>
 
 <style lang="scss">
+    .wrapper__icon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     span {
         color: v-bind(color);
         font-size: v-bind(size);
         transition: all .3s ease-in;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         &:hover{
             color: v-bind(hover)
-        }
+        }      
     }
 </style>

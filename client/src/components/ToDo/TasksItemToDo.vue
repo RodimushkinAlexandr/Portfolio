@@ -73,7 +73,10 @@ li {
     .item__title {
         flex: 1 1 auto;
         font-size: 16px;
+        width: 100%;
         color: #F2F2F2;
+        display: flex;
+        justify-content: start;      
     }
 
     .item__buttons{

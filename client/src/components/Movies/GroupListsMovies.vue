@@ -1,39 +1,24 @@
 <template>
     <section class="movies-group">
         <ul class="movies-group__list">
-            <li class="movies-group__block" v-for="nameGenre of nameMovies">
-                <h2 @click="$emit('searchFilterName', nameGenre)" class="movies-group__title">{{ nameGenre }}</h2>
-                <MoviesList :movies="moviesGroup[nameGenre]" @look="look" class="movies-group__list" />
+            <li class="movies-group__block" v-for="movies, index in moviesGroup">
+                <h2 class="movies-group__title">{{ nameMoviesGroup[index] }}</h2>
+                <ListMovies :movies="movies" class="movies-group__list" />
             </li>
         </ul>
     </section>
 </template>
 
-<script>
+<script setup lang="ts">
+import type MoviesList from '@/types/ListMoviesTypes';
+import ListMovies from './ListMovies.vue';
 
-import MoviesList from '@/components/Movies/MoviesList.vue';
-export default {
-    props: {
-        moviesGroup: Object
-    },
-    components: {MoviesList},
-    computed: {
-        nameMovies: {
-            get() {
-                return Object.keys(this.moviesGroup)
-            }
-        }
-    },
-    methods: {
-        look(movie) {
-            this.$emit('look', movie)
-        },
-        searchFilterName() {
+const props = defineProps<{
+    moviesGroup: MoviesList[][]
+    nameMoviesGroup: string[]
+}>()
 
-        }
-    },
-    
-}
+
 </script>
 
 <style lang="scss" scoped>
