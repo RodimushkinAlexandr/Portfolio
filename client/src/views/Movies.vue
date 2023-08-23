@@ -5,9 +5,15 @@ import { ref } from 'vue';
 import type menuHeaderGreyTypes from '@/types/MenuHeaderGreyTypes'
 import GroupListsMovies from '@/components/Movies/GroupListsMovies.vue';
 import FilterMovies from '@/components/Movies/Filters/FilterMovies.vue';
+import dialogWindow from '@/components/UI/dialogWindow.vue';
+import LookOneMovie from '@/components/Movies/LookOneMovie.vue';
+import type Movie from '@/types/MovieTypes';
+import SearchMovies from '@/components/Movies/Search/SearchMovies.vue';
+import { computed } from 'vue';
+import { watch } from 'vue';
+import { reactive } from 'vue';
 
 const moviesStore = MoviesStore()
-
 moviesStore.getAllFilters()
 
 const selectedMenu = ref<string>('Filter')
@@ -35,6 +41,15 @@ const contentMenu = ref<menuHeaderGreyTypes[]>([
     },
 ])  
 
+const searchMovies = reactive({
+    name: ''
+})
+
+watch(searchMovies, async () => {
+   if (searchMovies.name.length > 2) {
+        moviesStore.getMoviesUseSearch(searchMovies)
+   }
+}, { deep: true})
 
 </script>
 
@@ -51,6 +66,12 @@ const contentMenu = ref<menuHeaderGreyTypes[]>([
                 :moviesGroup="moviesStore.moviesGroup" 
                 :nameMoviesGroup="moviesStore.nameMoviesGroup" />
         </div>
+        <div class="movies__main-search" v-else-if="selectedMenu == 'Search'">
+            <SearchMovies v-model:searchMovies="searchMovies.name" />
+        </div>
+            <dialogWindow v-model:show="moviesStore.showLookMovie">
+                <LookOneMovie v-if="moviesStore.showLookMovie" :movie="moviesStore.lookvoie"></LookOneMovie>
+            </dialogWindow>
     </main>
 </div>
 

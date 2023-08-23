@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { AuthStore } from '@/stores/Auth'
+import inputTextValidate from '@/components/UI/inputTextValidate.vue';
+import MyBtnSearchPush from '@/components/UI/MyBtnSearchPush.vue';
+import Icon from '@/components/UI/icon.vue';
 
 const authStore = AuthStore()
 const loading = ref<boolean>(false)
 const isLoginForm = ref<boolean>(false)
 
-const rules = [
-        (value: string) => {  
+const rules =  (value: string) => {  
           if (!value) return 'This field is required'
           if (value.length < 2) return 'Minimum number of characters 4'
-          return true
-        },
-      ]
+          return ''
+        }
 
 const auth = () => {
     if(authStore.authUser.username && authStore.authUser.password) {
@@ -48,50 +49,47 @@ const auth = () => {
             <header class="header">
                 <section v-if="isLoginForm" class="header__login header__section">
                     <h2>LOGIN</h2>
-                    <v-icon icon="mdi mdi-account-key" size="25"></v-icon>
+                    <Icon :icon="'mdi mdi-account-key'" :size="'25px'"></Icon>
                 </section>
                 <section v-else class="header__registration header__section">
                     <h2>REGISTRATION</h2>
-                    <v-icon icon="mdi mdi-account-edit-outline" size="25"></v-icon>
+                    <Icon :icon="'mdi mdi-account-edit-outline'" :size="'25px'"></Icon>
                 </section>
             </header>
             <form @submit.prevent class="form">
-                <v-text-field
+                <inputTextValidate
                     v-model="authStore.authUser.username"
                     :rules="rules"
-                    label="Name"
-                    elevation="24"
-                ></v-text-field>
-                <v-text-field
+                    :placeholder="'Name'"
+                    class="form__item"
+                ></inputTextValidate>
+                <inputTextValidate
                     v-model="authStore.authUser.password"
                     :rules="rules"
-                    label="Password"
-                    elevation="24"
+                    :placeholder="'Password'"
                     type="password"
-                ></v-text-field>
-                <v-btn 
-                    :loading="loading"
-                    class="flex-grow-1"
-                    height="48"
+                    class="form__item"
+                ></inputTextValidate>
+                <MyBtnSearchPush
                     @click="auth"
-                    block
                     type="submit" 
-                    elevation="24"
-                    color="indigo-darken-3">{{ isLoginForm ?  'LOGIN' : 'Registration' }}</v-btn>
-            </form>
+                    class="auth__btn">{{ isLoginForm ?  'LOGIN' : 'REGISTRATION' }}
+
+                </MyBtnSearchPush>
+            </form> 
             <footer class="footer">
                 <section v-if="isLoginForm" class="footer__login footer__section" >
                     <h4>Don't have an account?</h4>
                     <div class="footer__link" @click="isLoginForm = false">
                         <p class="header__item-name">Registration</p>
-                        <v-icon  icon="mdi mdi-account-edit-outline" size="25" color="white"></v-icon>
+                        <Icon :icon="'mdi mdi-account-edit-outline'" :size="'25px'"></Icon>
                     </div>
                 </section>
                 <section v-else class="footer__registration footer__section">
                     <h4>Do you have an account?</h4>
                     <div class="footer__link" @click="isLoginForm = true">
                         <p class="header__item-name">Login</p>
-                        <v-icon  icon="mdi mdi-account-key" size="25" color="white"></v-icon>
+                        <Icon :icon="'mdi mdi-account-key'" :size="'25px'" ></Icon>
                     </div>
                 </section>
             </footer>
@@ -120,7 +118,7 @@ const auth = () => {
         margin: 0 auto;
         width: 100%;
         padding: 30px;
-        border: 2px solid #FFF;
+        border: 2px solid #9f9fa1;
         border-radius: 10px;
 
         .header{
@@ -138,6 +136,12 @@ const auth = () => {
             }
         }
 
+        .form{
+            .form__item{
+                margin-bottom:10px;
+            }
+        }
+
         .footer{
 
             &__section {
@@ -151,12 +155,14 @@ const auth = () => {
             &__link{
                 display: flex;
                 align-items: center;
-                color: #FFF;
                 cursor: pointer;
                 :last-child{
                     margin-left: 5px;
                 }
             }
+        }
+        .auth__btn{
+            width: 100%;
         }
     }
 </style>

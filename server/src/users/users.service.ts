@@ -40,9 +40,9 @@ export class UsersService {
     return this.usersModel.findOne({ username });
   }
 
-  async update(updateUserDto: UpdateUserDto, id: string): Promise<User> {
+  async update(updateUserDto: UpdateUserDto): Promise<User> {
     await this.usersModel.updateOne(
-      { _id: id },
+      { username: updateUserDto.username },
       {
         $set: {
           ...updateUserDto,

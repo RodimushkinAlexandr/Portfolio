@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 const props = defineProps<{
-    filter: string
+    filter: string 
     selected: string
     useFilterStyle: string
 }>()

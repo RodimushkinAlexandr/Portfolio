@@ -38,6 +38,9 @@ const contentMenu = ref<MenuHeaderGreyTypes[]>([
 </template>
 
 <style lang="scss">
+    .cost{
+        max-width: 550px;
+    }
     .btn{
         color: aliceblue;
     }

@@ -80,24 +80,15 @@ export class AuthController {
   }
 
   @UseGuards(JWTGuard)
-  @Patch(':id')
+  @Patch('/update')
   @HttpCode(HttpStatus.OK)
   async updateUser(
     @Body() updateUserDto: UpdateUserDto,
-    @Param('id') id: string,
+    @Res() res: Response,
   ) {
-    return await this.usersService.update(updateUserDto, id);
+    const user = await this.usersService.findOne(updateUserDto.username)
+    const updateUser = await this.usersService.update(updateUserDto)
+    return res.send(updateUser);
   }
-
-  // findOne
-  @Post('change')
-    async changeUser(
-      @Body() updateUserDto: UpdateUserDto,
-      @Res() res: Response,
-    ) {
-      const user = await this.usersService.findOne(updateUserDto.username)
-      const updateUser = await this.usersService.update(updateUserDto, user._id as string)
-      return res.send(updateUser);
-    }
 
 }

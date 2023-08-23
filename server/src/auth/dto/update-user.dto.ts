@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { Movie } from 'src/movie/schemas/movie-schema';
 
 export class UpdateUserDto {
 
@@ -7,4 +8,5 @@ export class UpdateUserDto {
   readonly city: string;
 
   readonly genreMovies: string;
+
 }

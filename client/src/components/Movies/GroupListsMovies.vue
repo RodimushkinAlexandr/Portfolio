@@ -10,11 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import type MoviesList from '@/types/ListMoviesTypes';
+import type Movie from '@/types/MovieTypes';
 import ListMovies from './ListMovies.vue';
 
 const props = defineProps<{
-    moviesGroup: MoviesList[][]
+    moviesGroup: Movie[][]
     nameMoviesGroup: string[]
 }>()
 

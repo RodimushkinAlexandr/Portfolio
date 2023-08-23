@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type CategoryTypes from '@/types/CategoryTypes';
 import { computed } from 'vue';
+import Icon from '../UI/icon.vue';
  
 const props = defineProps<{
     category: CategoryTypes
@@ -18,8 +19,8 @@ const isSelected = computed(() =>  props.category.value == props.selected ? true
 <template>
     <li @click="$emit('selected', selected)" :class="category.color" class="wallet__payment-wrapper_item">
         <div :class="{selected: isSelected}" class="wallet__payment-item">
-            <input type="text" disabled :value="category.value" />
-            <span :class="category.icon"></span>
+            <p>{{ category.value }}</p>
+            <Icon :icon="category.icon" ></Icon>
         </div>
     </li>
 </template>
@@ -30,7 +31,6 @@ const isSelected = computed(() =>  props.category.value == props.selected ? true
 
     &__payment-wrapper_item{
     
-    // background-color: ;
     margin: 0 auto;
     border-radius: 15px;
     overflow: hidden;
@@ -42,6 +42,7 @@ const isSelected = computed(() =>  props.category.value == props.selected ? true
 
     &:hover {
         transform: scale(1.05);
+        
     }
    }
 

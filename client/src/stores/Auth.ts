@@ -5,6 +5,7 @@ import type AuthUser from '@/types/UserAuthTypes'
 interface AuthState {
     authUser: AuthUser
     isAuth: boolean
+    
 }
     
 export const AuthStore = defineStore({

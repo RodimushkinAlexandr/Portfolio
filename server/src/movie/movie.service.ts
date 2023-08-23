@@ -7,6 +7,7 @@ import { HttpService } from '@nestjs/axios'
 import { CreateMovieDto } from './dto/create-movie.tdo';
 import { FilterMovieDto } from './dto/filter-movie.dto';
 import { kMaxLength } from 'buffer';
+import { SearchMovieDto } from './dto/search-movie.dto';
 
 
 @Injectable()
@@ -38,7 +39,7 @@ export class MovieService {
         return movie
     }       
 
-    async getOneMovieName(dto: CreateMovieDto): Promise<Movie[]> {
+    async getOneMovieName(dto: SearchMovieDto): Promise<Movie[]> {
         
         let movies = await this.getAllMovies()
             movies = movies.filter((movie) =>  movie.name.indexOf(dto.name) >= 0)
@@ -99,18 +100,6 @@ export class MovieService {
             }
             return false
     }
-
-    async addfavoritesMovie(id:ObjectId, idMovie:ObjectId) {
-    //     console.log(id, idMovie)
-    //     const user = await this.userModel.findById(id);
-    //     const movie = await this.getOneMovie(idMovie)
-    //     console.log(user, movie)
-    //     // user.favoritesMovies.push(movie)
-    //     await user.save();
-    //     return user;
-    }
-
-
     // async allMov(): Promise<Movie[]> {
     //     const movies = await this.moviesService.insertMany( 
             

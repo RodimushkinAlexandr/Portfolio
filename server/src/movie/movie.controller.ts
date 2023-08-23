@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, Param, Delete, UseInterceptors, UploadedFiles } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { Model, ObjectId } from 'mongoose';
-import { CreateMovieDto } from './dto/create-movie.tdo';
-import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { FilterMovieDto } from './dto/filter-movie.dto';
+import { SearchMovieDto } from './dto/search-movie.dto'
+
 
 @Controller('movie')
 export class MovieController {
@@ -26,12 +26,7 @@ export class MovieController {
     }
 
     @Get('/search')
-    getOneMovieName(@Body() dto: CreateMovieDto) {
+    getOneMovieName(@Body() dto: SearchMovieDto) {
         return this.movieService.getOneMovieName(dto)
-    }
-
-    @Post('/One')
-    addfavoritesMovie(@Body() id, idMovie) {
-        return this.movieService.addfavoritesMovie(id, idMovie)
     }
 }

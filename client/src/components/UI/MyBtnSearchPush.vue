@@ -3,11 +3,13 @@
 export interface Props {
     background?: string
     icon?: string
+    hover?: string 
 }
 
 const props = withDefaults(defineProps<Props>(), {
     background: '#394C60',
-    icon: ""
+    icon: "",
+    hover: "#9f9fa1"
 })
 
 </script>
@@ -15,7 +17,7 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
     <button class="btn" :style="{ 'background-color': props.background }">
         <slot></slot>
-        <span v-if="icon" :style="{'margin-left': '3px'}" :class="props.icon"></span>
+        <span id="icon-bnt" v-if="icon" :class="props.icon"></span>
     </button>
 </template>
 
@@ -25,14 +27,18 @@ const props = withDefaults(defineProps<Props>(), {
     border-radius: 8px;
     font-size: 18px;
     padding: 14px;
-    min-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    gap: 3px;
     flex: 0 0 auto;
-    color: rgba(255, 255, 255, 0.9);
+    color: #9f9fa1;
     box-shadow: 0px 5px 30px 9px rgba(0, 0, 0, 0.64);
+    transition: all ease-in-out .2s;
 
+    &:hover{
+        color: v-bind(hover)
+    }
 }
 </style>

@@ -9,8 +9,8 @@ export interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
     icon: '',
-    color: 'white',
-    hover: "white",
+    color: '#9f9fa1',
+    hover: "#9f9fa1",
     size: '18px'
 })
 </script>
@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<Props>(), {
     span {
         color: v-bind(color);
         font-size: v-bind(size);
-        transition: all .3s ease-in;
+        transition: all ease-in .2s;
         display: flex;
         justify-content: center;
         align-items: center;

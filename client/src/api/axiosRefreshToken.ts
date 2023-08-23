@@ -8,9 +8,6 @@ const refreshTokenUser = async (): Promise<string | undefined> => {
         
         const data = await api.post('/auth/refresh/', {refresh_token, username})
 
-        auth.access_token = data.data.access_token
-        localStorage.setItem('auth', JSON.stringify(auth))
-
         return data.data.access_token
 
     } catch (e) {

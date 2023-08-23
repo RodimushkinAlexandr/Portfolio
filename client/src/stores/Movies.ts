@@ -1,15 +1,18 @@
 import {defineStore } from 'pinia'
 import api from '../api/axiosClient'
-import type MoviesList from '@/types/ListMoviesTypes'
+import type Movie from '@/types/MovieTypes'
 import type Filters from '@/types/FiltersMovies'
 
 interface MoviesState {
     filters: Filters
     amountListsInGroup: number
     requestFilters: RequestFilters
-    moviesList: MoviesList[] | []
-    moviesGroup: MoviesList[][]
+    moviesList: Movie[] | []
+    moviesGroup: Movie[][]
     nameMoviesGroup: string[]
+    lookvoie: Movie | undefined
+    showLookMovie: boolean
+    searchMovies: string
 }
 
 export const MoviesStore = defineStore({
@@ -30,6 +33,9 @@ export const MoviesStore = defineStore({
             moviesGroup: [],
             nameMoviesGroup: [],
             moviesList: [],
+            lookvoie: undefined,
+            showLookMovie: false,
+            searchMovies: ''
         }
     },
     actions: {
@@ -37,6 +43,7 @@ export const MoviesStore = defineStore({
             try {
                 const filters = await api.get('/movie/getFilters/')
                 this.filters = filters.data
+                console.log(filters.data)
                 let randomMoviesGenre = this.randomNumberMoviesGroup()
 
                 while(randomMoviesGenre.length) {
@@ -62,6 +69,14 @@ export const MoviesStore = defineStore({
                 console.log(e)
             }
         },
+        // async getMoviesUseSearch(): Promise<void> {
+        //     try{
+        //         const search = await api.get('/movie/search/', {name: this.searchMovies})
+        //         console.log(search)
+        //     } catch(e) {
+        //         console.log(e)
+        //     }
+        // },
         randomNumberMoviesGroup(): string[] {
             let genreRandom: string[] = []
             try {

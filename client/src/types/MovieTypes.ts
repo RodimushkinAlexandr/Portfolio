@@ -1,4 +1,4 @@
-export default interface MoviesList {
+export default interface Movie {
     countries: string[]
     description: string
     genres: string[]
