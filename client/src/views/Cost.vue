@@ -6,7 +6,7 @@ import { ref } from 'vue';
 import type MenuHeaderGreyTypes from '@/types/MenuHeaderGreyTypes';
 import MenuHeaderGreyVue from '@/components/Headers/MenuHeaderGrey/MenuHeaderGrey.vue';
 
-const selectedMenu = ref<string>('cost')
+const selectedMenu = ref<string>('Cost')
 
 const contentMenu = ref<MenuHeaderGreyTypes[]>([
     {

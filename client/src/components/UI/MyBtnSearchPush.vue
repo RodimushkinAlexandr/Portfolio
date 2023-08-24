@@ -9,7 +9,7 @@ export interface Props {
 const props = withDefaults(defineProps<Props>(), {
     background: '#394C60',
     icon: "",
-    hover: "#9f9fa1"
+    hover: "aliceblue"
 })
 
 </script>
@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
     <button class="btn" :style="{ 'background-color': props.background }">
         <slot></slot>
-        <span id="icon-bnt" v-if="icon" :class="props.icon"></span>
+        <span v-if="icon" :class="icon" class="icon"></span>
     </button>
 </template>
 
@@ -34,11 +34,27 @@ const props = withDefaults(defineProps<Props>(), {
     gap: 3px;
     flex: 0 0 auto;
     color: #9f9fa1;
+    border: 1px solid #394C60;
     box-shadow: 0px 5px 30px 9px rgba(0, 0, 0, 0.64);
     transition: all ease-in-out .2s;
 
     &:hover{
-        color: v-bind(hover)
+        color: v-bind(hover);
+        border: 1px solid;
+        border-color: v-bind(hover);
+        .icon{
+            color: aliceblue;
+        }
     }
+    .icon{
+            color: #9f9fa1;
+            font-size: 20px;
+            transition: all ease-in .2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 3px;
+            --dp-animation-duration: 0s;
+        }
 }
 </style>

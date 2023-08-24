@@ -1,5 +1,5 @@
 <script setup lang="ts"> 
-import { ref, } from 'vue';
+import icon from './icon.vue';
 
 const props = defineProps<{
     modelValue: string
@@ -17,12 +17,14 @@ const emit =  defineEmits<{
         <input 
           :placeholder="placeholder"
           :value="modelValue"
+          class="fill"
           @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
           type="text" 
-        />
+        /> 
    </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/inputs.scss'
+
 </style>

@@ -5,12 +5,15 @@ export interface Props {
     color?: string
     hover?: string
     size?: string
+    activeHover?: string
+
 }
 
 const props = withDefaults(defineProps<Props>(), {
     icon: '',
     color: '#9f9fa1',
     hover: "#9f9fa1",
+    activeHover: '9f9fa1',
     size: '18px'
 })
 </script>
@@ -35,6 +38,7 @@ const props = withDefaults(defineProps<Props>(), {
         display: flex;
         justify-content: center;
         align-items: center;
+        --dp-animation-duration: 0s;
 
         &:hover{
             color: v-bind(hover)

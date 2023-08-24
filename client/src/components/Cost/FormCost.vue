@@ -28,7 +28,7 @@ const addNewCost = async () => {
             <InputNumberValidate v-model="costStore.cost.price" :placeholder="'Price'" :rules="rulesPrice" class="form__item-cost" />
             <InputText v-model="costStore.cost.comment" :placeholder="'Comment'" class="form__item-cost"/>
             <CategoriesListCost :categories="costStore.categories" v-model:selected="costStore.cost.category" class="form__item-cost" />
-            <MyBtnSearchPush @click="addNewCost" :icon="'mdi mdi-plus'">Create Cost</MyBtnSearchPush>
+            <MyBtnSearchPush @click="addNewCost" :hover="'aliceblue'" :icon="'mdi mdi-plus'">Create Cost</MyBtnSearchPush>
         </form>       
     </main>
 </template>

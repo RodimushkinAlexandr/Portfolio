@@ -22,7 +22,7 @@ export const HeaderGlobal = defineStore({
                 },
                 {
                     routerLink: '/ToDo',
-                    icon: 'mdi mdi-checkbox-marked-circle-plus-outline',
+                    icon: 'mdi mdi-format-list-numbered',
                     text: 'ToDo'
                 },
                 {

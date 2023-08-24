@@ -1,66 +1,38 @@
 <script setup lang="ts">
-import FormWeather from '@/components/Weather/FormWeather.vue';
+import ErorSearch from '@/components/UI/ErorSearch.vue';
+import FormInputButton from '@/components/UI/FormInputButton.vue';
+import { WeatherStore } from '@/stores/Weather';
+import NoInfo from '@/components/Weather/NoInfo.vue'
+import WeatherInfo from '@/components/Weather/WeatherInfo.vue';
 
-// import WeatherQuery from '@/components/Weather/WeatherQuery.vue'
-// import WeatherNoInfo from '@/components/Weather/WeatherNoInfo.vue'
-// import WeatherInfo from '@/components/Weather/WeatherInfo.vue'
-// import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+const weatherStore = WeatherStore()
+const searchCity = () => {
+    weatherStore.getWeatherData(weatherStore.queryCity)
+    weatherStore.queryCity = ''
+}
 
-// export default {
-//     data() {
-//         return {
-//             clear: true
-//         }
-//     },
-//     methods: {
-//         ...mapActions(['getWeatherData', 'dateBuilder', ]),
-//         ...mapMutations(['setQueryCity', 'setWeather', 'setKind']),
-//         queryWeather() {
-//             this.getWeatherData()
-//             this.dateBuilder()
+const date = weatherStore.dateBuilder()
 
-//         }
-//     },
-//     computed: {
-//         ...mapGetters(['getWeather', 'getQueryCity', 'getDate', 'getKind', 'getErrorWeather', 'getNoInfo']),
-//         queryCity: {
-//             get() {
-//                 return this.getQueryCity
-//             },
-//             set(value) {
-//                 this.setQueryCity(value)
-//             }
-//         },
-
-//     },
-//     components: {
-//         WeatherQuery, WeatherNoInfo, WeatherInfo
-//     },
-//     created() {
-//         this.setWeather()
-//         this.setKind('')
-//     },
-// }
 </script>
 <template>
-    <FormWeather />
-    <!-- <div class="container noMaxWidth">
-        <div class="weather">
-            <div class="weather__container" :class="getKind">
-                <div class="container">
-                    <WeatherQuery v-model:queryCity="queryCity" @queryWeather="queryWeather" />
-                    <div class="pos__relativ">
-                        <transition-group name="listInfo" mode="out-in">
-                            <Error-User-Request class="error pos__absolute" v-if="getErrorWeather" />
-                            <WeatherInfo class="pos__absolute" v-else-if="getWeather" :weather="getWeather" :getDate="getDate" />
-                            <WeatherNoInfo class="noInfo pos__absolute" v-else-if="getNoInfo" />
-                        </transition-group>
-                    </div>
-                </div>
-            </div>
+    <div class="weather" :class="weatherStore.weather?.weatherType.toLocaleLowerCase()">
+      <div class="container">
+        <FormInputButton 
+            v-model:value="weatherStore.queryCity" 
+            :valueButton="'Search'" 
+            :placeholder="'Search City'"
+            @submit="searchCity" 
+            class="form__weather"/>
+        <div class="pos__relativ">
+        <transition-group name="list" tag="div">
+            <WeatherInfo :key="1" v-if="weatherStore.weather != null" :weather="weatherStore.weather" :date="date" />
+            <ErorSearch :key="2" v-else-if="weatherStore.weatherEror.length" :text="weatherStore.weatherEror" />
+            <NoInfo :key="3" v-else class="noInfo pos__absolute" />
+        </transition-group>
         </div>
-    </div> -->
+      </div>
+    </div>
 </template>
 
 
@@ -69,38 +41,20 @@ import FormWeather from '@/components/Weather/FormWeather.vue';
 
 .weather{
     position: relative;
-
-
-    .pos__relativ{
-        position: relative;
-        margin-top: 50px;
-
-        .pos__absolute{
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-        }
-    }
-
-    .weather__container{
-        position: absolute;
-        z-index: 1000;
-        height: 100vh;
-        margin: -50px -15px -30px -20px;
-        padding: 30px 15px 0px 15px;
-        top: 0;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
-        transition: all ease-out 1s;
-        background-color: #121416;
+    min-height: 100vh;
+    margin: -50px -10px 0px -10px;
+    padding: 50px 10px 0px 10px;
+    transition: all ease-out 1s;
+    background-color: #121416;
+    color: #fff;
 
         &.rain {
             background-color: #556679;
         }
         &.clear {
+            background-color: #f3ce59;
+        }
+        &.dust {
             background-color: #f3ce59;
         }
         &.clouds {
@@ -116,32 +70,21 @@ import FormWeather from '@/components/Weather/FormWeather.vue';
         &.windy {
             background-color: #D4DBE2;
         }
+    .form__weather{
+        margin-bottom: 30px;
     }
 }
 
-.noMaxWidth{
-    max-width: 100%;
+.list-enter-active,
+.list-leave-active {
+  transition: all .5s ease;
 }
-
-.listInfo-move,
-.listInfo-enter-active,
-.listInfo-leave-active {
-    transition: all .3s ease-out .1s;
-}
-
-
-.listInfo-leave-to {
-    opacity: 0;
-    transform: translateX(500px);
-}
-.listInfo-enter-from {
+.list-enter-from {
   opacity: 0;
-  transform: translateX(-500px);
+  transform: translateX(-100px);
 }
-
-.listInfo-leave-active {
-    // position: absolute;
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(100px);
 }
-
-
 </style>

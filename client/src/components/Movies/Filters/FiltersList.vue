@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ListItemFilters from './ListItemFilters.vue';
+import FiltersItem from './FiltersItem.vue';
 
 const props = defineProps<{
     filters: string[] 
@@ -19,7 +19,7 @@ const selected = (value:string): void => {
 
 <template>
     <ul class=listFilters :class="useFilterStyle == 'categories' ? 'categories' : 'category'">
-        <ListItemFilters 
+        <FiltersItem 
             v-for="filter in filters" 
             :filter="filter" 
             :key="filter" 

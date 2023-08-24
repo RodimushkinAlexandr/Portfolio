@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import type Movie from '@/types/MovieTypes';
-import ListMovies from './ListMovies.vue';
+import ListMovies from './ListMoviesSlider.vue';
 
 const props = defineProps<{
     moviesGroup: Movie[][]

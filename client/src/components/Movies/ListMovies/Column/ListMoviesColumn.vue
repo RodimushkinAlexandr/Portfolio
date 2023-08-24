@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MyBtnSearchPush from '@/components/UI/MyBtnSearchPush.vue';
 import type Movie from '@/types/MovieTypes';
-import SelectedItemToFilterItem from './SelectedItemToFilterItem.vue';
+import ItemMoviesColumn from './ItemMoviesColumn.vue';
 
 const props = defineProps<{
    movies: Movie[]
@@ -14,6 +14,7 @@ const emit = defineEmits<{
 }>()
 
 
+
 </script>
 
 <template>
@@ -24,7 +25,7 @@ const emit = defineEmits<{
    </header>
    <main class="movies__main">
       <ul class="movies__list">
-        <SelectedItemToFilterItem v-for="movie in movies" :key="movie._id" :movie="movie" @lookMovie="$emit('lookMovie', movie)" />
+        <ItemMoviesColumn v-for="movie in movies" :key="movie._id" :movie="movie" @lookMovie="$emit('lookMovie', movie)" />
       </ul>
    </main>
    </div>

@@ -39,10 +39,10 @@ export class MovieService {
         return movie
     }       
 
-    async getOneMovieName(dto: SearchMovieDto): Promise<Movie[]> {
+    async searchNameMovie(dto: SearchMovieDto): Promise<Movie[]> {
         
         let movies = await this.getAllMovies()
-            movies = movies.filter((movie) =>  movie.name.indexOf(dto.name) >= 0)
+            movies = movies.filter((movie) =>  movie.name.toLowerCase().indexOf(dto.name) >= 0)
         
         return movies
     }
@@ -55,8 +55,6 @@ export class MovieService {
         if (dto.genre)  movies = movies.filter(movie => movie.genres.map(genre => Object.values(genre).join()).includes(dto.genre))
         if (dto.country)  movies = movies.filter(movie => movie.countries.map(country => Object.values(country).join()).includes(dto.country))
 
-        // dto?.genres ? movies = movies.filter(movie => this.getfilterMovies(movie.genres, dto.genres)) : '' 
-        // dto?.countries ?  movies = movies.filter(movie => this.getfilterMovies(movie.countries, dto.countries)) : ''
         return movies
     }
 
@@ -87,19 +85,6 @@ export class MovieService {
         return allFilters
     }
 
-    getfilterMovies(data, filterDto): boolean {
-            const genres = data.map(genre => Object.values(genre).join().toLowerCase())
-
-            for (let i = 0; i < filterDto.length; i++) {
-
-                    let dtoFilter = Object.values(filterDto[i]).join().toLowerCase()
-
-                    if (genres.includes(dtoFilter)) {
-                        return true
-                    }
-            }
-            return false
-    }
     // async allMov(): Promise<Movie[]> {
     //     const movies = await this.moviesService.insertMany( 
             

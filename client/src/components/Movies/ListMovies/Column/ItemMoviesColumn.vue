@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import MyBtnSearchPush from '@/components/UI/MyBtnSearchPush.vue';
-import Icon from '@/components/UI/icon.vue';
 import type Movie from '@/types/MovieTypes';
 
 const props = defineProps<{
@@ -26,7 +25,7 @@ const genres = props.movie.genres.map(genre => (Object.values(genre)));
             <div class="movies__genre"><p class="movie__content-row">Genres: <span>{{ genres.join() }}</span></p></div>
         </div>
         <div class="movies__btn">
-            <MyBtnSearchPush @click="$emit('lookMovie', movie)" class="movies__more">More</MyBtnSearchPush>
+            <MyBtnSearchPush :hover="'aliceblue'" @click="$emit('lookMovie', movie)" class="movies__more">More</MyBtnSearchPush>
         </div>
     </li>
 </template>

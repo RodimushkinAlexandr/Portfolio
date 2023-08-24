@@ -25,8 +25,8 @@ export class MovieController {
         return this.movieService.getMoviesFilter(dto)
     }
 
-    @Get('/search')
-    getOneMovieName(@Body() dto: SearchMovieDto) {
-        return this.movieService.getOneMovieName(dto)
+    @Post('/search')
+    searchNameMovie(@Body() dto: SearchMovieDto) {
+        return this.movieService.searchNameMovie(dto)
     }
 }

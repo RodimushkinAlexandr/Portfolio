@@ -1,24 +1,49 @@
 <script setup lang="ts">
-import FormToDo from '@/components/ToDo/FormToDo.vue';
 import TasksListToDo from '@/components/ToDo/TasksListToDo.vue';
 import TotalAllAndComlited from '@/components/ToDo/TotalAllAndComlited.vue';
+import FormInputButton from '@/components/UI/FormInputButton.vue';
+import { ToDoStore } from '@/stores/ToDo';
 
+const todoStore = ToDoStore()
+
+const create = ()=> {
+    todoStore.task.text ? todoStore.createToDo() : ''
+}
 
 </script>
 
 <template>
     <div class="todo container">
-        <FormToDo class="formToDo"/>
+        <FormInputButton 
+            :placeholder="'New Task'"
+            :icon="'mdi mdi-plus icon'"
+            v-model:value="todoStore.task.text"
+            :valueButton="'Add'"
+            @submit="create"
+            class="formToDo"
+        />
         <TotalAllAndComlited class="total_tasks" />
         <TasksListToDo />
     </div>
 </template>
 
 <style lang="scss">
-    .formToDo{
-        margin-bottom: 33px;
-    }
     .total_tasks{
         margin-bottom: 18px;
+    }
+
+    .formToDo {
+        display: flex;
+        width: 100%;
+        gap: 8px;
+        margin-bottom: 33px;
+
+    @media (max-width: 768px) {
+        .formToDo {
+            justify-content: center;
+            width: 100%;
+            gap: 0px;
+        }
+    }
     }
 </style>

@@ -39,11 +39,12 @@ const selectedCard = () => {
         margin: 5px;
         border-radius: 8px;
 
-        transition: all ease .3s;
+        transition: all ease .2s;
 
         &.active{
             background-color: #394C60;
             border-color: #394C60;
+            color: aliceblue;
         }
 
         &:hover{

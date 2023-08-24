@@ -10,9 +10,10 @@ interface MoviesState {
     moviesList: Movie[] | []
     moviesGroup: Movie[][]
     nameMoviesGroup: string[]
-    lookvoie: Movie | undefined
+    lookMovie: Movie | undefined
     showLookMovie: boolean
     searchMovies: string
+    error: string
 }
 
 export const MoviesStore = defineStore({
@@ -29,13 +30,14 @@ export const MoviesStore = defineStore({
                 country: '',
                 year: ''
             },
-            amountListsInGroup: 3,
+            amountListsInGroup: 6,
             moviesGroup: [],
             nameMoviesGroup: [],
             moviesList: [],
-            lookvoie: undefined,
+            lookMovie: undefined,
             showLookMovie: false,
-            searchMovies: ''
+            searchMovies: '',
+            error: ''
         }
     },
     actions: {
@@ -43,12 +45,12 @@ export const MoviesStore = defineStore({
             try {
                 const filters = await api.get('/movie/getFilters/')
                 this.filters = filters.data
-                console.log(filters.data)
+
                 let randomMoviesGenre = this.randomNumberMoviesGroup()
 
                 while(randomMoviesGenre.length) {
                     const numberGenre = Number(randomMoviesGenre.shift())
-                    
+
                     this.requestFilters.genre = this.filters.genres[numberGenre]
                     this.nameMoviesGroup.push(this.filters.genres[numberGenre])
 
@@ -59,24 +61,29 @@ export const MoviesStore = defineStore({
                 console.log(e)
             } finally {
                 this.requestFilters.genre = ''
+                this.moviesList = []
             }
         },
         async getMoviesUseFilters(): Promise<void> {
             try{
                 const filters = await api.post('/movie/filter/', this.requestFilters)
                 this.moviesList = filters.data
+
+                this.resetRequestFilters()
             } catch(e) {
                 console.log(e)
             }
         },
-        // async getMoviesUseSearch(): Promise<void> {
-        //     try{
-        //         const search = await api.get('/movie/search/', {name: this.searchMovies})
-        //         console.log(search)
-        //     } catch(e) {
-        //         console.log(e)
-        //     }
-        // },
+        async nameSearchMovies(): Promise<void> {
+            try{
+                const search = await api.post('/movie/search/', {name: this.searchMovies.toLowerCase()})
+
+                if(search.data.length) {this.moviesList = search.data}
+                else {this.error = "Sorry, we didn't find anything, please try again"}
+            } catch(e) {
+                console.log(e)
+            }
+        },
         randomNumberMoviesGroup(): string[] {
             let genreRandom: string[] = []
             try {
@@ -93,6 +100,13 @@ export const MoviesStore = defineStore({
             }
             return genreRandom
         },
+        resetRequestFilters(): void {
+            this.requestFilters = {
+                genre: '',
+                country: '',
+                year: ''
+            }
+        }
     }
 })
 
@@ -102,6 +116,8 @@ interface RequestFilters {
     country: string
     year: string
 }
+
+
 
 
 
