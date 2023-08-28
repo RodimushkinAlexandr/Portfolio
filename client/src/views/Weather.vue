@@ -5,10 +5,13 @@ import { WeatherStore } from '@/stores/Weather';
 import NoInfo from '@/components/Weather/NoInfo.vue'
 import WeatherInfo from '@/components/Weather/WeatherInfo.vue';
 
-
 const weatherStore = WeatherStore()
+
+weatherStore.queryCity = ''
+weatherStore.weather = null
+
 const searchCity = () => {
-    weatherStore.getWeatherData(weatherStore.queryCity)
+    weatherStore.getWeatherData()
     weatherStore.queryCity = ''
 }
 
@@ -26,7 +29,7 @@ const date = weatherStore.dateBuilder()
             class="form__weather"/>
         <div class="pos__relativ">
         <transition-group name="list" tag="div">
-            <WeatherInfo :key="1" v-if="weatherStore.weather != null" :weather="weatherStore.weather" :date="date" />
+            <WeatherInfo :key="1" v-if="weatherStore.weather != null" :weather="weatherStore.weather" :main="false" :date="date" />
             <ErorSearch :key="2" v-else-if="weatherStore.weatherEror.length" :text="weatherStore.weatherEror" />
             <NoInfo :key="3" v-else class="noInfo pos__absolute" />
         </transition-group>
@@ -40,19 +43,20 @@ const date = weatherStore.dateBuilder()
 <style lang="scss" scoped>
 
 .weather{
-    position: relative;
-    min-height: 100vh;
-    margin: -50px -10px 0px -10px;
-    padding: 50px 10px 0px 10px;
-    transition: all ease-out 1s;
-    background-color: #121416;
-    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 70px 10px 0px 74px;
 
         &.rain {
             background-color: #556679;
         }
         &.clear {
             background-color: #f3ce59;
+            color: aliceblue;
         }
         &.dust {
             background-color: #f3ce59;

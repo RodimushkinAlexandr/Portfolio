@@ -13,37 +13,65 @@ const router = createRouter({
     {
       path: '/',
       name: 'Main',
-      component: Main
+      component: Main,
+      meta: {
+        enterClass: 'animate__animated animate__fadeInLeft',
+        leaveClass: 'animate__animated animate__fadeOutRight',
+    }
     },
     {
       path: '/Cost',
       name: 'Cost',
-      component: Cost
+      component: Cost,
+      meta: {
+        enterClass: 'animate__animated animate__fadeInLeft',
+        leaveClass: 'animate__animated animate__fadeOutRight',
+    }
     },
     {
       path: '/Authorization',
       name: 'Auth',
-      component: Auth
+      component: Auth,
+      meta: {
+        enterClass: 'animate__animated animate__fadeInLeft',
+        leaveClass: 'animate__animated animate__fadeOutRight',
+    }
     },
     {
       path: '/ToDo',
       name: 'ToDo',
-      component: ToDo
+      component: ToDo,
+      meta: {
+        enterClass: 'animate__animated animate__fadeInLeft',
+        leaveClass: 'animate__animated animate__fadeOutRight',
+    }
     },
     {
       path: '/Weather',
       name: 'Weather',
-      component: Weather
+      component: Weather,
+      meta: {
+        enterClass: 'animate__animated animate__fadeInLeft',
+        leaveClass: 'animate__animated animate__fadeOutRight',
+    }
     },
     {
       path: '/Settings',
       name: 'Settings',
-      component: Settings
+      component: Settings,
+      meta: {
+        enterClass: 'animate__animated animate__fadeInLeft',
+        leaveClass: 'animate__animated animate__fadeOutRight',
+    }
     },
     {
       path: '/Movies',
       name: 'Movies',
-      component: Movies
+      component: Movies,
+      meta: {
+        enterClass: 'animate__animated animate__fadeInLeft',
+        leaveClass: 'animate__animated animate__fadeOutRight',
+    }
     }
   ]
 })

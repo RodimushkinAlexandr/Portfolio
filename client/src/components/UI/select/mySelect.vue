@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import MyOption from './MyOption.vue'
+import icon from '../icon.vue';
+import LodaderSpinner from '../LodaderSpinner.vue';
 
 const props = defineProps<{
     name: string,
@@ -28,10 +30,10 @@ const optionSelected = (option:string):void => {
                 <span class="colon" v-if="selected">:</span>
                 <span id="selected" v-if="selected"> {{ selected }}</span>
             </p>
-            <icon-arrow :class="{ show: isShow }" />
+            <icon :icon="'mdi mdi-chevron-down'" class="icon" :class="{ show: isShow }" />
         </div>
         <div class="select__list-wrapper" :class="{ show: isShow }">
-            <ul class="select__list">
+            <ul class="select__list" v-if="options.length > 0">
                 <MyOption v-for="option in options" :option="option" @selected="optionSelected"></MyOption>
             </ul>
         </div>
@@ -61,13 +63,20 @@ const optionSelected = (option:string):void => {
         justify-content: space-between;
         align-items: center;
         min-width: 100px;
+
+        .icon{
+            transition: all ease-in .3s;
+            &.show{
+                transform: rotate(180deg);
+            }
+        }
     }
 
     &__selected {
         font-size: 18px;
         font-weight: 400;
         width: 100%;
-        display: inline-flex;     
+        display: inline-flex;    
         
     }
 

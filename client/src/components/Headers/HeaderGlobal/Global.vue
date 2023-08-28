@@ -1,15 +1,27 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import headerDesktop from './toDesctopGlobal.vue'
+import headerDesktop from './toDesktopGlobal.vue'
 import headerPhone from './toPhoneGlobal.vue'
+import { onUnmounted } from 'vue';
 
+let desktopLayout = ref<boolean>(false)
 
-const desktop = ref(true)
+const onResize = () => {
+  desktopLayout.value = window.innerWidth > 700
+  console.log(desktopLayout.value)
+}
+
+window.addEventListener('resize', onResize);
+onResize()
+onUnmounted(() => {
+  window.removeEventListener('resize', onResize)
+  
+})
 
 </script>
 
 <template>
-    <headerDesktop v-if="desktop"/>
+    <headerDesktop v-if="desktopLayout"/>
     <headerPhone v-else />
 </template>
 

@@ -31,7 +31,7 @@ export class AuthController {
       const refresh = await this.authService.generateRefreshToken(user._id as string)
   
       res.statusCode = HttpStatus.OK;
-      return res.send({...access, ...refresh, username: user.username, genreMovies: user.genreMovies, city: user.city});
+      return res.send({...access, ...refresh, username: user.username, genreMovies: user.genreMovies, city: user.city, _id: user._id});
     }
     
     @UseGuards(RegistrationGuard)

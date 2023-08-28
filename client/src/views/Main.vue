@@ -3,11 +3,13 @@ import CostMain from '@/components/Main/CostMain.vue';
 import MoviesMain from '@/components/Main/MoviesMain.vue';
 import ToDoMain from '@/components/Main/ToDoMain.vue';
 import WeatherMain from '@/components/Main/WeatherMain.vue';
-
+import { SettingsStore } from '@/stores/Settings';
+const settingsStore = SettingsStore()
+settingsStore.getUserData()
 </script>
 
 <template>
-    <div class="container main">
+    <div class="container mainHome">
         <transition-group tag="main" class="home__blocks" mode="out-in" name="main">
             <WeatherMain class="home__block" :key="1"/>
             <MoviesMain class="home__block" :key="2" />
@@ -19,12 +21,12 @@ import WeatherMain from '@/components/Main/WeatherMain.vue';
 
 <style lang="scss">
 
-    .main {
+    .mainHome {
         font-size: 20px;
     }
 
     .main-main{
-    transition: all .5s ease;
+        transition: all .5s ease;
 
         &.margin{
             margin-top: 20px;
@@ -42,9 +44,11 @@ import WeatherMain from '@/components/Main/WeatherMain.vue';
 }
 .home__block {
     box-shadow: 0px 5px 30px 2px rgba(0, 0, 0, 0.64);   
-     background-color: rgba($color: #333333, $alpha: 0.5);
+    background-color: rgba($color: #333333, $alpha: 0.5);
     padding: 10px;
     border-radius: 8px;
+    overflow: hidden;
+
 
     &:not(:last-child) {
         margin-bottom: 10px;

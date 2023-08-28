@@ -1,10 +1,13 @@
 <script setup lang="ts"> 
-import icon from './icon.vue';
 
-const props = defineProps<{
-    modelValue: string
-    placeholder: string,
-}>()
+interface Props {
+  modelValue: string
+  placeholder?: string,
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    placeholder: 'Enter text',
+})
 
 const emit =  defineEmits<{
     (e: 'update:modelValue', value: string): void

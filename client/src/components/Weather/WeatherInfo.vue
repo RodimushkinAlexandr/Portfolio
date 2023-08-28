@@ -1,23 +1,33 @@
 <script setup lang="ts">
 import type Weather from '@/types/WeatherTypes';
 
-const props = defineProps<{
+       
+export interface Props {
     weather: Weather
     date: string
-}>()         
+    main?: boolean 
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    main: false
+})
+
 </script>
 
 <template>
     <transition name="weatherInfo">
-        <main v-if="weather" class="info">
-            <section class="info__inf inf">
-            <div class="inf__city">{{ weather.nameCity }}</div>
-            <p class="inf__date">{{ date }}</p>
+        <main v-if="weather" :class="{weather__blocks_main: main, weather__blocks_weather: !main}">
+            <section class="weather__block weather__cityDate">
+                <p class="weather__block-city">{{ weather.nameCity }}
+                    <img v-if="main" :src="'src/assets/weather/' + (weather.weatherType.toLowerCase()) + '.svg'" class="icon" />
+                </p>
+                <p class="weather__block-date">{{ date }}</p>
             </section>
-            <section class="info__weather weather">
-                <div class="weather__temp"><p>{{ weather.temp}}&deg</p></div>
-                <div class="weather__weather"><p>{{ weather.weatherType }} 
-                    <img :src="'src/assets/weather/' + (weather.weatherType.toLowerCase()) + '.svg'" class="icon" /></p></div>
+            <section class="weather__block weather__tempType">
+                <p class="weather__block-temp">{{ weather.temp}}&deg</p>
+                <p class="weather__block-type">{{ weather.weatherType }} 
+                    <img v-if="!main" :src="'src/assets/weather/' + (weather.weatherType.toLowerCase()) + '.svg'" class="icon" />
+                </p>
             </section>
         </main>
     </transition>
@@ -36,24 +46,25 @@ const props = defineProps<{
     transform: translateX(500px);
 }
 
-.info {
+//Style view in Weather
+.weather__blocks_weather {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    .inf {
+    .weather__block.weather__cityDate {
 
         gap: 10px;
         margin-bottom: 25px;
 
-        &__city {
+        .weather__block-city {
             font-size: 42px;
             font-weight: 500px;
             margin-bottom: 5px;
 
         }
 
-        &__date {
+        .weather__block-date {
             font-size: 36px;
             font-weight: 400;
             font-style: italic;
@@ -61,9 +72,9 @@ const props = defineProps<{
     }
 
 
-    .weather {
+    .weather__block.weather__tempType {
 
-        &__temp {
+        .weather__block-temp {
             display: inline-block;
             font-size: 120px;
             font-weight: 500;
@@ -74,9 +85,10 @@ const props = defineProps<{
             color: rgba(255, 255, 255, 0.9);
         }
 
-        &__weather {
+        .weather__block-type {
             font-size: 70px;
             margin-top: 12px;
+            
             img {
                 width: 38px;
                 height: 38px;
@@ -84,33 +96,107 @@ const props = defineProps<{
             
         }
     }
-    @media screen and (max-width: 520px) {
-        top: 140px;
+}
 
-        .inf {
-            margin-bottom: 15px;
+@media screen and (max-width: 520px) {
+//Style view in Weather
+.weather__blocks_weather {
+    .weather__block.weather__cityDate {
+        gap: 10px;
+        margin-bottom: 25px;
 
-            &__city {
-                font-size: 38px;
-            }
+        .weather__block-city {
+            font-size: 30px;
+        }
 
-            &__date {
-                font-size: 18px;
+        .weather__block-date {
+            font-size: 25px;
+        }
+    }
+
+
+    .weather__block.weather__tempType {
+
+        .weather__block-temp {
+            font-size: 90px;
+        }
+
+        .weather__block-type {
+            font-size: 50px;
+            
+            img {
+                width: 35px;
+                height: 35px;
+            } 
+        }
+    }
+}
+        
+    
+}
+
+//Style view in Main
+.weather__blocks_main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    margin-top: -5px;
+
+    .weather__block.weather__cityDate{
+
+        .weather__block-city {
+            margin: 0px 0px 18px 0px;
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+
+            img {
+                width: 30px;
+                height: 30px;
+                margin-left: 5px;
             }
         }
 
+        .weather__block-date{
+            display: flex;
+            align-items: center;
+        }
 
-        .weather {
+    }
 
-            &__temp {
-                font-size: 90px;
-                padding: 38px 10px;
-            }
+    .weather__block.weather__tempType {
 
-            &__weather {
-                font-size: 40px;
+    .weather__block-temp {
+        font-weight: 500;
+        background-color: rgba(#394C60, 1);
+        padding: 10px 10px;
+        border-radius: 15px;
+        color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0px 5px 5px 2px rgba(0, 0, 0, 0.64);
+        margin-bottom: 10px;
+        text-align: center;
+    }
+}
+}
+
+@media (max-width: 480px) {
+    .weather__blocks_main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 18px;
+    .weather__block.weather__cityDate{
+
+        .weather__block-city {
+            
+            img {
+                width: 30px;
+                height: 30px;
+                margin-left: 5px;
             }
         }
     }
+}
 }
 </style>

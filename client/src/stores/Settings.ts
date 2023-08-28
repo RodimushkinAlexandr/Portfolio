@@ -2,8 +2,6 @@ import {defineStore } from 'pinia'
 import api from '../api/axiosClient'
 import refreshTokenUser from '@/api/axiosRefreshToken'
 import type User from '@/types/UserTypes'
-import type Movie from '@/types/MovieTypes'
-
 
 interface SettingsState {
     user: User
@@ -17,7 +15,7 @@ export const SettingsStore = defineStore({
                 username: '',
                 city: '',
                 genreMovies: '',
-                favoritesMovies: []
+                _id: ''
             }
         }
     },
@@ -27,36 +25,24 @@ export const SettingsStore = defineStore({
             this.user.username = userData.username
             this.user.city = userData.city
             this.user.genreMovies = userData.genreMovies
-            this.user.favoritesMovies = userData.favoritesMovies
+            this.user._id = userData._id
         },
         async patchUser(): Promise<void> {
             try {
                 const token = await refreshTokenUser()
                 const user = await api.patch(`/auth/update/`, this.user, {headers: {'Authorization' : `Bearer ${token}`}})
-                this.setUserData(user.data)
+                this.setUserData()
+                console.log(user)
             } catch(e) {
                 console.log(e)
             }
         },
-        setMoviesFavorites(movieId: string):void {
-            try{
-                this.user.favoritesMovies.push(movieId)
-                this.patchUser()
-            } catch(e) {
-                console.log(e)
-            }
-        },
-        IncludesMovieInFavorites(movieId: string): boolean {
-            const isInclude = this.user.favoritesMovies.includes(movieId)
-            return isInclude
-           
-        },
-        setUserData(user: User): void {
+        setUserData(): void {
             const userData = JSON.parse(localStorage.getItem('auth') || '{}')
-            userData.username = user.username
-            userData.city = user.city
-            userData.genreMovies = user.genreMovies
-            userData.favoritesMovies = user.favoritesMovies
+            userData.username = this.user.username
+            userData.city = this.user.city
+            userData.genreMovies = this.user.genreMovies
+            userData._id = this.user._id
             localStorage.setItem('auth', JSON.stringify(userData))
         }
     }

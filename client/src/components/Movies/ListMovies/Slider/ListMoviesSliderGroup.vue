@@ -1,25 +1,36 @@
-<template>
-    <section class="movies-group">
-        <ul class="movies-group__list">
-            <li class="movies-group__block" v-for="movies, index in moviesGroup">
-                <h2 class="movies-group__title">{{ nameMoviesGroup[index] }}</h2>
-                <ListMovies :movies="movies" class="movies-group__list" />
-            </li>
-        </ul>
-    </section>
-</template>
-
 <script setup lang="ts">
 import type Movie from '@/types/MovieTypes';
 import ListMovies from './ListMoviesSlider.vue';
+import { MoviesStore } from '@/stores/Movies';
+
+const moviesStore = MoviesStore()
 
 const props = defineProps<{
     moviesGroup: Movie[][]
     nameMoviesGroup: string[]
 }>()
 
+const emit = defineEmits<{
+    (e: 'look', value: Movie): void
+}>()
+
+const look = (movie: Movie) => {
+    emit('look', movie)
+}
+
 
 </script>
+
+<template>
+    <section class="movies-group">
+        <ul class="movies-group__list">
+            <li class="movies-group__block" v-for="movies, index in moviesGroup">
+                <h2 class="movies-group__title">{{ nameMoviesGroup[index] }}</h2>
+                <ListMovies @look="look" :movies="movies" class="movies-group__list" />
+            </li>
+        </ul>
+    </section>
+</template>
 
 <style lang="scss" scoped>
     .movies-group {

@@ -22,9 +22,9 @@ export const WeatherStore = defineStore({
         }
     },
     actions: {
-        async getWeatherData(queryCity:string): Promise<void> {  
+        async getWeatherData(): Promise<void> {  
             try {
-                const response = await axios.get(`${this.API__WEATHER}${queryCity}&units=metric&appid=${this.API__KEY}`)
+                const response = await axios.get(`${this.API__WEATHER}${this.queryCity}&units=metric&appid=${this.API__KEY}`)
                 const data = response.data
 
                 this.weather = {
@@ -33,6 +33,7 @@ export const WeatherStore = defineStore({
                     nameCity: data.name
                 }
 
+                this.weatherEror = ''
             }   
             catch(e) {
                 this.weather = null
@@ -43,7 +44,6 @@ export const WeatherStore = defineStore({
             const myCity = (JSON.parse(localStorage.getItem('auth') || '{}')).city
             return myCity
         },
-
         dateBuilder(): string {
             let d = new Date();
             let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

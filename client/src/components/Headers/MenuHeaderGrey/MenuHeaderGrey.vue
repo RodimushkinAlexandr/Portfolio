@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import type menuHeaderGrey from '@/types/MenuHeaderGreyTypes';
 import MenuHeaderItem from './MenuHeaderItem.vue';
+import { ref } from 'vue';
 
 const emit = defineEmits<{
     (e: 'update:modelValue', modelValue: string): void
@@ -22,10 +23,12 @@ const selectedMenu = computed({
     }
 })
 
+const amountItemMenu = ref<boolean>(props.contentMenu.length <=3)
+
 </script>
 
 <template>  
-    <header class="header">
+    <header class="header" :class="{'tree': amountItemMenu}">
         <form class="header__menu-list">
            <MenuHeaderItem v-for="content in contentMenu" v-model="selectedMenu" :key="content.text" :content="content" />
         </form>
@@ -38,6 +41,12 @@ const selectedMenu = computed({
     display: flex;
     justify-content: center;
     width: 100%;
+
+    &.tree{
+        max-width: 400px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
 
 &__menu-list {
     display: flex;

@@ -10,11 +10,19 @@ import LookOneMovie from '@/components/Movies/LookOneMovie.vue';
 import SearchMovies from '@/components/Movies/Search/SearchMovies.vue';
 import { watch } from 'vue';
 import LodaderSpinner from '@/components/UI/LodaderSpinner.vue';
+import type Movie from '@/types/MovieTypes';
 
-const moviesStore = MoviesStore()
-moviesStore.getAllFilters()
+const moviesStore = MoviesStore();
+
+(async function getAllFilters() {
+    await moviesStore.getAllFilters();
+    await moviesStore.getMoviesGorup()
+})()
 
 const selectedMenu = ref<string>('Main')
+
+
+
 watch(selectedMenu, () => {
     moviesStore.moviesList = []
 })
@@ -41,20 +49,29 @@ const contentMenu = ref<menuHeaderGreyTypes[]>([
         color: '#9f9fa1'
     },
 ])  
+
+const look = (movie: Movie) => {
+    moviesStore.showLookMovie = true
+    moviesStore.lookMovie = movie
+}
+
+
 </script>
 
 <template>
   <div class="movies container">
     <MenuHeader v-model="selectedMenu" :contentMenu="contentMenu" class="movies__header"/>
-    <main class="movies__main"> 
+    <TransitionGroup name="routerComp" class="movies__main" mode="out-in" tag="main"> 
         <FilterMovies v-if="selectedMenu == 'Filter'" :filters="moviesStore.filters" />
         <ListsMoviesSliderGroup 
-            v-else-if="selectedMenu == 'Main'"
+            v-if="selectedMenu == 'Main' && moviesStore.amountListsInGroup == 0"
             :moviesGroup="moviesStore.moviesGroup" 
-            :nameMoviesGroup="moviesStore.nameMoviesGroup" />
+            :nameMoviesGroup="moviesStore.nameMoviesGroup"
+            @look="look"
+            />
         <SearchMovies v-else-if="selectedMenu == 'Search'" />
         <LodaderSpinner v-else />
-    </main>
+    </TransitionGroup>
     <aside>
         <dialogWindow v-model:show="moviesStore.showLookMovie">
             <LookOneMovie v-if="moviesStore.showLookMovie" :movie="moviesStore.lookMovie"></LookOneMovie>

@@ -7,6 +7,15 @@ import type Movie from '@/types/MovieTypes';
 const props = defineProps<{
     movies: Movie[]
 }>()
+
+const emit = defineEmits<{
+    (e: 'look', value: Movie): void
+}>()
+
+const loook = (movie: Movie) => {
+    emit('look', movie)
+}
+
 </script>
 
 <template>
@@ -16,7 +25,7 @@ const props = defineProps<{
         >
         <swiper-slide v-for="movie in movies"  class="movieList__item">
             <div id="div__wrapper-img"><img :src="movie.poster[0].previewUrl" alt=""><span></span></div>
-            <p @click="$emit('look', movie)" class="slide__button">Look</p>
+            <p @click="emit('look', movie)" class="slide__button">Look</p>
             <p class="movie__name">{{ movie.name }}</p>
         </swiper-slide>
     </swiper>
@@ -98,7 +107,7 @@ const props = defineProps<{
         }
 
         .movie__name{
-            max-height: 32px;    
+            max-height: 43px;    
             width: 210px;
 
 }
@@ -119,15 +128,14 @@ const props = defineProps<{
             width: 210px;       
             object-fit: cover;   
         }
-        }
-        
+        } 
     }
 }
 
 .movie__name{
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 32px;    
+    max-height: 43px;    
     width: 128px;
     transition: all ease .5s;
 }

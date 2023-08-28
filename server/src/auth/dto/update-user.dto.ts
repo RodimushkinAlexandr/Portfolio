@@ -9,4 +9,5 @@ export class UpdateUserDto {
 
   readonly genreMovies: string;
 
+  readonly _id: string
 }

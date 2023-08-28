@@ -42,7 +42,7 @@ export class UsersService {
 
   async update(updateUserDto: UpdateUserDto): Promise<User> {
     await this.usersModel.updateOne(
-      { username: updateUserDto.username },
+      { _id: updateUserDto._id },
       {
         $set: {
           ...updateUserDto,

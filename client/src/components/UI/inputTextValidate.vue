@@ -1,10 +1,11 @@
 <script setup lang="ts"> 
 import { ref, } from 'vue';
 
+
 const props = defineProps<{
-    rules: Function,
-    modelValue: string
-    placeholder: string,
+  rules: Function,
+  modelValue: string
+  placeholder?: string,
 }>()
 
 const emit =  defineEmits<{
@@ -13,9 +14,8 @@ const emit =  defineEmits<{
 
 const textValidate = ref<string>('')
 
-const validate = () => {
-  textValidate.value = props.rules(props.modelValue)
-  
+const validate = async () => {
+  textValidate.value = await props.rules(props.modelValue)
 }
 
 </script>

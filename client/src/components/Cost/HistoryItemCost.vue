@@ -47,9 +47,9 @@ const iconColor = categories.filter(item => item.value == props.cost.category)[0
                 <p>Comment: {{ cost.comment }}</p>
             </div>
             <div class="history__total history__btn">
-                <v-btn color="error" rounded="sm" size="small" @click="$emit('remove', cost._id)">Delete</v-btn>
-                <v-btn color="#394C60" rounded="sm" size="small" v-if="!change">Change</v-btn>
-                <v-btn color="success" rounded="sm" size="small" v-else>Save</v-btn>
+                <!-- <v-btn color="error" rounded="sm" size="small" @click="$emit('remove', cost._id)">Delete</v-btn> -->
+                <!-- <v-btn color="#394C60" rounded="sm" size="small" v-if="!change">Change</v-btn> -->
+                <!-- <v-btn color="success" rounded="sm" size="small" v-else>Save</v-btn> -->
             </div>
         </section>
     </li>

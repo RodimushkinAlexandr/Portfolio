@@ -46,7 +46,7 @@ const auth = () => {
 <template>
     <div class="auth">
         <div class="auth__container">
-            <header class="header">
+            <header class="auth__header">
                 <section v-if="isLoginForm" class="header__login header__section">
                     <h2>LOGIN</h2>
                     <Icon :icon="'mdi mdi-account-key'" :size="'25px'"></Icon>

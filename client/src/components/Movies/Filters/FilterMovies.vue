@@ -62,11 +62,25 @@ let filterCategoryProp = ref<string>('')
     <div class=filterMain>
         <header class="filterMain__header">
             <h2 class="filterMain__title">CATEGORIES:</h2>
-            <FiltersList :class="{disabled: !showGroupFilters}" :filters="Object.keys(props.filters)" v-model="selected" :useFilterStyle="'categories'" />
+            <FiltersList 
+                :class="{disabled: !showGroupFilters}" 
+                :filters="Object.keys(props.filters)" 
+                v-model="selected" 
+                :useFilterStyle="'categories'" />
         </header>
         <main class="filterMain__main">
-            <FiltersGroup v-if="showGroupFilters" v-model:search="searchFilter" :filters="filters" :selected="selected" @selected="selectedAccurateCategory" />
-            <ListMoviesColumn v-if="moviesStore.moviesList.length" :filterCategoryProp="filterCategoryProp" :movies="moviesStore.moviesList" @backToFilters="isShowGroupFilters" @lookMovie="lookMovie" />
+            <FiltersGroup 
+                v-if="showGroupFilters" 
+                v-model:search="searchFilter" 
+                :filters="filters" 
+                :selected="selected" 
+                @selected="selectedAccurateCategory" />
+            <ListMoviesColumn 
+                v-else-if="moviesStore.moviesList.length" 
+                :filterCategoryProp="filterCategoryProp" 
+                :movies="moviesStore.moviesList" 
+                @backToFilters="isShowGroupFilters" 
+                @lookMovie="lookMovie" />
             <LodaderSpinner v-else />
         </main>      
     </div>

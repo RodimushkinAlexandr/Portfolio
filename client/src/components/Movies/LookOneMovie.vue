@@ -9,10 +9,6 @@ const props = defineProps<{
     movie: Movie | undefined
 }>()
 
-const setMoviesFavorites = () => {
-    if(props.movie != undefined) settingsStore.setMoviesFavorites(props.movie._id)
-}
-
 
 const countries = props.movie != undefined ? props?.movie.countries.map(country => (Object.values(country))).join(',') : ''
 const genres = props.movie != undefined ? props?.movie.genres.map(genre => (Object.values(genre))).join(',') : ''
@@ -117,6 +113,10 @@ p{
     font-weight: 600;
     margin-bottom: 20px;
 }
+}
+
+span {
+    word-break: break-all
 }
 
 

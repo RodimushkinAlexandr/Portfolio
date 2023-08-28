@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { AuthStore } from '@/stores/Auth';
 import icon from '@/components/UI/icon.vue';
 import { HeaderGlobal } from '@/stores/HeaderGlobal';
+import { RouterLink } from 'vue-router';
 
 const headerGlobal = HeaderGlobal()
 
@@ -21,8 +22,8 @@ const swapFunc = () => {
                 <div class="header__image"></div>
                 <p @mousemove="swap = true" class="header__username" v-if="swap">{{ authStore.authUser.username }}</p>
             </div>
-            <RouterLink v-for="content in headerGlobal.headerRouterLink" :to="content.routerLink" class="header__item">
-                <icon :icon="content.icon" :size="'30px'"></icon>
+            <RouterLink v-for="content in headerGlobal.headerRouterLinkDesktop" v-slot="{ isActive }" :to="content.routerLink" class="header__item">
+                <icon :icon="content.icon" :color="isActive ? 'aliceblue' : '#9f9fa1'" :size="'30px'"></icon>
                 <p @mousemove="swap = true" class="header__item-name" v-if="swap">{{ content.text }}</p>
             </RouterLink>
         </nav>
@@ -46,6 +47,13 @@ const swapFunc = () => {
     top: 0;
     left: 0;
     z-index: 99;
+
+    a.router-link-active {
+        .header__item-name{
+            color: aliceblue;
+
+        }
+    }
 
     &.open {
         width: 200px;
@@ -71,7 +79,8 @@ const swapFunc = () => {
 
  &-name{
     margin-left: 10px;
-    color: white;
+    color: #9f9fa1;
+    font-size: 22px;
  }
 }
 

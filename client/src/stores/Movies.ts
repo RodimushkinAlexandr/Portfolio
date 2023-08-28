@@ -45,24 +45,9 @@ export const MoviesStore = defineStore({
             try {
                 const filters = await api.get('/movie/getFilters/')
                 this.filters = filters.data
-
-                let randomMoviesGenre = this.randomNumberMoviesGroup()
-
-                while(randomMoviesGenre.length) {
-                    const numberGenre = Number(randomMoviesGenre.shift())
-
-                    this.requestFilters.genre = this.filters.genres[numberGenre]
-                    this.nameMoviesGroup.push(this.filters.genres[numberGenre])
-
-                    await this.getMoviesUseFilters()
-                    this.moviesGroup.push(this.moviesList)
-                }
             } catch(e) {
                 console.log(e)
-            } finally {
-                this.requestFilters.genre = ''
-                this.moviesList = []
-            }
+            } 
         },
         async getMoviesUseFilters(): Promise<void> {
             try{
@@ -84,21 +69,26 @@ export const MoviesStore = defineStore({
                 console.log(e)
             }
         },
-        randomNumberMoviesGroup(): string[] {
-            let genreRandom: string[] = []
+        async getMoviesGorup(): Promise<void> {
             try {
-                let map = new Map();
-            
-                for (let i = 0; i < this.amountListsInGroup; i++) {
-                    let genreNumberRandom = Math.floor(Math.random() * this.filters.genres.length)
-                    !map.has(genreNumberRandom) ? map.set(genreNumberRandom, genreNumberRandom) : i-- 
+                while(this.amountListsInGroup) {
+                    
+                    this.requestFilters.genre = this.filters.genres[this.amountListsInGroup]
+                    this.nameMoviesGroup.push(this.filters.genres[this.amountListsInGroup])
+
+                    await this.getMoviesUseFilters()
+                    this.moviesGroup.push(this.moviesList)
+                    --this.amountListsInGroup
                 }
-                genreRandom = Object.values(Object.fromEntries(map))
-            }
-            catch(e) {
+            } catch(e) {
                 console.log(e)
+            } finally {
+                this.requestFilters.genre = ''
+                this.moviesList = []
             }
-            return genreRandom
+        },
+        getFavoritesGenre (): void {
+            
         },
         resetRequestFilters(): void {
             this.requestFilters = {
