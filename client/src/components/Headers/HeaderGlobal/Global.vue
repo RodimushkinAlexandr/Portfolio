@@ -8,7 +8,6 @@ let desktopLayout = ref<boolean>(false)
 
 const onResize = () => {
   desktopLayout.value = window.innerWidth > 700
-  console.log(desktopLayout.value)
 }
 
 window.addEventListener('resize', onResize);

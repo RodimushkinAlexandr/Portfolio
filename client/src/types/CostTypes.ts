@@ -1,9 +1,9 @@
 
 export default interface Cost {
     comment: string
-    price: number | null
-    category: string | null
+    price: number
+    category: string
     date: Date
-    _id: string | undefined
+    _id: string
 }
 

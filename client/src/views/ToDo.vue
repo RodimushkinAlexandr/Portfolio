@@ -2,13 +2,23 @@
 import TasksListToDo from '@/components/ToDo/TasksListToDo.vue';
 import TotalAllAndComlited from '@/components/ToDo/TotalAllAndComlited.vue';
 import FormInputButton from '@/components/UI/FormInputButton.vue';
+import LoaderSpinner from '@/components/UI/LoaderSpinner.vue';
 import { ToDoStore } from '@/stores/ToDo';
+import { ref } from 'vue';
 
 const todoStore = ToDoStore()
 
 const create = ()=> {
     todoStore.task.text ? todoStore.createToDo() : ''
 }
+
+const showToDoContent = ref<boolean>(false)
+
+;(async function showToDo() {
+    await todoStore.getAllToDo()
+    showToDoContent.value = true
+})()
+
 
 </script>
 
@@ -22,8 +32,11 @@ const create = ()=> {
             @submit="create"
             class="formToDo"
         />
-        <TotalAllAndComlited class="total_tasks" />
-        <TasksListToDo />
+        <div v-if="showToDoContent" class="todo__content">
+            <TotalAllAndComlited class="total_tasks" />
+            <TasksListToDo />
+        </div>
+        <LoaderSpinner v-else />
     </div>
 </template>
 

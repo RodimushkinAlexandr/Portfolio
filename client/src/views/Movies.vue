@@ -9,7 +9,7 @@ import dialogWindow from '@/components/UI/dialogWindow.vue';
 import LookOneMovie from '@/components/Movies/LookOneMovie.vue';
 import SearchMovies from '@/components/Movies/Search/SearchMovies.vue';
 import { watch } from 'vue';
-import LodaderSpinner from '@/components/UI/LodaderSpinner.vue';
+import LodaderSpinner from '@/components/UI/LoaderSpinner.vue';
 import type Movie from '@/types/MovieTypes';
 
 const moviesStore = MoviesStore();

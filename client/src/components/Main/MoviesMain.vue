@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import HeaderComponen from '../Headers/HeaderComponent/HeaderComponen.vue';
-import LodaderSpinner from '../UI/LodaderSpinner.vue';
+import LodaderSpinner from '../UI/LoaderSpinner.vue';
 import { MoviesStore } from '@/stores/Movies';
 import dialogWindow from '../UI/dialogWindow.vue';
 import LookOneMovie from '../Movies/LookOneMovie.vue';

@@ -30,10 +30,12 @@ const contentMenu = ref<MenuHeaderGreyTypes[]>([
 
 <template >
     <div class="cost container">
-        <MenuHeaderGreyVue v-model="selectedMenu" :contentMenu="contentMenu" class="header__cost" />
-        <FormCost v-if="selectedMenu == 'Cost'"/>
-        <HistoryListCostVue v-else-if="selectedMenu == 'History'"/>
-        <ChartCost v-else-if="selectedMenu == 'Chart'" />
+        <transition-group name="listInfo">
+            <MenuHeaderGreyVue v-model="selectedMenu" :contentMenu="contentMenu" class="header__cost" />
+            <FormCost v-if="selectedMenu == 'Cost'"/>
+            <HistoryListCostVue v-else-if="selectedMenu == 'History'"/>
+            <ChartCost v-else-if="selectedMenu == 'Chart'" />
+        </transition-group>
     </div>
 </template>
 
@@ -47,4 +49,5 @@ const contentMenu = ref<MenuHeaderGreyTypes[]>([
     .header__cost{
         margin-bottom: 20px;    
     }
+
 </style>

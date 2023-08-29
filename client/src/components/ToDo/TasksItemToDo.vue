@@ -2,6 +2,10 @@
 import type Task from '@/types/ToDoTypes';
 import InputCheckbox from '../UI/inputCheckbox.vue';
 import icon from '../UI/icon.vue';
+import { ref } from 'vue';
+import MyBtnSearchPush from '../UI/MyBtnSearchPush.vue';
+import InputText from '../UI/inputText.vue';
+import type changeTask from '@/types/ToDoChangesTypes';
 
 const props = defineProps<{
     task: Task
@@ -11,44 +15,83 @@ const emit = defineEmits<{
     (e: 'complited', value: Task): void
     (e: 'remove', value: Task): void
     (e: 'selected', value: Task): void
+    (e: 'changeTextSave', value: changeTask ): void
 }>()
+
+const changeTextSave = () => {
+    showChangeText.value = false
+    const changeTask = {
+        task: props.task,
+        text: changeText.value,
+    }
+    emit('changeTextSave', changeTask)
+}
+
+const showChangeText = ref<boolean>(false)
+const changeText = ref<string>(props.task.text)
+
 </script>
 
 <template>
-    <li 
-        @click="task.complited = !task.complited, task.selected = false, $emit('complited', task)" 
-        :class="task.complited ? 'complitedLi' : ''">
-        <InputCheckbox v-model="task.complited" />
-        <span class="item__title" :class="task.complited ? 'complited' : ''">{{ task.text }}</span>
-        <div class="item__buttons">
-            <icon
-                v-if="!task.complited"
-                @click.stop="task.selected = !task.selected, $emit('selected', task)" 
-                :color="task.selected ? '#394C60' : '' " 
-                :icon="'mdi mdi-heart'" 
-                :hover="'#394C60'" 
-                :size="'19px'">
-            </icon>
-            <icon 
-                @click.stop="$emit('remove', task)" 
-                :icon="'mdi mdi-trash-can-outline'" 
-                :color="task.complited ? '#993b3b' : ''" 
-                :hover="'#993b3b'" 
-                :size="'19px'">
-            </icon>
-        </div>
+    <li class="taskItem">
+        <transition-group name="listChange" tag="div">
+            <div 
+             v-if="!showChangeText" 
+             @click="$emit('complited', task)" 
+             :class="{complitedLi: task.complited, selectedLi: task.selected}" 
+             class="taskItem__content">
+                <InputCheckbox v-model="task.complited" />
+                <p :class="{complited: task.complited}" class="taskItem__text">{{ task.text }}</p>
+                <div class="item__buttons">
+                <icon
+                    v-if="!task.complited"
+                    @click.stop="showChangeText = true"
+                    :icon="'mdi mdi-lead-pencil'" 
+                    :color="showChangeText? '#993b3b': ' '"
+                    :hover="'#993b3b'" 
+                    :size="'19px'">
+                </icon>
+                <icon
+                    v-if="!task.complited"
+                    @click.stop="task.selected = !task.selected, $emit('selected', task)" 
+                    :color="task.selected ? '#394C60' : '' " 
+                    :icon="'mdi mdi-heart'" 
+                    :hover="'#394C60'" 
+                    :size="'19px'">
+                </icon>
+                <icon 
+                    @click.stop="$emit('remove', task)" 
+                    :icon="'mdi mdi-trash-can-outline'" 
+                    :color="task.complited ? '#993b3b' : ''" 
+                    :hover="'#993b3b'" 
+                    :size="'19px'">
+                </icon>
+            </div>
+            </div>
+            <div v-else class="taskItem__content">
+                <input type="text" autofocus v-model="changeText" @click.stop>
+                <MyBtnSearchPush @click.stop="changeTextSave" class="saveChangebtn">Save</MyBtnSearchPush>
+            </div>
+        </transition-group>
     </li>
 </template>
 
 <style lang="scss" scoped>
-li {
+.taskItem{
+    .taskItem__text-change{
+        display: flex;
+        width: 100%;
+    }
+}
+
+.taskItem__content {
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
 
     width: 100%;
     background-color: #333333;
-    border: 1px solid #333333;
+    border: 3px solid #333333;
     box-shadow: 0px 5px 30px 2px rgba(0, 0, 0, 0.64);
     border-radius: 8px;
     gap: 15px;
@@ -64,25 +107,30 @@ li {
 
     &.complitedLi {
         background-color: #262525;
+        border-color: #262525;
+    }
+    
+    &.selectedLi{
+        border-color: #394C60;
     }
 
-    input {
-        flex: 0 0 22px;
+    .saveChangebtn{
+        position: absolute;
+        right: 3px;
     }
 
-    .item__title {
+    .taskItem__text{
         flex: 1 1 auto;
+        display: flex;
+        justify-content: start;
         font-size: 16px;
         width: 100%;
-        color: #F2F2F2;
-        display: flex;
-        justify-content: start;      
     }
 
     .item__buttons{
         display: flex;
         :not(:last-child) {
-            margin-right: 5px;
+            margin-right: 10px;
         }
     }
 
@@ -91,5 +139,24 @@ li {
         color: #808080;
         transition: all ease .5s;
     }
+}
+
+.listChange-leave-active {
+  transition: all .3s ease-in;
+}
+
+.listChange-enter-active {
+    transition: all .3s ease-in .3s;
+}
+
+.listChange-enter-from {
+    opacity: 0;
+    position: absolute;
+
+}
+.listChange-leave-to {
+  opacity: 0;
+  position: absolute;
+  transform: rotateX(180deg);
 }
 </style>

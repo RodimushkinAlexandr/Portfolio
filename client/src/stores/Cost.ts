@@ -2,11 +2,12 @@ import {defineStore } from 'pinia'
 import api from '../api/axiosClient'
 import refreshTokenUser from '@/api/axiosRefreshToken'
 import type Cost from '@/types/CostTypes'
+import type NewCost from '@/types/CostNewTypes'
 import type Categories from '@/types/CategoryTypes'
 
 
 interface CostStore {
-    cost: Cost,
+    cost: NewCost,
     costs: Cost[],
     categories: Categories[]
 }
@@ -37,6 +38,11 @@ export const CostStore = defineStore({
                           {value: "Other", icon: 'mdi mdi-arrow-all', color: 'f5a3b7'},
                         ],
         }
+    },
+    getters: {
+        totalCost(state) {
+            return state.costs.reduce((acuum, item) => acuum + item.price, 0)
+        },
     },
     actions: {
         async createNewCost(): Promise<void> {

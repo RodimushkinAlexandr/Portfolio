@@ -2,6 +2,7 @@
 import type Task from '@/types/ToDoTypes';
 import { ToDoStore } from '@/stores/ToDo';
 import TasksItemToDo from './TasksItemToDo.vue';
+import type changeTask from '@/types/ToDoChangesTypes';
 
 const todoStore = ToDoStore()
 todoStore.getAllToDo()
@@ -11,6 +12,8 @@ const removeTask = (task:Task) => {
 }
 
 const complitedTask = (task: Task) => {
+    task.complited = !task.complited
+    task.selected = false
     todoStore.sortTasksSelected()
     todoStore.complitedAndSelectedTask(task)
 }
@@ -19,14 +22,21 @@ const selectedTask = (task: Task) => {
     todoStore.sortTasksSelected()
     todoStore.complitedAndSelectedTask(task)
 }
+
+const changeTextSave = (task:changeTask) => {
+    task.task.text = task.text
+    todoStore.complitedAndSelectedTask(task.task)
+}   
+
 </script>
 
 <template>
-    <transition-group tag="ul" name="tasks" mode="out-in" class="list" >
+    <transition-group tag="ul" name="tasks" class="list" >
         <TasksItemToDo v-for="task in todoStore.tasks" :key="task._id" :task="task" 
             @selected="selectedTask"
             @complited="complitedTask"
-            @remove="removeTask">
+            @remove="removeTask"
+            @changeTextSave="changeTextSave">
         </TasksItemToDo>
     </transition-group>
 </template>
@@ -39,20 +49,13 @@ const selectedTask = (task: Task) => {
     position: relative;
 }
 
-.tasks-move,
 .tasks-enter-active,
 .tasks-leave-active {
-    transition: all 0.4s ease-out;
+  transition: all 0.5s ease;
 }
-
-
-.tasks-leave-to,
-.tasks-enter-from {
-    opacity: 0;
-    transform: translate(0px, 100px);
-}
-
-.tasks-leave-active {
-    position: absolute;
+.tasks-enter-from,
+.tasks-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Movies from '../views/Movies.vue'
-import ToDo from '../views/ToDoView.vue'
+import ToDo from '../views/ToDo.vue'
 import Auth from '@/views/Auth.vue'
 import Cost from '@/views/Cost.vue'
 import Weather from '@/views/Weather.vue'

@@ -11,9 +11,8 @@ const emit =  defineEmits<{
     (e: 'update:modelValue', value: number): void
  }>()
 
-
-const validate = () => textValidate.value = props.rules(props.modelValue)
 const textValidate = ref<string>('')
+const validate = () => textValidate.value = props.rules(props.modelValue)
 
 </script>
 

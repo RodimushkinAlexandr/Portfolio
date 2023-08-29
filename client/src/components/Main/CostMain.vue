@@ -3,8 +3,11 @@ import { ref } from 'vue';
 import HeaderComponen from '../Headers/HeaderComponent/HeaderComponen.vue';
 import MyBtnSearchPush from '../UI/MyBtnSearchPush.vue';
 import router from '@/router';
+import { CostStore } from '@/stores/Cost';
 
 const showComponent = ref<boolean>(true)
+
+const costStore = CostStore()
 
 const routerlink = () => {
     router.push('Cost')
@@ -18,7 +21,7 @@ const routerlink = () => {
             <transition name="main" mode="out-in">
                 <div class="costMain__blocks blocks" v-if="showComponent">
                     <div class="costMain__block">
-                        <p class="costMain__total">Total Cost: <span>100</span></p>
+                        <p class="costMain__total">Total Cost: {{ costStore.totalCost }}$</p>
                         <MyBtnSearchPush @click="routerlink">New Cost</MyBtnSearchPush>
                     </div>
                 </div>

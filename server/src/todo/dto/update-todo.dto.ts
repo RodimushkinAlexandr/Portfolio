@@ -7,6 +7,10 @@ export class UpdateToDoDto {
     readonly complited: boolean;
 
     @IsNotEmpty()
-    readonly selected: boolean
+    readonly selected: boolean;
+
+    @IsNotEmpty()
+    readonly text: boolean;
+
 }
 

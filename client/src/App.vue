@@ -59,4 +59,22 @@ authStore.userAuthentication()
   transition: opacity .7s ease-out;
 }
 
+.listInfo-leave-active {
+    transition: all .3s ease-in;
+}
+
+.listInfo-enter-active{
+    transition: all .3s ease-out .3s;
+}
+
+
+.listInfo-leave-to {
+    opacity: 0;
+    transform: translateX(300px);
+}
+.listInfo-enter-from {
+  opacity: 0;
+  transform: translateX(-300px);
+}
+
 </style>

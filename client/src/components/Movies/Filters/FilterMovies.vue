@@ -7,7 +7,7 @@ import FiltersGroup from './FiltersGroup.vue';
 import ListMoviesColumn from '../ListMovies/Column/ListMoviesColumn.vue';
 import { MoviesStore } from '@/stores/Movies';
 import type Movie from '@/types/MovieTypes';
-import LodaderSpinner from '@/components/UI/LodaderSpinner.vue';
+import LodaderSpinner from '@/components/UI/LoaderSpinner.vue';
 
 const moviesStore = MoviesStore()
 
