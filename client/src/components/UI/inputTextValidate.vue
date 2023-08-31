@@ -1,12 +1,18 @@
 <script setup lang="ts"> 
 import { ref, } from 'vue';
 
-
-const props = defineProps<{
+interface Props {
   rules: Function,
   modelValue: string
   placeholder?: string,
-}>()
+  autofocus?: boolean
+  mediaPhone?: boolean
+}
+const props = withDefaults(defineProps<Props>(), {
+    placeholder: 'Enter text',
+    autofocus: false,
+    mediaPhone: false
+})
 
 const emit =  defineEmits<{
     (e: 'update:modelValue', modelValue: string): void
@@ -23,8 +29,10 @@ const validate = async () => {
 <template>
    <div class="input__wrapper" :class="textValidate.length > 0 ? 'error' : ''">
         <input 
+          :autofocus="autofocus"
           :placeholder="placeholder"
           :value="modelValue"
+          :class="{mediaPhone : mediaPhone}"
           @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
           type="text" 
           @blur="validate"

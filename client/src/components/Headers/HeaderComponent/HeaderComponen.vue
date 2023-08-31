@@ -8,6 +8,7 @@ const props = defineProps<{
     icon: string
     router: string
     color?: string
+    weatherSun?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -22,7 +23,7 @@ const routerlink = () => {
 <template>
     <header class="header-component" >
         <section class="header-component__section class-component" @click="routerlink">
-            <icon :icon="props.icon" :color="color" :hover="color" :size="'23px'" />
+            <icon :icon="props.icon" :color="weatherSun ? 'aliceblue' : color" :hover="color" :size="'23px'" />
             <h3>{{ text }}</h3>
         </section>
         <section class="header-component__section header-component__show">
@@ -32,7 +33,7 @@ const routerlink = () => {
                 :class="!show ? 'show' : ''" 
                 :icon="'mdi mdi-arrow-up-drop-circle-outline'"
                 class="icon"
-                :color="color"
+                :color="weatherSun ? 'aliceblue' : color"
                 :hover="color"
                 />
         </section>

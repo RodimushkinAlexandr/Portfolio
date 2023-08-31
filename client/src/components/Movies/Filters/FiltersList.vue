@@ -32,16 +32,16 @@ const selected = (value:string): void => {
 
 <style lang="scss">
 
-    .categories{
-        display: flex;
-    }
-
     .category{
         
         &.listFilters{
             display: flex;
             flex-direction: column;
             margin-top: 10px;
+        }
+
+        @media (max-width: 500px) {
+            font-size: 13px;
         }
 
     }

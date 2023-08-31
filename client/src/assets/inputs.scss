@@ -31,6 +31,12 @@
       &:focus {
           border: 1px solid #9747FF;
       }
+
+      @media (max-width: 500px) {
+          &.mediaPhone {
+            font-size: 13px;
+          }
+      }
     }
 
     &.error {

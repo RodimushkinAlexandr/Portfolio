@@ -4,20 +4,22 @@ export interface Props {
     background?: string
     icon?: string
     hover?: string 
+    mediaPhone?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
     background: '#394C60',
     icon: "",
-    hover: "aliceblue"
+    hover: "aliceblue",
+    mediaPhone: false
 })
 
 </script>
 
 <template>
-    <button class="btn" :style="{ 'background-color': props.background }">
+    <button class="btn" :style="{ 'background-color': props.background } " :class="{mediaPhone: mediaPhone}">
         <slot></slot>
-        <span v-if="icon" :class="icon" class="icon"></span>
+        <span v-if="icon"  :class="icon" class="icon"></span>
     </button>
 </template>
 
@@ -37,6 +39,13 @@ const props = withDefaults(defineProps<Props>(), {
     border: 1px solid #394C60;
     box-shadow: 0px 5px 30px 9px rgba(0, 0, 0, 0.64);
     transition: all ease-in-out .2s;
+
+    @media (max-width: 500px) {
+        &.mediaPhone {
+            font-size: 13px;
+            padding: 10px;
+        }
+    }
 
     &:hover{
         color: v-bind(hover);

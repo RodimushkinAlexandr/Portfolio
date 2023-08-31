@@ -20,11 +20,11 @@ import {
       const user = await this.authService.validateUser(username);
   
       if (!user) {
-        throw new UnauthorizedException(`Пользователь ${username} не существует`,);
+        throw new UnauthorizedException(`User ${username} does not exist`,);
       }
 
       if (user.password !== password) {
-        throw new UnauthorizedException(`Не правильный пароль`,);
+        throw new UnauthorizedException(`Wrong password`,);
       }
   
       return true;

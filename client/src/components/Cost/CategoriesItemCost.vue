@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type CategoryTypes from '@/types/CategoryTypes';
+import type CategoryTypes from '@/types/Cost/CategoryTypes';
 import { computed } from 'vue';
 import Icon from '../UI/icon.vue';
  

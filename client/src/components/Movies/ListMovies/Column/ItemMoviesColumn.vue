@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MyBtnSearchPush from '@/components/UI/MyBtnSearchPush.vue';
-import type Movie from '@/types/MovieTypes';
+import type Movie from '@/types/Movie/MovieTypes';
 
 const props = defineProps<{
     movie: Movie
@@ -18,14 +18,14 @@ const genres = props.movie.genres.map(genre => (Object.values(genre)));
 <template>
      <li class="movies__item">
         <div class="movies__img"><img :src="movie.poster[0].previewUrl" alt="No Poster"></div>
-        <div class="movies__contentText">
-            <h2 class="movies__name">{{ movie.name }}</h2>
-            <div class="movies__year"><p class="movie__content-row">Year: <span>{{ movie.year }}</span></p></div>
-            <div class="movies__countries"><p class="movie__content-row">Country: <span>{{ countries.join() }}</span></p></div>
-            <div class="movies__genre"><p class="movie__content-row">Genres: <span>{{ genres.join() }}</span></p></div>
-        </div>
-        <div class="movies__btn">
-            <MyBtnSearchPush :hover="'aliceblue'" @click="$emit('lookMovie', movie)" class="movies__more">More</MyBtnSearchPush>
+        <div class="movies__content">
+            <div class="movies__contentText">
+                <h2 class="movies__name">{{ movie.name }}</h2>
+                <div class="movies__year"><p class="movie__content-row">Year: <span>{{ movie.year }}</span></p></div>
+                <div class="movies__countries"><p class="movie__content-row">Country: <span>{{ countries.join() }}</span></p></div>
+                <div class="movies__genre"><p class="movie__content-row">Genres: <span>{{ genres.join() }}</span></p></div>
+            </div>
+            <MyBtnSearchPush :mediaPhone="true" :hover="'aliceblue'" @click="$emit('lookMovie', movie)" class="movies__btn">More</MyBtnSearchPush>
         </div>
     </li>
 </template>
@@ -40,6 +40,7 @@ const genres = props.movie.genres.map(genre => (Object.values(genre)));
 
             display: flex;
             width: 100%;
+            font-size: 16px;
 
             position: relative;
 
@@ -65,7 +66,7 @@ const genres = props.movie.genres.map(genre => (Object.values(genre)));
             }
 
         }
-        &__contentText{
+        &__content{
             display: flex;
             flex-direction: column;
             padding: 5px 10px 5px 10px;
@@ -83,9 +84,6 @@ const genres = props.movie.genres.map(genre => (Object.values(genre)));
 
         // .movies__year
 
-        &__year {
-        }
-
         .movie__content-row{
             display: flex;
             
@@ -102,8 +100,8 @@ const genres = props.movie.genres.map(genre => (Object.values(genre)));
 
         &__btn {
             position: relative;
-            flex: 1 0 auto;
-            min-width: 78px;
+            flex: 0 0 auto;
+            align-self: flex-end;
         }
 
         &__favorites {
@@ -113,10 +111,18 @@ const genres = props.movie.genres.map(genre => (Object.values(genre)));
             cursor: pointer;
         }
 
-        &__more {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;    
+        @media (max-width:500px) {
+            &__item {
+                font-size: 13px;
+            }
+
+            .movies__name{
+                font-size: 16px;
+            }
+
+            .movies__img{
+                width: 90px;
+            }
         }
     }
 </style>

@@ -8,6 +8,7 @@ import { CreateMovieDto } from './dto/create-movie.tdo';
 import { FilterMovieDto } from './dto/filter-movie.dto';
 import { kMaxLength } from 'buffer';
 import { SearchMovieDto } from './dto/search-movie.dto';
+import { GroupMovieDto } from './dto/group-movie.dto';
 
 
 @Injectable()
@@ -34,7 +35,7 @@ export class MovieService {
         return movie._id;
     }
 
-    async deleteOneMovie(id: ObjectId): Promise<Movie> {
+    async deleteOneMovie(id: string): Promise<Movie> {
         const movie = await this.moviesService.findByIdAndDelete(id)
         return movie
     }       
@@ -83,6 +84,43 @@ export class MovieService {
             countries: filterCountries
         }
         return allFilters
+    }
+
+    async getMovirsGroup(groupMovieDto: GroupMovieDto) {
+
+        let filterClient =  await this.randomFilters(groupMovieDto.nameFilter, groupMovieDto.amountSelected)
+        let movies = await this.getAllMovies()
+        let finishGroup = {}
+
+        for (let i = 0; i < groupMovieDto.amountSelected; i++) {
+
+                const listMovies = []
+                const filter = filterClient[i]
+
+                for (let j = 0; j < movies.length; j++) {
+
+                    movies[j][groupMovieDto.nameFilter].map((movieFilter) => {
+                        if(movieFilter['name'] == filter) listMovies.push(movies[j])
+                    })
+
+                    if(listMovies.length >= groupMovieDto.amountSelectedLength) break
+                }
+                finishGroup[filter] = listMovies
+            }
+        return finishGroup
+    }
+
+    async randomFilters(nameFilter: string, amountSelected: number): Promise<string[]> {
+        const filters = await this.getAllFilters()
+        const filter = filters[nameFilter]
+        const finishFilter = new Set()
+
+        for (let i = 0; finishFilter.size < amountSelected; i++) {
+            const randomNum = Math.floor(Math.random() * filter.length)
+            finishFilter.add(filter[randomNum]) 
+        }
+        console.log(finishFilter)
+        return Array.from(finishFilter) as []
     }
 
     // async allMov(): Promise<Movie[]> {

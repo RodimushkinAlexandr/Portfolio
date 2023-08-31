@@ -1,31 +1,18 @@
 <script setup lang="ts">
 import { CostStore } from '@/stores/Cost';
-import type Cost from '@/types/CostTypes'
-import { ref, reactive } from 'vue';
-
-const change = ref<boolean>(false)
+import type Cost from '@/types/Cost/CostTypes'
+import Icon from '../UI/icon.vue';
 
 const props = defineProps<{
     cost: Cost
 }>()
 
 const emit =  defineEmits<{
-    (e: 'remove', history: string): void
-    (e: 'change', history: Cost): void
-  }>()
+    (e: 'remove', value: string): void
+ }>()
 
 const categories = CostStore().categories
 const iconColor = categories.filter(item => item.value == props.cost.category)[0]
-
-
-
-// const changedCost = reactive<Cost>({
-//             comment: '',
-//             price: '',
-//             category: null,
-//             date: new Date(),
-//             _id: undefined
-// })
 
 </script>
 
@@ -47,9 +34,13 @@ const iconColor = categories.filter(item => item.value == props.cost.category)[0
                 <p>Comment: {{ cost.comment }}</p>
             </div>
             <div class="history__total history__btn">
-                <!-- <v-btn color="error" rounded="sm" size="small" @click="$emit('remove', cost._id)">Delete</v-btn> -->
-                <!-- <v-btn color="#394C60" rounded="sm" size="small" v-if="!change">Change</v-btn> -->
-                <!-- <v-btn color="success" rounded="sm" size="small" v-else>Save</v-btn> -->
+                <Icon 
+                    @click="$emit('remove', cost._id)" 
+                    :icon="'mdi mdi-trash-can-outline'" 
+                    :color="'#993b3b'" 
+                    :hover="'#993b3b'" 
+                    :size="'22px'">
+                </icon>
             </div>
         </section>
     </li>

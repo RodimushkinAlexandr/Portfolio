@@ -28,19 +28,17 @@ const date = weatherStore.dateBuilder()
             @submit="searchCity" 
             class="form__weather"/>
         <div class="pos__relativ">
-        <transition-group name="list" tag="div">
-            <WeatherInfo :key="1" v-if="weatherStore.weather != null" :weather="weatherStore.weather" :main="false" :date="date" />
-            <ErorSearch :key="2" v-else-if="weatherStore.weatherEror.length" :text="weatherStore.weatherEror" />
-            <NoInfo :key="3" v-else class="noInfo pos__absolute" />
+        <transition-group name="listInfo" tag="div">
+            <WeatherInfo :key="'WeatherInfo'" v-if="weatherStore.weather != null" :weather="weatherStore.weather" :main="false" :date="date" />
+            <ErorSearch :key="'ErorSearch'" v-else-if="weatherStore.weatherEror.length" :text="weatherStore.weatherEror" />
+            <NoInfo :key="'NoInfo'" v-else class="noInfo pos__absolute" />
         </transition-group>
         </div>
       </div>
     </div>
 </template>
-
-
     
-<style lang="scss" scoped>
+<style lang="scss">
 
 .weather{
     position: absolute;
@@ -49,7 +47,7 @@ const date = weatherStore.dateBuilder()
     bottom: 0;
     right: 0;
     margin: 0 auto;
-    padding: 70px 10px 0px 74px;
+    padding: 50px 10px 0px 74px;
 
         &.rain {
             background-color: #556679;
@@ -77,18 +75,9 @@ const date = weatherStore.dateBuilder()
     .form__weather{
         margin-bottom: 30px;
     }
-}
 
-.list-enter-active,
-.list-leave-active {
-  transition: all .5s ease;
-}
-.list-enter-from {
-  opacity: 0;
-  transform: translateX(-100px);
-}
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(100px);
+    @media (max-width: 700px) {
+        padding: 70px 10px 0px 10px;
+    }
 }
 </style>

@@ -23,13 +23,13 @@ import {
       }
   
       if (!username) {
-        throw new UnauthorizedException('Поле username обязательно');
+        throw new UnauthorizedException('The username field is required');
       }
   
       const user = await this.usersService.findOne(username);
   
       if (!user) {
-        throw new UnauthorizedException('Пользователя не существует');
+        throw new UnauthorizedException('User does not exist');
       }
   
       return true;

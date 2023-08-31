@@ -3,9 +3,13 @@ import { ref } from 'vue';
 import HeaderComponen from '../Headers/HeaderComponent/HeaderComponen.vue';
 import MyBtnSearchPush from '../UI/MyBtnSearchPush.vue';
 import TasksListToDo from '../ToDo/TasksListToDo.vue';
+import router from '@/router';
 
 const showComponent = ref<boolean>(true)
 
+const routerlink = () => {
+    router.push('/ToDo')
+}
 </script>
 
 <template>
@@ -16,7 +20,7 @@ const showComponent = ref<boolean>(true)
                 <div class="toDoMain__blocks blocks" v-if="showComponent">
                     <div class="toDoMain__block">
                         <TasksListToDo class="toDoMain__list" />
-                        <MyBtnSearchPush class="todoMain__btn">New Task</MyBtnSearchPush>
+                        <MyBtnSearchPush @click="routerlink" class="todoMain__btn">New Task</MyBtnSearchPush>
                     </div>
                 </div>
             </transition>

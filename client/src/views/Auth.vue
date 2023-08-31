@@ -4,10 +4,17 @@ import { AuthStore } from '@/stores/Auth'
 import inputTextValidate from '@/components/UI/inputTextValidate.vue';
 import MyBtnSearchPush from '@/components/UI/MyBtnSearchPush.vue';
 import Icon from '@/components/UI/icon.vue';
+import { watch } from 'vue';
+import router from '@/router';
+import LoaderSpinner from '@/components/UI/LoaderSpinner.vue';
 
 const authStore = AuthStore()
-const loading = ref<boolean>(false)
 const isLoginForm = ref<boolean>(false)
+const isloader = ref<boolean>(false)
+
+watch(isLoginForm, () => {
+    authStore.errorAuth = ''
+})
 
 const rules =  (value: string) => {  
           if (!value) return 'This field is required'
@@ -16,30 +23,23 @@ const rules =  (value: string) => {
         }
 
 const auth = () => {
-    if(authStore.authUser.username && authStore.authUser.password) {
-       
-        loading.value = true
-        setTimeout(() => (loading.value = false), 1000)
-        
-        if (isLoginForm.value) {
-            setTimeout(() => {
-                console.log('login')
-                authStore.login() 
-            }, 1000)
-
-        } 
-        
-        if(!isLoginForm.value) {
-            setTimeout(() => {
-                console.log('registr')
-
-                authStore.registration() 
-            }, 1000)
+        isloader.value = true
+        try {
+            if(authStore.authUser.username && authStore.authUser.password) {        
+                isLoginForm.value ? authStore.login() : authStore.registration() 
+            }
+        } catch (e) {
+            
+        } finally {
+            setTimeout(() => isloader.value = false, 1000)
         }
-    } else {
-        console.log('Заполните данные')
-    }
 }
+
+watch(authStore, () => {
+ if(authStore.isAuth) {
+    router.push({path: '/'})
+  }
+})
 
 </script>
 
@@ -74,24 +74,22 @@ const auth = () => {
                     @click="auth"
                     type="submit" 
                     class="auth__btn">{{ isLoginForm ?  'LOGIN' : 'REGISTRATION' }}
-
+                    <LoaderSpinner v-if="isloader" :size="'18px'"/>
                 </MyBtnSearchPush>
             </form> 
-            <footer class="footer">
-                <section v-if="isLoginForm" class="footer__login footer__section" >
-                    <h4>Don't have an account?</h4>
-                    <div class="footer__link" @click="isLoginForm = false">
-                        <p class="header__item-name">Registration</p>
-                        <Icon :icon="'mdi mdi-account-edit-outline'" :size="'25px'"></Icon>
+            <footer class="auth__footer">
+                <div class="auth__login">
+                    <h4>{{isLoginForm ? "Don't have an account?" : 'Do you have an account?'}}</h4>
+                    <div class="footer__link" @click="isLoginForm = !isLoginForm">
+                        <p class="header__item-name">{{ isLoginForm? 'Registration' : 'Login' }}</p>
+                        <Icon :icon="isLoginForm ? 'mdi mdi-account-edit-outline' : 'mdi mdi-account-key'" :size="'25px'"></Icon>
                     </div>
-                </section>
-                <section v-else class="footer__registration footer__section">
-                    <h4>Do you have an account?</h4>
-                    <div class="footer__link" @click="isLoginForm = true">
-                        <p class="header__item-name">Login</p>
-                        <Icon :icon="'mdi mdi-account-key'" :size="'25px'" ></Icon>
-                    </div>
-                </section>
+                </div>
+                <transition name="appearance">
+                    <p v-if="authStore.errorAuth" class="auth__error">
+                        {{ authStore.errorAuth }}
+                    </p>
+                </transition> 
             </footer>
         </div>
     </div>
@@ -142,17 +140,26 @@ const auth = () => {
             }
         }
 
-        .footer{
+        .auth__footer{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 40px;
+            position: relative;
+        }
 
-            &__section {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
+        .auth__error{
+            color: #c23131;
+            position: absolute;
+            top: -25px;
+        }   
 
-                margin-top: 25px;
-            }
+        .auth__login{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-            &__link{
+            .footer__link{
                 display: flex;
                 align-items: center;
                 cursor: pointer;
@@ -165,4 +172,14 @@ const auth = () => {
             width: 100%;
         }
     }
+.appearance-enter-from,
+.appearance-leave-to {
+  opacity: 0;
+}
+
+.appearance-enter-active,
+.appearance-leave-active {
+  transition: opacity .3s ease-out;
+}
+    
 </style>

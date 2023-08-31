@@ -2,15 +2,20 @@
 import type MenuHeaderGrey from '@/types/MenuHeaderGreyTypes'
 import { computed } from 'vue';
 
+
+interface Props {
+    modelValue: string
+    content: MenuHeaderGrey
+    short?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    short: false
+})
+
 const emit = defineEmits<{
     (e: 'update:modelValue', modelValue: string): void
 }>()
-
-const props = defineProps<{
-    modelValue: string
-    content: MenuHeaderGrey
-}>()
-
 
 const selectedMenu = computed({
     get() {
@@ -24,7 +29,11 @@ const selectedMenu = computed({
 </script>
 
 <template>
-     <label  :for="content.text" class="header__menu-item" :class=" modelValue == content.text ? 'active' :'' " >{{ content.text.toLocaleUpperCase() }}
+     <label 
+        :for="content.text" 
+        class="header__menu-item" 
+        :class="{active: modelValue == content.text, short:short}" 
+        >{{ content.text.toLocaleUpperCase() }}
         <span :class="content.icon" class="icon"></span>
         <input :value="content.text" v-model="selectedMenu" type="radio" name="header-menu" class="header__input" :id="content.text" />
     </label>
@@ -35,6 +44,7 @@ const selectedMenu = computed({
         
         &__menu-item {
         display: flex;
+        gap: 3px;
         align-items: center;
         justify-content: center;
         padding: 15px 5px;
@@ -46,6 +56,13 @@ const selectedMenu = computed({
         box-shadow: 0 5px 30px 2px rgba(0,0,0,.64);
         background-color: #333333;
         transition: all ease-in .2s;
+
+        &.short {
+            flex-direction: column;
+            gap: 3px;
+            padding: 8px 10px;
+            min-width: 95px;
+        }
 
 
         &.active{
@@ -77,8 +94,14 @@ const selectedMenu = computed({
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-left: 3px;
             --dp-animation-duration: 0s;
+        }
+
+        @media (max-width: 500px) {
+            flex-direction: column;
+            min-width: 70px;
+            font-size: 13px;
+            padding: 5px;
         }
     }
 }

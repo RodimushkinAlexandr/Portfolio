@@ -1,19 +1,19 @@
 import {defineStore } from 'pinia'
 import api from '../api/axiosClient'
-import type Movie from '@/types/MovieTypes'
-import type Filters from '@/types/FiltersMovies'
+import type Movie from '@/types/Movie/MovieTypes'
+import type Filters from '@/types/Movie/FiltersMovies'
+import type MovieGroup from '@/types/Movie/MovieGroup'
 
 interface MoviesState {
     filters: Filters
-    amountListsInGroup: number
     requestFilters: RequestFilters
+    requestGroup: RequestGroup
     moviesList: Movie[] | []
-    moviesGroup: Movie[][]
-    nameMoviesGroup: string[]
+    moviesGroup: MovieGroup | {}
     lookMovie: Movie | undefined
     showLookMovie: boolean
     searchMovies: string
-    error: string
+    error: string    
 }
 
 export const MoviesStore = defineStore({
@@ -30,9 +30,12 @@ export const MoviesStore = defineStore({
                 country: '',
                 year: ''
             },
-            amountListsInGroup: 6,
-            moviesGroup: [],
-            nameMoviesGroup: [],
+            requestGroup: {
+                amountSelected: 4,
+                amountSelectedLength: 20,
+                nameFilter: "genres"
+            },
+            moviesGroup: {},
             moviesList: [],
             lookMovie: undefined,
             showLookMovie: false,
@@ -70,21 +73,12 @@ export const MoviesStore = defineStore({
             }
         },
         async getMoviesGorup(): Promise<void> {
-            try {
-                while(this.amountListsInGroup) {
-                    
-                    this.requestFilters.genre = this.filters.genres[this.amountListsInGroup]
-                    this.nameMoviesGroup.push(this.filters.genres[this.amountListsInGroup])
-
-                    await this.getMoviesUseFilters()
-                    this.moviesGroup.push(this.moviesList)
-                    --this.amountListsInGroup
-                }
+            try{
+                const moviesGroup = await api.post('/movie/groupMovies/', this.requestGroup)
+                this.moviesGroup = moviesGroup.data
+                
             } catch(e) {
                 console.log(e)
-            } finally {
-                this.requestFilters.genre = ''
-                this.moviesList = []
             }
         },
         getFavoritesGenre (): void {
@@ -106,6 +100,14 @@ interface RequestFilters {
     country: string
     year: string
 }
+
+interface RequestGroup {
+    amountSelected: number,
+    amountSelectedLength: number,
+    nameFilter: string
+}
+
+
 
 
 

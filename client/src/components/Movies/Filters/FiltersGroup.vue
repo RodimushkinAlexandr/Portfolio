@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type Filters from '@/types/FiltersMovies';
+import type Filters from '@/types/Movie/FiltersMovies';
 import FiltersList from './FiltersList.vue'
 import { computed } from 'vue';
 import inputText from '@/components/UI/inputText.vue';
@@ -41,7 +41,7 @@ const years = computed(() => props.filters.years.filter(year =>  year.toLocaleLo
 </script>
 
 <template>
-    <inputText :placeholder="'Search Filter'" v-model="search"  class="searchFilter"/>
+    <inputText :placeholder="'Search Filter'" v-model="search" :mediaPhone="true"  class="searchFilter"/>
     <FiltersList v-if="selected == 'countries'" :filters="countries" v-model="selected" :useFilterStyle="'category'"/>
     <FiltersList v-if="selected == 'genres'" :filters="genres" v-model="selected" :useFilterStyle="'category'"/>
     <FiltersList v-if="selected == 'years'" :filters="years" v-model="selected" :useFilterStyle="'category'"/> 

@@ -5,7 +5,7 @@ import type AuthUser from '@/types/UserAuthTypes'
 interface AuthState {
     authUser: AuthUser
     isAuth: boolean
-    
+    errorAuth: string
 }
     
 export const AuthStore = defineStore({
@@ -17,6 +17,7 @@ export const AuthStore = defineStore({
                 password: ''
             },
             isAuth: false,
+            errorAuth: ''
         }
     },
     actions: {
@@ -27,18 +28,18 @@ export const AuthStore = defineStore({
                     localStorage.setItem('auth', JSON.stringify(userData.data))
                     this.userAuthentication()
                 }
-            } catch (e) {
-                console.log(e)
+                
+            } catch (e: any) {
+               setTimeout(() => this.errorAuth = e.response.data.message, 500)
             }
         },
         async registration(): Promise<void> {
             try {
                 const userData = await api.post('/auth/registration/', this.authUser)
-                if(userData.status == 201) {
-                    await this.login()
-                }
-            } catch (e) {
-                console.log(e)
+                if(userData.status == 201) await this.login()
+
+            } catch (e: any) {
+                setTimeout(() => this.errorAuth = e.response.data.message, 500)
             }
         },
         async userAuthentication(): Promise<void> {

@@ -6,12 +6,13 @@ import router from '@/router';
 import { CostStore } from '@/stores/Cost';
 
 const showComponent = ref<boolean>(true)
-
 const costStore = CostStore()
+costStore.getAllCosts()
 
 const routerlink = () => {
     router.push('Cost')
 }
+
 </script>
 
 <template>

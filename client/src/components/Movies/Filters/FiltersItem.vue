@@ -31,15 +31,17 @@ const selectedCard = () => {
 
 <style lang="scss">
     .categories {
-        .listFilters__item{
-        cursor: pointer;
-        padding: 10px;
-        background-color: #333333;
-        border: 2px solid #333333;
-        margin: 5px;
-        border-radius: 8px;
+        display: flex;
 
-        transition: all ease .2s;
+        .listFilters__item{
+            cursor: pointer;
+            padding: 10px;
+            background-color: #333333;
+            border: 2px solid #333333;
+            margin: 5px 5px 5px 0px;
+            border-radius: 8px;
+
+            transition: all ease .2s;
 
         &.active{
             background-color: #394C60;
@@ -57,6 +59,9 @@ const selectedCard = () => {
                 transition: all ease-in .3s;
                 transform: scale(1.05);
             }
+        }
+        @media (max-width: 500px) {
+            font-size: 13px;
         }
     }
     }
@@ -82,7 +87,6 @@ const selectedCard = () => {
             &:hover{
                 background-color: #394C60;
                 color: aliceblue;
-
             }
         }
     }

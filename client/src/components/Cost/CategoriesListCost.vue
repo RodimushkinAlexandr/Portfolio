@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import CategoriesItemCost from './CategoriesItemCost.vue';
-import type CategoryTypes from '@/types/CategoryTypes';
+import type CategoryTypes from '@/types/Cost/CategoryTypes';
 
 const props = defineProps<{
     categories: CategoryTypes[]
@@ -27,7 +27,7 @@ const emit = defineEmits<{
     </section>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .wallet {
 
     &__payment-list {
@@ -38,6 +38,10 @@ const emit = defineEmits<{
         grid-template-columns: repeat(6, 1fr);
         gap: 8px;
         padding: 10px;
+
+        @media (max-width: 480px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
     }
 }
 

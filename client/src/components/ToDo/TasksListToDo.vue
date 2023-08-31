@@ -31,7 +31,7 @@ const changeTextSave = (task:changeTask) => {
 </script>
 
 <template>
-    <transition-group tag="ul" name="tasks" class="list" >
+    <transition-group tag="ul" name="list" class="tasks__list" >
         <TasksItemToDo v-for="task in todoStore.tasks" :key="task._id" :task="task" 
             @selected="selectedTask"
             @complited="complitedTask"
@@ -41,21 +41,12 @@ const changeTextSave = (task:changeTask) => {
     </transition-group>
 </template>
 
-<style lang="scss" scoped>
-.list {
+<style lang="scss">
+.tasks__list {
     display: flex;
     flex-direction: column;
     gap: 12px;
     position: relative;
 }
 
-.tasks-enter-active,
-.tasks-leave-active {
-  transition: all 0.5s ease;
-}
-.tasks-enter-from,
-.tasks-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
 </style>

@@ -21,7 +21,7 @@ export class RegistrationGuard implements CanActivate {
 
     if (user) {
       throw new UnauthorizedException(
-        `Пользователь ${username} уже существует`,
+        `User ${username} already exists`,
       );
     }
 

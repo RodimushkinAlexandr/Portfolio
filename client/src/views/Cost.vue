@@ -5,8 +5,13 @@ import ChartCost from '@/components/Cost/ChartCost.vue'
 import { ref } from 'vue';
 import type MenuHeaderGreyTypes from '@/types/MenuHeaderGreyTypes';
 import MenuHeaderGreyVue from '@/components/Headers/MenuHeaderGrey/MenuHeaderGrey.vue';
+import { CostStore } from '@/stores/Cost';
 
 const selectedMenu = ref<string>('Cost')
+const costStore = CostStore()
+costStore.getAllCosts()
+
+
 
 const contentMenu = ref<MenuHeaderGreyTypes[]>([
     {
@@ -31,10 +36,10 @@ const contentMenu = ref<MenuHeaderGreyTypes[]>([
 <template >
     <div class="cost container">
         <transition-group name="listInfo">
-            <MenuHeaderGreyVue v-model="selectedMenu" :contentMenu="contentMenu" class="header__cost" />
-            <FormCost v-if="selectedMenu == 'Cost'"/>
-            <HistoryListCostVue v-else-if="selectedMenu == 'History'"/>
-            <ChartCost v-else-if="selectedMenu == 'Chart'" />
+            <MenuHeaderGreyVue v-model="selectedMenu" :contentMenu="contentMenu" :short="true" class="header__cost" :key="'MenuHeaderGreyVue'" />
+            <FormCost v-if="selectedMenu == 'Cost'" :key="'FormCost'" />
+            <HistoryListCostVue v-else-if="selectedMenu == 'History'" :key="'HistoryListCostVue'" />
+            <ChartCost v-else-if="selectedMenu == 'Chart'" :key="'ChartCost'" />
         </transition-group>
     </div>
 </template>

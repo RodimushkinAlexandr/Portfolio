@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import type Movie from '@/types/Movie/MovieTypes';
+
+const props = defineProps<{
+    movie: Movie
+}>()
+</script>
+
 <template>
     <li class="filterList__block">
         <span class="filterList__background"></span>
@@ -10,14 +18,6 @@
         </div>
     </li>
 </template>
-
-<script setup lang="ts">
-import type Movie from '@/types/MovieTypes';
-
-const props = defineProps<{
-    movie: Movie
-}>()
-</script>
 
 <style lang="scss" scoped>
 .filterList__block{

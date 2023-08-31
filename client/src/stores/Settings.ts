@@ -32,7 +32,6 @@ export const SettingsStore = defineStore({
                 const token = await refreshTokenUser()
                 const user = await api.patch(`/auth/update/`, this.user, {headers: {'Authorization' : `Bearer ${token}`}})
                 this.setUserData()
-                console.log(user)
             } catch(e) {
                 console.log(e)
             }
@@ -44,7 +43,7 @@ export const SettingsStore = defineStore({
             userData.genreMovies = this.user.genreMovies
             userData._id = this.user._id
             localStorage.setItem('auth', JSON.stringify(userData))
-        }
+        },
     }
 })
 

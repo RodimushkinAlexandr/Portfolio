@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type Movie from '@/types/MovieTypes';
-import Icon from '../UI/icon.vue';
+import type Movie from '@/types/Movie/MovieTypes';
 import { SettingsStore } from '@/stores/Settings';
 
 const settingsStore = SettingsStore()

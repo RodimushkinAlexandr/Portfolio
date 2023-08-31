@@ -29,6 +29,7 @@ input[type="checkbox"] {
     border-radius: 50%;
     appearance: none;
     outline: 0;
+    flex: 0 0 auto;
     cursor: pointer;
     transition: background 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
 

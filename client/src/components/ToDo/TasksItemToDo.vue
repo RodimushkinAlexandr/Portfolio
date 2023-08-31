@@ -4,7 +4,6 @@ import InputCheckbox from '../UI/inputCheckbox.vue';
 import icon from '../UI/icon.vue';
 import { ref } from 'vue';
 import MyBtnSearchPush from '../UI/MyBtnSearchPush.vue';
-import InputText from '../UI/inputText.vue';
 import type changeTask from '@/types/ToDoChangesTypes';
 
 const props = defineProps<{
@@ -33,9 +32,8 @@ const changeText = ref<string>(props.task.text)
 </script>
 
 <template>
-    <li class="taskItem">
-        <transition-group name="listChange" tag="div">
-            <div 
+    <transition-group name="listChange" tag="li" class="taskItem">
+        <div 
              v-if="!showChangeText" 
              @click="$emit('complited', task)" 
              :class="{complitedLi: task.complited, selectedLi: task.selected}" 
@@ -67,20 +65,37 @@ const changeText = ref<string>(props.task.text)
                     :size="'19px'">
                 </icon>
             </div>
-            </div>
-            <div v-else class="taskItem__content">
-                <input type="text" autofocus v-model="changeText" @click.stop>
-                <MyBtnSearchPush @click.stop="changeTextSave" class="saveChangebtn">Save</MyBtnSearchPush>
-            </div>
-        </transition-group>
-    </li>
+        </div>
+        <div v-else class="taskItem__content change">
+            <input type="text" autofocus v-model="changeText" @click.stop class="taskItem__content-input">
+            <MyBtnSearchPush @click.stop="changeTextSave" class="saveChangebtn">Save</MyBtnSearchPush>
+        </div>
+        <!-- <span class="span_back"></span> -->
+    </transition-group>
 </template>
 
 <style lang="scss" scoped>
+
+.span_back {
+    backdrop-filter: blur(1px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
 .taskItem{
-    .taskItem__text-change{
-        display: flex;
-        width: 100%;
+    .taskItem__content {
+        &.change{
+            padding: 2px;
+
+            .taskItem__content-input{
+                width: 100%;
+                padding: 14px;
+                background-color: rgba(0, 0, 0, 0.5);                
+                border-radius: 8px;
+            }
+        }
     }
 }
 
@@ -114,11 +129,6 @@ const changeText = ref<string>(props.task.text)
         border-color: #394C60;
     }
 
-    .saveChangebtn{
-        position: absolute;
-        right: 3px;
-    }
-
     .taskItem__text{
         flex: 1 1 auto;
         display: flex;
@@ -139,24 +149,5 @@ const changeText = ref<string>(props.task.text)
         color: #808080;
         transition: all ease .5s;
     }
-}
-
-.listChange-leave-active {
-  transition: all .3s ease-in;
-}
-
-.listChange-enter-active {
-    transition: all .3s ease-in .3s;
-}
-
-.listChange-enter-from {
-    opacity: 0;
-    position: absolute;
-
-}
-.listChange-leave-to {
-  opacity: 0;
-  position: absolute;
-  transform: rotateX(180deg);
 }
 </style>

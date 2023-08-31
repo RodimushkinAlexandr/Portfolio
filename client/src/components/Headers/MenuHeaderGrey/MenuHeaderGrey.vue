@@ -8,10 +8,15 @@ const emit = defineEmits<{
     (e: 'update:modelValue', modelValue: string): void
 }>()
 
-const props = defineProps<{
+interface Props {
     modelValue: string
     contentMenu: menuHeaderGrey[]
-}>()
+    short?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    short: false
+})
 
 
 const selectedMenu = computed({
@@ -28,9 +33,14 @@ const amountItemMenu = ref<boolean>(props.contentMenu.length <=3)
 </script>
 
 <template>  
-    <header class="header" :class="{'tree': amountItemMenu}">
+    <header class="header" :class="{'three': amountItemMenu}">
         <form class="header__menu-list">
-           <MenuHeaderItem v-for="content in contentMenu" v-model="selectedMenu" :key="content.text" :content="content" />
+           <MenuHeaderItem 
+            v-for="content in contentMenu" 
+            v-model="selectedMenu" 
+            :key="content.text" 
+            :content="content"
+            :short="short" />
         </form>
     </header>
 </template>
@@ -42,7 +52,7 @@ const amountItemMenu = ref<boolean>(props.contentMenu.length <=3)
     justify-content: center;
     width: 100%;
 
-    &.tree{
+    &.three{
         max-width: 400px;
         margin: 0 auto;
         margin-bottom: 20px;

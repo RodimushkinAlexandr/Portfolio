@@ -7,13 +7,16 @@ interface Props {
     value: string
     valueButton: string
     icon?: string
-    placeholder: string
+    placeholder?: string
+    autofocus?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
     value: '',
     valueButton: '',
     placeholder: 'Enter text',
-    icon: 'mdi mdi-magnify'
+    icon: 'mdi mdi-magnify',
+    autofocus: false
+    
 })
 
 
@@ -36,7 +39,7 @@ const input = computed({
 
 <template >
     <form @submit.prevent class="formForm">
-        <InputText v-model="input" :placeholder="placeholder" />
+        <InputText v-model="input" :placeholder="placeholder" :autofocus="autofocus"/>
         <MyBtnSearchPush @click="$emit('submit')" :icon="icon">{{ valueButton }}</MyBtnSearchPush>
     </form>
 </template>

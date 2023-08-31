@@ -3,6 +3,7 @@ import { MovieService } from './movie.service';
 import { Model, ObjectId } from 'mongoose';
 import { FilterMovieDto } from './dto/filter-movie.dto';
 import { SearchMovieDto } from './dto/search-movie.dto'
+import { GroupMovieDto } from './dto/group-movie.dto';
 
 
 @Controller('movie')
@@ -13,6 +14,15 @@ export class MovieController {
     @Get()
     getAllMovies() {
         return this.movieService.getAllMovies()
+    }
+    @Post('/groupMovies')
+    getAll(@Body() groupMovieDto: GroupMovieDto) {
+        return this.movieService.getMovirsGroup(groupMovieDto)
+    }
+
+    @Delete(':id')
+    async deleteCost(@Param('id') id: string) {
+      return await this.movieService.deleteOneMovie(id);
     }
 
     @Get('/getFilters')
@@ -29,4 +39,5 @@ export class MovieController {
     searchNameMovie(@Body() dto: SearchMovieDto) {
         return this.movieService.searchNameMovie(dto)
     }
+    
 }

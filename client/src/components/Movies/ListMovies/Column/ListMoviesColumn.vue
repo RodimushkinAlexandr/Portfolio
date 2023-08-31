@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MyBtnSearchPush from '@/components/UI/MyBtnSearchPush.vue';
-import type Movie from '@/types/MovieTypes';
+import type Movie from '@/types/Movie/MovieTypes';
 import ItemMoviesColumn from './ItemMoviesColumn.vue';
 
 const props = defineProps<{
@@ -20,7 +20,7 @@ const emit = defineEmits<{
 <template>
    <div class="selectedMoviesToFilter movies">
       <header class="movies__header">
-      <MyBtnSearchPush @click="emit('backToFilters', true)" id="btn"  :hover="'aliceblue'" :icon="'mdi mdi-arrow-left'">Back</MyBtnSearchPush>
+      <MyBtnSearchPush @click="emit('backToFilters', true)" id="btn" :mediaPhone="true" :hover="'aliceblue'" :icon="'mdi mdi-arrow-left'">Back</MyBtnSearchPush>
       <h2 class="movies__title">{{filterCategoryProp.toUpperCase()}}</h2>
    </header>
    <main class="movies__main">
@@ -42,6 +42,14 @@ const emit = defineEmits<{
    max-width: 550px;
    margin: 0 auto;
 
+   @media (max-width: 500px) {
+            font-size: 13px;
+
+            &__header {
+               margin-bottom: 10px;
+            }
+        }
+
 &__header{
       display: flex;
       align-items: center;
@@ -50,10 +58,6 @@ const emit = defineEmits<{
          margin-right: 20px;
       }
    }
-
-&__main {
-}
-
 // .movies__list
 
 &__list {

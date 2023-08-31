@@ -1,9 +1,9 @@
 import {defineStore } from 'pinia'
 import api from '../api/axiosClient'
 import refreshTokenUser from '@/api/axiosRefreshToken'
-import type Cost from '@/types/CostTypes'
-import type NewCost from '@/types/CostNewTypes'
-import type Categories from '@/types/CategoryTypes'
+import type Cost from '@/types/Cost/CostTypes'
+import type NewCost from '@/types/Cost/CostNewTypes'
+import type Categories from '@/types/Cost/CategoryTypes'
 
 
 interface CostStore {
@@ -43,6 +43,16 @@ export const CostStore = defineStore({
         totalCost(state) {
             return state.costs.reduce((acuum, item) => acuum + item.price, 0)
         },
+        categoriesTotal(state): {} {
+            const categorTotal:any = {}
+
+            state.costs.map((cost) => {
+                const category = cost.category
+                if(category in categorTotal)  categorTotal[category] = Number(categorTotal[category]) + cost.price 
+                else categorTotal[category] = cost.price
+            })
+            return categorTotal
+        }
     },
     actions: {
         async createNewCost(): Promise<void> {
@@ -72,15 +82,6 @@ export const CostStore = defineStore({
                 console.log(e)
             }
         },
-        // async updateCost(): Promise<void> {
-        //     try {
-        //         await refreshTokenUser()
-        //         const token = (JSON.parse(localStorage.getItem('auth') || '{}')).access_token
-        //         await api.post('/cost/', this.cost, {headers: {'Authorization' : `Bearer ${token}`}})
-        //     } catch (e) {
-        //         console.log(e)
-        //     }
-        // }, 
         async resetCost(): Promise<void>  {
             this.cost.comment = ''
             this.cost.price = null
@@ -89,11 +90,3 @@ export const CostStore = defineStore({
         }
     }
 })
-
-// interface Cost {
-//     comment: string
-//     price: string
-//     category: string | null
-//     date: Date
-//     _id: string | undefined
-// }

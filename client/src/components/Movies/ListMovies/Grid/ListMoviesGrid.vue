@@ -1,3 +1,13 @@
+<script setup lang="ts">
+
+import ItemMoviesGrid from './ItemMoviesGrid.vue';
+import type Movie from '@/types/Movie/MovieTypes';
+
+const props = defineProps<{
+    movies: Movie[]
+}>()
+
+</script>
 <template>
     <div class="filterList">
         <ul class="filterList__blocks">
@@ -10,17 +20,6 @@
         </ul>
     </div>
 </template>
-
-<script setup lang="ts">
-
-import ItemMoviesGrid from './ItemMoviesGrid.vue';
-import type Movie from '@/types/MovieTypes';
-
-const props = defineProps<{
-    movies: Movie[]
-}>()
-
-</script>
 
 <style lang="scss" scoped>
     .filterList {

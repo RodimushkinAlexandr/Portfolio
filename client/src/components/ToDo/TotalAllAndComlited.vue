@@ -49,13 +49,17 @@ const toDoStore = ToDoStore()
 
         .totals__sort{
             display: flex;
-            flex-direction: column;
+            flex-direction: column-reverse;
             align-items: end;
+
+                :not(:first-child) {
+                    margin-bottom: 10px;
+                }
 
                 :not(:last-child) {
                     margin-right: 0px;
-                    margin-bottom: 10px;
                 }
+               
         }
     }
 }

@@ -16,6 +16,7 @@ const rulesPrice = (value:number) => {
 const addNewCost = async () => {
     if(costStore.cost.price && costStore.cost.category !== null) {
         await costStore.createNewCost()
+        await costStore.getAllCosts()
     }
 }
 
@@ -28,7 +29,7 @@ const addNewCost = async () => {
             <InputNumberValidate v-model="costStore.cost.price" :placeholder="'Price'" :rules="rulesPrice" class="form__item-cost" />
             <InputText v-model="costStore.cost.comment" :placeholder="'Comment'" class="form__item-cost"/>
             <CategoriesListCost :categories="costStore.categories" v-model:selected="costStore.cost.category" class="form__item-cost" />
-            <MyBtnSearchPush @click="addNewCost" :hover="'aliceblue'" :icon="'mdi mdi-plus'">Create Cost</MyBtnSearchPush>
+            <MyBtnSearchPush @click="addNewCost" class="cost__main-btn" :hover="'aliceblue'" :icon="'mdi mdi-plus'">Create Cost</MyBtnSearchPush>
         </form>       
     </main>
 </template>
@@ -39,5 +40,9 @@ const addNewCost = async () => {
 }
     .form__item-cost{
          margin-bottom:10px;
+    }
+
+    .cost__main-btn{
+        width: 100%;
     }
 </style>

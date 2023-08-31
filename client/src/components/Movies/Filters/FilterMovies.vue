@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type Filters from '@/types/FiltersMovies';
+import type Filters from '@/types/Movie/FiltersMovies';
 import FiltersList from './FiltersList.vue';
 import { computed } from 'vue';
 import { ref } from 'vue';
 import FiltersGroup from './FiltersGroup.vue';
 import ListMoviesColumn from '../ListMovies/Column/ListMoviesColumn.vue';
 import { MoviesStore } from '@/stores/Movies';
-import type Movie from '@/types/MovieTypes';
+import type Movie from '@/types/Movie/MovieTypes';
 import LodaderSpinner from '@/components/UI/LoaderSpinner.vue';
 
 const moviesStore = MoviesStore()
@@ -86,7 +86,7 @@ let filterCategoryProp = ref<string>('')
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .disabled{
     pointer-events: none;
 }
@@ -101,6 +101,13 @@ let filterCategoryProp = ref<string>('')
 
         .filterMain__title{
             margin-right: 20px;
+        }
+
+        @media (max-width: 500px) {
+            flex-direction: column;
+            align-items: flex-start;
+            font-size: 13px;
+            margin-bottom: 10px;
         }
     }
 </style>
