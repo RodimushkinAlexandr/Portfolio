@@ -3,10 +3,10 @@ Hello, this is my little web app - Widget.
 Technology stack:
 ---
 * Backend: Nest.js, MongoDB
-* Frontend: Vue, Vite, TS, Pinia, Vue-router, Compositon API, Vuetify
+* Frontend: Vue3, Vite, TS, Pinia, Vue-router, Compositon API, Vuetify
 
 
-Functional:
+## Functional:
 * Login/Registration
 * Movie Poster Search, search with filter movies, user's favorite filters
 * Weather - Search weather
