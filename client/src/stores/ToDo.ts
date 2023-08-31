@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import api from '../api/axiosClient'
-import type Task from '@/types/ToDoTypes'
+import type Task from '@/types/ToDo/ToDoTypes'
 import refreshTokenUser from '@/api/axiosRefreshToken'
 
 interface ToDoState {
