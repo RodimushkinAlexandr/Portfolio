@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type Task from '@/types/ToDo/ToDoTypes';
+import type Task from '@/types/ToDo/ToDo';
 import InputCheckbox from '../UI/inputCheckbox.vue';
 import icon from '../UI/icon.vue';
 import { ref } from 'vue';
 import MyBtnSearchPush from '../UI/MyBtnSearchPush.vue';
-import type changeTask from '@/types/ToDo/ToDoChangesTypes';
+import type changeTask from '@/types/ToDo/ToDoChanges';
 
 const props = defineProps<{
     task: Task

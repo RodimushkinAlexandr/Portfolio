@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import CategoriesItemCost from './CategoriesItemCost.vue';
-import type CategoryTypes from '@/types/Cost/CategoryTypes';
+import type CategoryTypes from '@/types/Cost/Category';
 
 const props = defineProps<{
     categories: CategoryTypes[]

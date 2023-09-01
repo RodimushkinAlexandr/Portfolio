@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import api from '../api/axiosClient'
-import type AuthUser from '@/types/UserAuthTypes'
+import type AuthUser from '@/types/UserAuth'
 
 interface AuthState {
     authUser: AuthUser

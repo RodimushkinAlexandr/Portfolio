@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { CostStore } from '@/stores/Cost';
-import type Cost from '@/types/Cost/CostTypes'
+import type Cost from '@/types/Cost/Cost'
 import Icon from '../UI/icon.vue';
 
 const props = defineProps<{

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type Movie from '@/types/Movie/MovieTypes';
+import type Movie from '@/types/Movie/Movie';
 import ListMovies from './ListMoviesSlider.vue';
 import { MoviesStore } from '@/stores/Movies';
 import type moviesGroup from '@/types/Movie/MovieGroup';

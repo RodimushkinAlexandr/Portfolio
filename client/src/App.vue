@@ -14,6 +14,8 @@ watch(authStore, () => {
     router.push({path: '/Authorization'})
   }
 })
+
+if(!localStorage.getItem('auth')) router.push('/Authorization')
 </script>
 
 <template>

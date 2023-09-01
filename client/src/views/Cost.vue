@@ -3,7 +3,7 @@ import FormCost from '@/components/Cost/FormCost.vue';
 import HistoryListCostVue from '@/components/Cost/HistoryListCost.vue';
 import ChartCost from '@/components/Cost/ChartCost.vue'
 import { ref } from 'vue';
-import type MenuHeaderGreyTypes from '@/types/MenuHeaderGreyTypes';
+import type MenuHeaderGreyTypes from '@/types/MenuHeaderGrey';
 import MenuHeaderGreyVue from '@/components/Headers/MenuHeaderGrey/MenuHeaderGrey.vue';
 import { CostStore } from '@/stores/Cost';
 

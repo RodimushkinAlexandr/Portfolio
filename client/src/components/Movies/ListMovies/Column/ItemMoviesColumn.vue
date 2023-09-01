@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MyBtnSearchPush from '@/components/UI/MyBtnSearchPush.vue';
-import type Movie from '@/types/Movie/MovieTypes';
+import type Movie from '@/types/Movie/Movie';
 
 const props = defineProps<{
     movie: Movie

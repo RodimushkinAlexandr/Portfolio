@@ -1,4 +1,4 @@
-import type Task from "./ToDoTypes"
+import type Task from "./ToDo"
 
 export default interface changeTask {
     task: Task,

@@ -2,7 +2,7 @@
 
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css';
-import type Movie from '@/types/Movie/MovieTypes';
+import type Movie from '@/types/Movie/Movie';
 
 const props = defineProps<{
     movies: Movie[]

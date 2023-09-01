@@ -1,9 +1,9 @@
 import {defineStore } from 'pinia'
 import api from '../api/axiosClient'
 import refreshTokenUser from '@/api/axiosRefreshToken'
-import type Cost from '@/types/Cost/CostTypes'
-import type NewCost from '@/types/Cost/CostNewTypes'
-import type Categories from '@/types/Cost/CategoryTypes'
+import type Cost from '@/types/Cost/Cost'
+import type NewCost from '@/types/Cost/CostNew'
+import type Categories from '@/types/Cost/Category'
 
 
 interface CostStore {

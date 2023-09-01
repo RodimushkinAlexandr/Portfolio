@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type Task from '@/types/ToDo/ToDoTypes';
+import type Task from '@/types/ToDo/ToDo';
 import { ToDoStore } from '@/stores/ToDo';
 import TasksItemToDo from './TasksItemToDo.vue';
-import type changeTask from '@/types/ToDo/ToDoChangesTypes';
+import type changeTask from '@/types/ToDo/ToDoChanges';
 
 const todoStore = ToDoStore()
 todoStore.getAllToDo()

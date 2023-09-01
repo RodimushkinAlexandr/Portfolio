@@ -1,6 +1,6 @@
 import {defineStore } from 'pinia'
 import api from '../api/axiosClient'
-import type Movie from '@/types/Movie/MovieTypes'
+import type Movie from '@/types/Movie/Movie'
 import type Filters from '@/types/Movie/FiltersMovies'
 import type MovieGroup from '@/types/Movie/MovieGroup'
 

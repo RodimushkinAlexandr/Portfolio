@@ -1,6 +1,6 @@
 import {defineStore } from 'pinia'
 import axios from 'axios'
-import type Weather from '@/types/WeatherTypes'
+import type Weather from '@/types/Weather'
 
 interface WeatherStore {
     weather: Weather | null

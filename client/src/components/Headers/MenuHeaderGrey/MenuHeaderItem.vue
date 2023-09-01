@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type MenuHeaderGrey from '@/types/MenuHeaderGreyTypes'
+import type MenuHeaderGrey from '@/types/MenuHeaderGrey'
 import { computed } from 'vue';
 
 

@@ -2,7 +2,7 @@
 import MenuHeader from '@/components/Headers/MenuHeaderGrey/MenuHeaderGrey.vue';
 import { MoviesStore } from '@/stores/Movies';
 import { ref } from 'vue';
-import type menuHeaderGreyTypes from '@/types/MenuHeaderGreyTypes'
+import type menuHeaderGreyTypes from '@/types/MenuHeaderGrey'
 import ListsMoviesSliderGroup from '@/components/Movies/ListMovies/Slider/ListMoviesSliderGroup.vue';
 import FilterMovies from '@/components/Movies/Filters/FilterMovies.vue';
 import dialogWindow from '@/components/UI/dialogWindow.vue';
@@ -10,7 +10,7 @@ import LookOneMovie from '@/components/Movies/LookOneMovie.vue';
 import SearchMovies from '@/components/Movies/Search/SearchMovies.vue';
 import { watch } from 'vue';
 import LodaderSpinner from '@/components/UI/LoaderSpinner.vue';
-import type Movie from '@/types/Movie/MovieTypes';
+import type Movie from '@/types/Movie/Movie';
 
 const moviesStore = MoviesStore();
 

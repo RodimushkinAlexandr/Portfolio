@@ -1,7 +1,7 @@
 import {defineStore } from 'pinia'
 import api from '../api/axiosClient'
 import refreshTokenUser from '@/api/axiosRefreshToken'
-import type User from '@/types/UserTypes'
+import type User from '@/types/User'
 
 interface SettingsState {
     user: User

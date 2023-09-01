@@ -9,7 +9,7 @@ import { SettingsStore } from '@/stores/Settings';
 import ListMoviesSlider from '../Movies/ListMovies/Slider/ListMoviesSlider.vue';
 import MyBtnSearchPush from '../UI/MyBtnSearchPush.vue';
 import router from '@/router';
-import type Movie from '@/types/Movie/MovieTypes';
+import type Movie from '@/types/Movie/Movie';
 
 const showComponent = ref<boolean>(true)
 

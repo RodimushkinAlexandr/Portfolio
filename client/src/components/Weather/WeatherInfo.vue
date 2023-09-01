@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type Weather from '@/types/WeatherTypes';
-
-       
+import type Weather from '@/types/Weather';
+ 
 export interface Props {
     weather: Weather
     date: string

@@ -2,7 +2,7 @@
 import { MoviesStore } from "@/stores/Movies";
 import ListMoviesGridVue from "../ListMovies/Grid/ListMoviesGrid.vue";
 import { ref } from "vue";
-import type Movie from "@/types/Movie/MovieTypes";
+import type Movie from "@/types/Movie/Movie";
 import LodaderSpinner from "@/components/UI/LoaderSpinner.vue";
 import ErorSearch from "@/components/UI/ErorSearch.vue";
 import FormInputButton from "@/components/UI/FormInputButton.vue";

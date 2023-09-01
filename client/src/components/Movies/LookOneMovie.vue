@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type Movie from '@/types/Movie/MovieTypes';
+import type Movie from '@/types/Movie/Movie';
 import { SettingsStore } from '@/stores/Settings';
 
 const settingsStore = SettingsStore()

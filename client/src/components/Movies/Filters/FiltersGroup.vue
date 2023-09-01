@@ -4,7 +4,6 @@ import FiltersList from './FiltersList.vue'
 import { computed } from 'vue';
 import inputText from '@/components/UI/inputText.vue';
 import ErorSearch from '@/components/UI/ErorSearch.vue';
-import { ref } from 'vue';
 
 const props = defineProps<{
     filters: Filters

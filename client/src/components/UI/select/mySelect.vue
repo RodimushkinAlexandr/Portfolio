@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import MyOption from './MyOption.vue'
 import icon from '../icon.vue';
-import LodaderSpinner from '../LodaderSpinner.vue';
 
 const props = defineProps<{
     name: string,
