@@ -4,6 +4,7 @@ import FiltersList from './FiltersList.vue'
 import { computed } from 'vue';
 import inputText from '@/components/UI/inputText.vue';
 import ErorSearch from '@/components/UI/ErorSearch.vue';
+import { ref } from 'vue';
 
 const props = defineProps<{
     filters: Filters
@@ -42,10 +43,22 @@ const years = computed(() => props.filters.years.filter(year =>  year.toLocaleLo
 
 <template>
     <inputText :placeholder="'Search Filter'" v-model="search" :mediaPhone="true"  class="searchFilter"/>
-    <FiltersList v-if="selected == 'countries'" :filters="countries" v-model="selected" :useFilterStyle="'category'"/>
-    <FiltersList v-if="selected == 'genres'" :filters="genres" v-model="selected" :useFilterStyle="'category'"/>
-    <FiltersList v-if="selected == 'years'" :filters="years" v-model="selected" :useFilterStyle="'category'"/> 
-    <ErorSearch v-else-if="!years.length || !genres.length || !countries.length" class="erorFilter" />
+    <FiltersList 
+        v-if="selected == 'countries' && countries.length" 
+        :filters="countries" 
+        v-model="selected" 
+        :useFilterStyle="'category'"/>
+    <FiltersList 
+        v-else-if="selected == 'genres' && genres.length" 
+        :filters="genres" 
+        v-model="selected" 
+        :useFilterStyle="'category'"/>
+    <FiltersList 
+        v-else-if="selected == 'years' && years.length" 
+        :filters="years" 
+        v-model="selected" 
+        :useFilterStyle="'category'"/> 
+    <ErorSearch v-else="errorSearch" class="erorFilter" />
 </template>
 
 <style lang="scss">

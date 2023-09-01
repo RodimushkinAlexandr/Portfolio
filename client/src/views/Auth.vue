@@ -18,7 +18,7 @@ watch(isLoginForm, () => {
 
 const rules =  (value: string) => {  
           if (!value) return 'This field is required'
-          if (value.length < 2) return 'Minimum number of characters 4'
+          if (value.length < 4) return 'Minimum number of characters 4'
           return ''
         }
 
