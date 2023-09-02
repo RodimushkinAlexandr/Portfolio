@@ -1,5 +1,6 @@
 <script setup lang="ts"> 
 import { ref, } from 'vue';
+import '@/assets/inputs.scss'
 
 interface Props {
   rules: Function,
@@ -40,8 +41,3 @@ const validate = async () => {
         <p v-if="textValidate.length > 0">{{ textValidate }}</p>
    </div>
 </template>
-
-<style lang="scss" scoped>
-@import '@/assets/inputs.scss'
-
-</style>

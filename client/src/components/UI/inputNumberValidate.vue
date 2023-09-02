@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-
+import '@/assets/inputs.scss'
 
 interface Props {
     rules: Function,
@@ -41,7 +41,6 @@ const validate = () => textValidate.value = props.rules(props.modelValue)
 </template>
 
 <style lang="scss">
-@import '@/assets/inputs.scss';
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         /* display: none; <- Crashes Chrome on hover */

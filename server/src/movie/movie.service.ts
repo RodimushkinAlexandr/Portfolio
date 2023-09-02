@@ -1,12 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { User, UsersDocument } from 'src/users/schema/user.schema';
 import { Movie, MovieDocument } from './schemas/movie-schema';
-import { HttpService } from '@nestjs/axios'
-import { CreateMovieDto } from './dto/create-movie.tdo';
 import { FilterMovieDto } from './dto/filter-movie.dto';
-import { kMaxLength } from 'buffer';
 import { SearchMovieDto } from './dto/search-movie.dto';
 import { GroupMovieDto } from './dto/group-movie.dto';
 
@@ -119,7 +115,6 @@ export class MovieService {
             const randomNum = Math.floor(Math.random() * filter.length)
             finishFilter.add(filter[randomNum]) 
         }
-        console.log(finishFilter)
         return Array.from(finishFilter) as []
     }
 

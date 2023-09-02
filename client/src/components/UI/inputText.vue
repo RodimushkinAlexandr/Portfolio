@@ -1,4 +1,5 @@
 <script setup lang="ts"> 
+import '@/assets/inputs.scss'
 
 interface Props {
   modelValue: string
@@ -32,8 +33,3 @@ const emit =  defineEmits<{
         /> 
    </div>
 </template>
-
-<style lang="scss" scoped>
-@import '@/assets/inputs.scss'
-
-</style>
