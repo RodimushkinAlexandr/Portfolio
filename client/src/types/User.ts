@@ -4,4 +4,5 @@ export default interface User {
     city: string
     genreMovies: string
     _id: string
+    favoritesMovies: string[]
 }

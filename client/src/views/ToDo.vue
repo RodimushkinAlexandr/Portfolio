@@ -30,6 +30,7 @@ const showToDoContent = ref<boolean>(false)
             v-model:value="todoStore.task.text"
             :valueButton="'Add'"
             @submit="create"
+            :name="'formToDo'"
             class="formToDo"
         />
         <div v-if="showToDoContent" class="todo__content">

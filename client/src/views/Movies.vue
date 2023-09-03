@@ -11,8 +11,11 @@ import SearchMovies from '@/components/Movies/Search/SearchMovies.vue';
 import { watch } from 'vue';
 import LodaderSpinner from '@/components/UI/LoaderSpinner.vue';
 import type Movie from '@/types/Movie/Movie';
+import { SettingsStore } from '@/stores/Settings'
+import FavoritesMoviesList from '@/components/Movies/FavoritesMoviesList.vue';
 
 const moviesStore = MoviesStore();
+const settingsStore = SettingsStore()
 
 const selectedMenu = ref<string>('Main')
 
@@ -48,9 +51,14 @@ const contentMenu = ref<menuHeaderGreyTypes[]>([
     },
 ])  
 
-const look = (movie: Movie) => {
+const look = (movie: Movie): void => {
     moviesStore.showLookMovie = true
     moviesStore.lookMovie = movie
+}
+
+const newFavorites = (movie: string): void => {
+    settingsStore.user.favoritesMovies.push(movie)
+    settingsStore.patchUser()
 }
 
 </script>
@@ -59,18 +67,24 @@ const look = (movie: Movie) => {
   <div class="movies container">
     <MenuHeader v-model="selectedMenu" :contentMenu="contentMenu" class="movies__header"/>
     <transition-group name="listInfo" class="movies__main" mode="out-in" tag="main"> 
-        <FilterMovies v-if="selectedMenu == 'Filter'" :filters="moviesStore.filters" />
+        <FilterMovies v-if="selectedMenu == 'Filter'" :filters="moviesStore.filters" :key="1"/>
         <ListsMoviesSliderGroup 
             v-else-if="selectedMenu == 'Main' && Object.values(moviesStore.moviesGroup).length"
             :moviesGroup="moviesStore.moviesGroup" 
             @look="look"
-        />
-        <SearchMovies v-else-if="selectedMenu == 'Search'" />
-        <LodaderSpinner v-else />
+            :key="2"
+        /> 
+        <SearchMovies v-else-if="selectedMenu == 'Search'" :key="3" />
+        <FavoritesMoviesList 
+            v-else-if="selectedMenu == 'Favorites'"
+            @searchMovies="selectedMenu = 'Filter'"
+            @look="look"
+            :key="4"/>
+        <LodaderSpinner v-else :key="5" />
     </transition-group>
     <aside>
         <dialogWindow v-model:show="moviesStore.showLookMovie">
-            <LookOneMovie v-if="moviesStore.showLookMovie" :movie="moviesStore.lookMovie"></LookOneMovie>
+            <LookOneMovie v-if="moviesStore.showLookMovie" :movie="moviesStore.lookMovie" @newFavorites="newFavorites"></LookOneMovie>
         </dialogWindow>
     </aside>
 </div>

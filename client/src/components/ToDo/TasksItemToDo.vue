@@ -38,7 +38,7 @@ const changeText = ref<string>(props.task.text)
              @click="$emit('complited', task)" 
              :class="{complitedLi: task.complited, selectedLi: task.selected}" 
              class="taskItem__content">
-                <InputCheckbox v-model="task.complited" />
+                <InputCheckbox v-model="task.complited" :name="task._id" />
                 <p :class="{complited: task.complited}" class="taskItem__text">{{ task.text }}</p>
                 <div class="item__buttons">
                 <icon
@@ -67,7 +67,7 @@ const changeText = ref<string>(props.task.text)
             </div>
         </div>
         <div v-else class="taskItem__content change">
-            <input type="text" autofocus v-model="changeText" @click.stop class="taskItem__content-input">
+            <input name="changeInput" type="text" autofocus v-model="changeText" @click.stop class="taskItem__content-input">
             <MyBtnSearchPush @click.stop="changeTextSave" class="saveChangebtn">Save</MyBtnSearchPush>
         </div>
         <!-- <span class="span_back"></span> -->

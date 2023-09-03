@@ -3,16 +3,18 @@ import { ref, } from 'vue';
 import '@/assets/inputs.scss'
 
 interface Props {
-  rules: Function,
+  rules: Function
   modelValue: string
-  placeholder?: string,
+  name?: string
+  placeholder?: string
   autofocus?: boolean
   mediaPhone?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
     placeholder: 'Enter text',
     autofocus: false,
-    mediaPhone: false
+    mediaPhone: false,
+    name: 'inputTextValidate'
 })
 
 const emit =  defineEmits<{
@@ -31,6 +33,7 @@ const validate = async () => {
    <div class="input__wrapper" :class="textValidate.length > 0 ? 'error' : ''">
         <input 
           :autofocus="autofocus"
+          :name="name"
           :placeholder="placeholder"
           :value="modelValue"
           :class="{mediaPhone : mediaPhone}"

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type Movie from '@/types/Movie/Movie';
 import { SettingsStore } from '@/stores/Settings';
+import MyBtnSearchPush from '../UI/MyBtnSearchPush.vue';
 
 const settingsStore = SettingsStore()
 
@@ -8,6 +9,9 @@ const props = defineProps<{
     movie: Movie | undefined
 }>()
 
+const emit = defineEmits<{
+    (e: 'newFavorites', value: string): void
+}>()
 
 const countries = props.movie != undefined ? props?.movie.countries.map(country => (Object.values(country))).join(',') : ''
 const genres = props.movie != undefined ? props?.movie.genres.map(genre => (Object.values(genre))).join(',') : ''
@@ -22,16 +26,11 @@ const genres = props.movie != undefined ? props?.movie.genres.map(genre => (Obje
             </section>
             <section class="movie__block info">
                 <h2 class="movie__name">{{ movie.name  }}</h2>
-                <div class="movie__genres info__margin">
-                    <p>Genre:</p><span>{{ genres }}</span>
-                </div>
-                <div class="movie__year info__margin">
-                    <p>Year:</p><span>{{ movie.year }}</span>
-                </div>
-                <div class="movie__countries info__margin">
-                    <p>Country:</p><span>{{ countries }}</span>
-                </div>
+                <p class="movie__genres info__margin">Genre: {{ genres }}</p>
+                <p class="movie__year info__margin">Year: {{ movie.year }}</p>
+                <p class="movie__countries info__margin">Country: {{ countries }}</p>
                 <p  class="movie__description">{{ movie.description }}</p>   
+                <MyBtnSearchPush @click="emit('newFavorites', movie._id)">newFavorites</MyBtnSearchPush>
             </section>
         </div> 
        </div>
@@ -75,7 +74,7 @@ const genres = props.movie != undefined ? props?.movie.genres.map(genre => (Obje
 }
 
 p{
-    margin-right: 5px;
+    word-break: break-all
 }
 
 .info__margin{
@@ -113,11 +112,6 @@ p{
     margin-bottom: 20px;
 }
 }
-
-span {
-    word-break: break-all
-}
-
 
 @media (max-width:768px) {
     .movie {

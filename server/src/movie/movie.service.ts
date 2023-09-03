@@ -5,6 +5,7 @@ import { Movie, MovieDocument } from './schemas/movie-schema';
 import { FilterMovieDto } from './dto/filter-movie.dto';
 import { SearchMovieDto } from './dto/search-movie.dto';
 import { GroupMovieDto } from './dto/group-movie.dto';
+import { async } from 'rxjs';
 
 
 @Injectable()
@@ -14,21 +15,12 @@ export class MovieService {
 
     async getAllMovies() {
         const movies = await this.moviesService.find()
-        
-        // let arr = []
-        // for (let i = 0; i < movies.length; i++) {
-        //     if(arr.includes(movies[i].name)) {
-        //         await this.deleteOneMovie(movies[i]._id)
-        //     } else {
-        //         arr.push(movies[i].name)
-        //     }
-        // }
         return movies;
     }
 
-    async getOneMovie(id: ObjectId): Promise<Movie> {
-        const movie = (await this.moviesService.findById(id))
-        return movie._id;
+    async getOneMovie(id: string): Promise<Movie> {
+        const movie = await this.moviesService.findById(id)
+        return movie;
     }
 
     async deleteOneMovie(id: string): Promise<Movie> {
@@ -37,11 +29,11 @@ export class MovieService {
     }       
 
     async searchNameMovie(dto: SearchMovieDto): Promise<Movie[]> {
-        
-        let movies = await this.getAllMovies()
-            movies = movies.filter((movie) =>  movie.name.toLowerCase().indexOf(dto.name) >= 0)
-        
-        return movies
+        return (await this.getAllMovies()).filter((movie) =>  movie.name.toLowerCase().indexOf(dto.name) >= 0)
+    }
+
+    async getFavoritesMovies(moviesID: string[]): Promise<Movie[]> {
+        return await Promise.all(moviesID.map( async (id): Promise<Movie> => await this.getOneMovie(id as string))) 
     }
  
     async getMoviesFilter(dto: FilterMovieDto): Promise<Movie[]> {

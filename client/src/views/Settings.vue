@@ -23,7 +23,7 @@ moviesStore.getAllFilters()
 const rulesCity = async (value:string) => {
    weatherStore.queryCity = value
    await weatherStore.getWeatherData()
-   if(weatherStore.weather) return weatherStore.weather = null
+   if(weatherStore.weather) weatherStore.weather = null
    return weatherStore.weatherEror
 }
 
@@ -58,14 +58,25 @@ const logout = () => {
                 <div class="userdata__blocks">
                     <div class="userdata__block userdata__name">
                         <p class="userdata__label">Name</p>
-                        <InputText v-model="settingsStore.user.username"  />
+                        <InputText 
+                            v-model="settingsStore.user.username"
+                            :name="'username'"  />
                     </div>
                     <div class="userdata__block userdata__city">
                         <p class="userdata__label">City</p>
-                        <InputTextValidate :rules="rulesCity" v-model="settingsStore.user.city" :placeholder="'Enter your City'"  />
+                        <InputTextValidate 
+                            :rules="rulesCity" 
+                            v-model="settingsStore.user.city" 
+                            :placeholder="'Enter your City'" 
+                            :name="'city'"
+                        />
                     </div>
                     <div class="userdata__block userdata__movies">
-                        <MySelect :options="moviesStore.filters.genres" v-model:selected="settingsStore.user.genreMovies"  :name="`Genre`" />
+                        <MySelect 
+                            :options="moviesStore.filters.genres" 
+                            v-model:selected="settingsStore.user.genreMovies"  
+                            :name="`Genre`" 
+                        />
                     </div>
                     <div class="userdata__save">
                         <transition name="success">

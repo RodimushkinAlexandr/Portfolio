@@ -15,17 +15,15 @@ export const SettingsStore = defineStore({
                 username: '',
                 city: '',
                 genreMovies: '',
-                _id: ''
+                _id: '',
+                favoritesMovies: []
             }
         }
     },
     actions: {
         getUserData(): void {
             const userData = JSON.parse(localStorage.getItem('auth') || '{}')
-            this.user.username = userData.username
-            this.user.city = userData.city
-            this.user.genreMovies = userData.genreMovies
-            this.user._id = userData._id
+            this.user = userData
         },
         async patchUser(): Promise<void> {
             try {
@@ -37,11 +35,8 @@ export const SettingsStore = defineStore({
             }
         },
         setUserData(): void {
-            const userData = JSON.parse(localStorage.getItem('auth') || '{}')
-            userData.username = this.user.username
-            userData.city = this.user.city
-            userData.genreMovies = this.user.genreMovies
-            userData._id = this.user._id
+            let userData = JSON.parse(localStorage.getItem('auth') || '{}')
+            userData = this.user
             localStorage.setItem('auth', JSON.stringify(userData))
         },
     }

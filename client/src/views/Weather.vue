@@ -25,6 +25,7 @@ const date = weatherStore.dateBuilder()
             v-model:value="weatherStore.queryCity" 
             :valueButton="'Search'" 
             :placeholder="'Search City'"
+            :name="'fromWeather'"
             @submit="searchCity" 
             class="form__weather"/>
         <div class="pos__relativ">

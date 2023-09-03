@@ -6,12 +6,14 @@ interface Props {
   placeholder?: string
   autofocus?: boolean
   mediaPhone?: boolean
+  name?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
     placeholder: 'Enter text',
     autofocus: false,
-    mediaPhone: false
+    mediaPhone: false,
+    name: 'inputText'
 })
 
 const emit =  defineEmits<{
@@ -23,6 +25,7 @@ const emit =  defineEmits<{
 <template>
    <div class="input__wrapper">
         <input 
+          :name="name"
           :autofocus="autofocus"
           :placeholder="placeholder"
           :value="modelValue"

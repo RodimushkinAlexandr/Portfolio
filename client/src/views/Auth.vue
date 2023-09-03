@@ -61,11 +61,13 @@ watch(authStore, () => {
                     v-model="authStore.authUser.username"
                     :rules="rules"
                     :placeholder="'Name'"
+                    :name="'usernameAuth'"
                     class="form__item"
                 ></inputTextValidate>
                 <inputTextValidate
                     v-model="authStore.authUser.password"
                     :rules="rules"
+                    :name="'passwordAuth'"
                     :placeholder="'Password'"
                     type="password"
                     class="form__item"

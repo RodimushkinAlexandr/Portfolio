@@ -26,11 +26,11 @@ export const AuthStore = defineStore({
                 const userData = await api.post('/auth/login/', this.authUser)
                 if(userData.status == 200) {
                     localStorage.setItem('auth', JSON.stringify(userData.data))
-                    this.userAuthentication()
+                    this.errorAuth = ''
+                    this.isAuth = true
                 }
-                
             } catch (e: any) {
-               setTimeout(() => this.errorAuth = e.response.data.message, 500)
+               this.errorAuth = e.response.data.message
             }
         },
         async registration(): Promise<void> {
@@ -39,19 +39,7 @@ export const AuthStore = defineStore({
                 if(userData.status == 201) await this.login()
 
             } catch (e: any) {
-                setTimeout(() => this.errorAuth = e.response.data.message, 500)
-            }
-        },
-        async userAuthentication(): Promise<void> {
-            if (localStorage.getItem('auth')) {
-                try{
-                    const user = JSON.parse(localStorage.getItem('auth') || '{}')
-                    this.isAuth = true;
-                    this.authUser.username = user.username
-                } catch(e) {
-                    console.log(e)
-                }
-
+                this.errorAuth = e.response.data.message
             }
         },
     }

@@ -24,7 +24,7 @@ const loook = (movie: Movie) => {
         :grabCursor="true"
         >
         <swiper-slide v-for="movie in movies"  class="movieList__item">
-            <div id="div__wrapper-img"><img :src="movie.poster[0].previewUrl" alt=""><span></span></div>
+            <div id="div__wrapper-img"><img :src="movie.poster[0].previewUrl" alt="poster"><span></span></div>
             <p @click="emit('look', movie)" class="slide__button">Look</p>
             <p class="movie__name">{{ movie.name }}</p>
         </swiper-slide>

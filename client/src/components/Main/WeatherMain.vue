@@ -18,7 +18,7 @@ weatherStore.queryCity = myCity
 
 ;(async function() {
     if(myCity.length) await weatherStore.getWeatherData()
-    if(weatherStore.weather?.weatherType == 'Dust' || weatherStore.weather?.weatherType == 'Clear') colorProps.value = true
+    if(weatherStore.weather?.weatherType == 'Dust' || weatherStore.weather?.weatherType == 'Clear' || weatherStore.weather?.weatherType == 'Rain') colorProps.value = true
 })()
 
 const routerlink = () => {

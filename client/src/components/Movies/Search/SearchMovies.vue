@@ -33,6 +33,7 @@ const lookMovie = (value: Movie) => {
       <header class="search__movies-header">
          <FormInputButton 
             v-model:value="moviesStore.searchMovies" 
+            :name="'searchMovies'"
             :valueButton="'Search'" 
             @submit="search" 
             :placeholder="'Search Movie'" />

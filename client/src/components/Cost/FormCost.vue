@@ -26,8 +26,17 @@ const addNewCost = async () => {
     <main class="cost__main">
         <form @submit.prevent class="form">
             <DatePicker :date="costStore.cost.date" class="datePicker form__item-cost"></DatePicker>      
-            <InputNumberValidate v-model="costStore.cost.price" :placeholder="'Price'" :rules="rulesPrice" class="form__item-cost" />
-            <InputText v-model="costStore.cost.comment" :placeholder="'Comment'" class="form__item-cost"/>
+            <InputNumberValidate 
+                v-model="costStore.cost.price" 
+                :placeholder="'Price'" 
+                :rules="rulesPrice" 
+                :name="'priceCost'"
+                class="form__item-cost" />
+            <InputText 
+                v-model="costStore.cost.comment" 
+                :placeholder="'Comment'" 
+                :name="'commentCost'"
+                class="form__item-cost"/>
             <CategoriesListCost :categories="costStore.categories" v-model:selected="costStore.cost.category" class="form__item-cost" />
             <MyBtnSearchPush @click="addNewCost" class="cost__main-btn" :hover="'aliceblue'" :icon="'mdi mdi-plus'">Create Cost</MyBtnSearchPush>
         </form>       

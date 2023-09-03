@@ -5,6 +5,7 @@ import '@/assets/inputs.scss'
 interface Props {
     rules: Function,
     modelValue: number | null
+    name?: string
     placeholder?: string,
     autofocus?: boolean
     mediaPhone?: boolean
@@ -13,7 +14,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
     placeholder: 'Enter number',
     autofocus: false,
-    mediaPhone: false
+    mediaPhone: false,
+    name: 'inputNumber'
 })
 
 const emit =  defineEmits<{
@@ -30,6 +32,7 @@ const validate = () => textValidate.value = props.rules(props.modelValue)
         <input 
           :autofocus="autofocus"
           :placeholder="placeholder"
+          :name="name"
           :value="modelValue"
           :class="{mediaPhone : mediaPhone}"
           @input="$emit('update:modelValue', Number(($event.target as HTMLInputElement).value))"

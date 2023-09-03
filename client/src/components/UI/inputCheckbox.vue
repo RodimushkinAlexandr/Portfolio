@@ -1,8 +1,13 @@
 <script setup lang="ts">
 
-const props = defineProps<{
+interface Props {
     modelValue: boolean
-}>()
+    name?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    name: 'chekbox'
+})
 
 const emit = defineEmits<{
     (e: 'update:modelValue', value: string): void
@@ -11,7 +16,12 @@ const emit = defineEmits<{
 </script>
 
 <template >
-    <input type="checkbox" :checked="modelValue" @input="$emit('update:modelValue', ($event.target as HTMLInputElement).checked)" />
+    <input 
+        type="checkbox" 
+        :checked="modelValue" 
+        @input="$emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
+        :name="name"
+    />
 </template>
 
 <style lang="scss">

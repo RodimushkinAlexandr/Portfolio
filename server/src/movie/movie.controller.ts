@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Post, Param, Delete, UseInterceptors, UploadedFiles } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Delete, UseInterceptors, UploadedFiles, Query } from '@nestjs/common';
 import { MovieService } from './movie.service';
-import { Model, ObjectId } from 'mongoose';
 import { FilterMovieDto } from './dto/filter-movie.dto';
 import { SearchMovieDto } from './dto/search-movie.dto'
 import { GroupMovieDto } from './dto/group-movie.dto';
@@ -10,34 +9,34 @@ import { GroupMovieDto } from './dto/group-movie.dto';
 export class MovieController {
 
     constructor(private movieService: MovieService) {}
-
-    @Get()
-    getAllMovies() {
-        return this.movieService.getAllMovies()
+    
+    @Get('/filter')
+    async getFilterMovies(@Query() dto: FilterMovieDto) {
+        return await this.movieService.getMoviesFilter(dto)
     }
-    @Post('/groupMovies')
-    getAll(@Body() groupMovieDto: GroupMovieDto) {
-        return this.movieService.getMovirsGroup(groupMovieDto)
+
+    @Get('/search')
+    async searchMoviesName(@Query() dto: SearchMovieDto) {
+        return await this.movieService.searchNameMovie(dto)
+    }
+    @Get('/getFilters')
+    async getAllGenres() {
+        return await this.movieService.getAllFilters()
+    }
+
+    @Get('/groupMovies')
+    async getGroupMovies(@Query() dto: GroupMovieDto) {
+        return await this.movieService.getMovirsGroup(dto)
+    }
+
+    @Get('/favorites')
+    async getFavoritesMovies(@Query() moviesID: {}) {
+        return await this.movieService.getFavoritesMovies(Object.values(moviesID))
     }
 
     @Delete(':id')
-    async deleteCost(@Param('id') id: string) {
+    async deleteMovie(@Param('id') id: string) {
       return await this.movieService.deleteOneMovie(id);
-    }
+    }    
 
-    @Get('/getFilters')
-    getAllGenres() {
-        return this.movieService.getAllFilters()
-    }
-
-    @Post('/filter')
-    getGenreComedy(@Body() dto: FilterMovieDto) {
-        return this.movieService.getMoviesFilter(dto)
-    }
-
-    @Post('/search')
-    searchNameMovie(@Body() dto: SearchMovieDto) {
-        return this.movieService.searchNameMovie(dto)
-    }
-    
 }

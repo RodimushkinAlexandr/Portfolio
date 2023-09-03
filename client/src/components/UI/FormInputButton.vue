@@ -6,6 +6,7 @@ import MyBtnSearchPush from './MyBtnSearchPush.vue';
 interface Props {
     value: string
     valueButton: string
+    name?: string
     icon?: string
     placeholder?: string
     autofocus?: boolean
@@ -39,7 +40,7 @@ const input = computed({
 
 <template >
     <form @submit.prevent class="formForm">
-        <InputText v-model="input" :placeholder="placeholder" :autofocus="autofocus"/>
+        <InputText v-model="input" :placeholder="placeholder" :autofocus="autofocus" :name="name"/>
         <MyBtnSearchPush @click="$emit('submit')" :icon="icon">{{ valueButton }}</MyBtnSearchPush>
     </form>
 </template>

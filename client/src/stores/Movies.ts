@@ -52,9 +52,17 @@ export const MoviesStore = defineStore({
                 console.log(e)
             } 
         },
+        async getFavoritesMovies(moviesId: string[]): Promise<void> {
+            try {
+                const movies = await api.get('/movie/favorites/', {params: {...moviesId}})
+                this.moviesList = movies.data    
+            } catch(e) {
+                console.log(e)
+            }
+        },
         async getMoviesUseFilters(): Promise<void> {
             try{
-                const filters = await api.post('/movie/filter/', this.requestFilters)
+                const filters = await api.get('/movie/filter/', {params: {...this.requestFilters}} )
                 this.moviesList = filters.data
 
                 this.resetRequestFilters()
@@ -64,8 +72,10 @@ export const MoviesStore = defineStore({
         },
         async nameSearchMovies(): Promise<void> {
             try{
-                const search = await api.post('/movie/search/', {name: this.searchMovies.toLowerCase()})
+                const name  = {name: this.searchMovies}
 
+                const search = await api.get('/movie/search/', {params: {name: this.searchMovies}})
+                
                 if(search.data.length) {this.moviesList = search.data}
                 else {this.error = "Sorry, we didn't find anything, please try again"}
             } catch(e) {
@@ -74,9 +84,8 @@ export const MoviesStore = defineStore({
         },
         async getMoviesGorup(): Promise<void> {
             try{
-                const moviesGroup = await api.post('/movie/groupMovies/', this.requestGroup)
+                const moviesGroup = await api.get('/movie/groupMovies/', {params: {...this.requestGroup}})
                 this.moviesGroup = moviesGroup.data
-                
             } catch(e) {
                 console.log(e)
             }

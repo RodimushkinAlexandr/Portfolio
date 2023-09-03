@@ -41,7 +41,7 @@ const years = computed(() => props.filters.years.filter(year =>  year.toLocaleLo
 </script>
 
 <template>
-    <inputText :placeholder="'Search Filter'" v-model="search" :mediaPhone="true"  class="searchFilter"/>
+    <inputText :placeholder="'Search Filter'" v-model="search" :mediaPhone="true"  class="searchFilter" :name="'filtersMovie'"/>
     <FiltersList 
         v-if="selected == 'countries' && countries.length" 
         :filters="countries" 

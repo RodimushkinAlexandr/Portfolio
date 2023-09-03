@@ -3,24 +3,21 @@ import { RouterView } from 'vue-router'
 import headerGlobal from './components/Headers/HeaderGlobal/Global.vue';
 import router from './router';
 import { AuthStore } from './stores/Auth';
-import { watch } from 'vue';
+import { SettingsStore } from './stores/Settings';
 
 
 const authStore = AuthStore()
-authStore.userAuthentication()
+const settingsStore = SettingsStore()
 
-watch(authStore, () => {
- if(!authStore.isAuth) {
-    router.push({path: '/Authorization'})
-  }
-})
-
-if(!localStorage.getItem('auth')) router.push('/Authorization')
+const isAuth = (): boolean => {
+  if (!localStorage.getItem('auth')) {router.push('/Authorization'); return false}
+  else {settingsStore.getUserData(); return true}
+}
 </script>
 
 <template>
   <div class="wrapper">
-    <div class="header" v-if="authStore.isAuth">
+    <div class="header" v-if="isAuth()">
       <headerGlobal />
     </div>
     <main class="main">
