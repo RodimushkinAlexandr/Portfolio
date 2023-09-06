@@ -2,7 +2,7 @@
 import type Task from '@/types/ToDo/ToDo';
 import { ToDoStore } from '@/stores/ToDo';
 import TasksItemToDo from './TasksItemToDo.vue';
-import type changeTask from '@/types/ToDo/ToDoChanges';
+import type ChangeTask from '@/types/ToDo/ToDoChanges';
 
 const todoStore = ToDoStore()
 todoStore.getAllToDo()
@@ -23,9 +23,9 @@ const selectedTask = (task: Task) => {
     todoStore.complitedAndSelectedTask(task)
 }
 
-const changeTextSave = (task:changeTask) => {
-    task.task.text = task.text
-    todoStore.complitedAndSelectedTask(task.task)
+const changeTextSave = (task: ChangeTask) => {
+    task.text = task.changeText
+    todoStore.complitedAndSelectedTask(task)
 }   
 
 </script>

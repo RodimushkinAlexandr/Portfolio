@@ -20,8 +20,8 @@ const emit = defineEmits<{
 const changeTextSave = () => {
     showChangeText.value = false
     const changeTask = {
-        task: props.task,
-        text: changeText.value,
+        ...props.task,
+        changeText: changeText.value,
     }
     emit('changeTextSave', changeTask)
 }
@@ -70,7 +70,6 @@ const changeText = ref<string>(props.task.text)
             <input name="changeInput" type="text" autofocus v-model="changeText" @click.stop class="taskItem__content-input">
             <MyBtnSearchPush @click.stop="changeTextSave" class="saveChangebtn">Save</MyBtnSearchPush>
         </div>
-        <!-- <span class="span_back"></span> -->
     </transition-group>
 </template>
 

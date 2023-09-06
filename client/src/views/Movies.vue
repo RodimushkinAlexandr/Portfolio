@@ -56,10 +56,11 @@ const look = (movie: Movie): void => {
     moviesStore.lookMovie = movie
 }
 
-const updateFavorites = (movie: string): void => {
+const updateFavorites = async (movie: string): Promise<void> => {
     if(!settingsStore.user.favoritesMovies.includes(movie)) settingsStore.user.favoritesMovies.push(movie)
     else settingsStore.user.favoritesMovies = settingsStore.user.favoritesMovies.filter(movieID => movieID != movie) 
-    settingsStore.patchUser() 
+    await settingsStore.patchUser() 
+    await moviesStore.getFavoritesMovies(settingsStore.user.favoritesMovies)
 }
 
 
@@ -95,7 +96,6 @@ const updateFavorites = (movie: string): void => {
         </dialogWindow>
     </aside>
 </div>
-
 </template>
 
 <style lang="css">

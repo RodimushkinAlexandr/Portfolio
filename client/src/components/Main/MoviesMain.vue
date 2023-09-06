@@ -23,11 +23,17 @@ moviesStore.getMoviesUseFilters()
 const routerlink = () => {
     router.push('/Settings')
 }
-const showLookMovie = (movie: Movie) => {
+const look = (movie: Movie): void => {
     moviesStore.showLookMovie = true
     moviesStore.lookMovie = movie
 }
 
+const updateFavorites = async (movie: string): Promise<void> => {
+    if(!settingsStore.user.favoritesMovies.includes(movie)) settingsStore.user.favoritesMovies.push(movie)
+    else settingsStore.user.favoritesMovies = settingsStore.user.favoritesMovies.filter(movieID => movieID != movie) 
+    await settingsStore.patchUser() 
+    await moviesStore.getFavoritesMovies(settingsStore.user.favoritesMovies)
+}
 
 </script>
 
@@ -44,14 +50,19 @@ const showLookMovie = (movie: Movie) => {
                     <ListMoviesSlider  
                         v-else-if="moviesStore.moviesList.length" 
                         :movies="moviesStore.moviesList" 
-                        @look="showLookMovie" 
+                        @look="look" 
                         class="moviesMain__block"/>
                     <LodaderSpinner v-else class="moviesMain__block"/>
                 </div>
             </transition>
-            <dialogWindow v-model:show="moviesStore.showLookMovie" >
-                <LookOneMovie :movie="moviesStore?.lookMovie" />
-            </dialogWindow>
+            <dialogWindow v-model:show="moviesStore.showLookMovie">
+            <LookOneMovie 
+                v-if="moviesStore.showLookMovie && moviesStore.lookMovie" 
+                :movie="moviesStore.lookMovie" 
+                @updateFavorites="updateFavorites"
+                >
+            </LookOneMovie>
+        </dialogWindow>
         </main>
     </section>
 </template>

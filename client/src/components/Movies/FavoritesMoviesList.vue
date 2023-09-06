@@ -29,7 +29,3 @@ const look = (movie: Movie) => {
         <MyBtnSearchPush @click="$emit('searchMovies')">Search Movies</MyBtnSearchPush>
     </div>
 </template>
-
-<style lang="">
-    
-</style>
