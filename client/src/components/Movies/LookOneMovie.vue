@@ -1,17 +1,26 @@
 <script setup lang="ts">
 import type Movie from '@/types/Movie/Movie';
 import { SettingsStore } from '@/stores/Settings';
-import MyBtnSearchPush from '../UI/MyBtnSearchPush.vue';
+import icon from '../UI/icon.vue';
+import { ref } from 'vue';
+
 
 const settingsStore = SettingsStore()
 
 const props = defineProps<{
-    movie: Movie | undefined
+    movie: Movie
 }>()
 
 const emit = defineEmits<{
-    (e: 'newFavorites', value: string): void
+    (e: 'updateFavorites', value: string): void
 }>()
+
+let isFavorites = ref<boolean>(settingsStore.user.favoritesMovies.includes(props.movie?._id))
+
+const updateFavorites = () => {
+    emit('updateFavorites', props.movie._id) 
+    isFavorites.value = !isFavorites.value
+}
 
 const countries = props.movie != undefined ? props?.movie.countries.map(country => (Object.values(country))).join(',') : ''
 const genres = props.movie != undefined ? props?.movie.genres.map(genre => (Object.values(genre))).join(',') : ''
@@ -20,19 +29,27 @@ const genres = props.movie != undefined ? props?.movie.genres.map(genre => (Obje
 <template>
     <div class="container" v-if="movie?._id">
         <div class="movie">
-        <div class="movie__bloks">
-            <section class="movie__block img">
-                <div class="movie__img" :style="{ 'background-image': 'url(' + movie.poster[0].previewUrl + ')'}"></div>
-            </section>
-            <section class="movie__block info">
-                <h2 class="movie__name">{{ movie.name  }}</h2>
-                <p class="movie__genres info__margin">Genre: {{ genres }}</p>
-                <p class="movie__year info__margin">Year: {{ movie.year }}</p>
-                <p class="movie__countries info__margin">Country: {{ countries }}</p>
-                <p  class="movie__description">{{ movie.description }}</p>   
-                <MyBtnSearchPush @click="emit('newFavorites', movie._id)">newFavorites</MyBtnSearchPush>
-            </section>
-        </div> 
+            <div class="movie__bloks">
+                <section class="movie__block img">
+                    <div class="movie__img" :style="{ 'background-image': 'url(' + movie.poster[0].previewUrl + ')'}"></div>
+                </section>
+                <section class="movie__block info">
+                    <h2 class="movie__name">{{ movie.name  }}</h2>
+                    <p class="movie__genres info__margin">Genre: {{ genres }}</p>
+                    <p class="movie__year info__margin">Year: {{ movie.year }}</p>
+                    <p class="movie__countries info__margin">Country: {{ countries }}</p>
+                    <p  class="movie__description">{{ movie.description }}</p>   
+                </section>
+            </div> 
+            <icon 
+                class="movies__favorites" 
+                :icon="'mdi mdi-heart'" 
+                color="'#9f9fa1'" 
+                :hover="'#394C60'" 
+                :active="isFavorites"
+                @click="updateFavorites"
+                :size="'21px'"
+            ></icon>
        </div>
     </div>
 </template>
@@ -47,8 +64,9 @@ const genres = props.movie != undefined ? props?.movie.genres.map(genre => (Obje
 // .movie__bloks
 .movies__favorites{
     position: absolute;
-    top: -19px;
-    right: 40px;
+    top: -20px;
+    right: 45px;
+    cursor: pointer;
 }
 &__bloks {
     width: 100%;

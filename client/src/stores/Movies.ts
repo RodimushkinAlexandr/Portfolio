@@ -90,9 +90,6 @@ export const MoviesStore = defineStore({
                 console.log(e)
             }
         },
-        getFavoritesGenre (): void {
-            
-        },
         resetRequestFilters(): void {
             this.requestFilters = {
                 genre: '',

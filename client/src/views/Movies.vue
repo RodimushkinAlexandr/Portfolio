@@ -56,10 +56,12 @@ const look = (movie: Movie): void => {
     moviesStore.lookMovie = movie
 }
 
-const newFavorites = (movie: string): void => {
-    settingsStore.user.favoritesMovies.push(movie)
-    settingsStore.patchUser()
+const updateFavorites = (movie: string): void => {
+    if(!settingsStore.user.favoritesMovies.includes(movie)) settingsStore.user.favoritesMovies.push(movie)
+    else settingsStore.user.favoritesMovies = settingsStore.user.favoritesMovies.filter(movieID => movieID != movie) 
+    settingsStore.patchUser() 
 }
+
 
 </script>
 
@@ -84,7 +86,12 @@ const newFavorites = (movie: string): void => {
     </transition-group>
     <aside>
         <dialogWindow v-model:show="moviesStore.showLookMovie">
-            <LookOneMovie v-if="moviesStore.showLookMovie" :movie="moviesStore.lookMovie" @newFavorites="newFavorites"></LookOneMovie>
+            <LookOneMovie 
+                v-if="moviesStore.showLookMovie && moviesStore.lookMovie" 
+                :movie="moviesStore.lookMovie" 
+                @updateFavorites="updateFavorites"
+                >
+            </LookOneMovie>
         </dialogWindow>
     </aside>
 </div>
