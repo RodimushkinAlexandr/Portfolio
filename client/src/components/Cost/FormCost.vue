@@ -8,10 +8,7 @@ import MyBtnSearchPush from '../UI/MyBtnSearchPush.vue';
 
 const costStore = CostStore()
 
-const rulesPrice = (value:number) => {  
-          if (!value) return 'This field is required'      
-          return ''
-        }
+const rulesPrice = (value:number) => value ? '' : 'This field is required'
 
 const addNewCost = async () => {
     if(costStore.cost.price && costStore.cost.category !== null) {

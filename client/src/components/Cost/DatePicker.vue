@@ -5,18 +5,17 @@ import { CostStore } from '@/stores/Cost';
 
 const costStore = CostStore()
 
-
-const calendarFn = (weeks: any[]) => {
-  return weeks
-        .filter((week) => week.days.some((day: { text: number; }) => day.text === 15))
-        .map((week) => ({
-          ...week,
-          days: week.days.map((day: { classData: { [x: string]: boolean; }; }) => {
-            day.classData['custom-class'] = true;
-            return day;
-          }),
-        }));
-}
+const calendarFn = (week: any[]) => {
+  return week.map((week) => ({
+    ...week,
+    days: week.days.map((day: { text: number; classData: { [x: string]:boolean; }; }) => {
+      if(day.text === 15) {
+        day.classData['custom-class'] = true;
+      }
+      return day;
+    }),
+  })).filter((week) => week.days.some((day: { classData: { [x: string]: boolean; }; }) => day.classData['custom-class']));
+};
 
 </script>
 

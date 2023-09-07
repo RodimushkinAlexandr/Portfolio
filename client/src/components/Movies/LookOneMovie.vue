@@ -1,191 +1,190 @@
 <script setup lang="ts">
-import type Movie from '@/types/Movie/Movie';
-import { SettingsStore } from '@/stores/Settings';
-import icon from '../UI/icon.vue';
-import { ref } from 'vue';
-
+import type Movie from '@/types/Movie/Movie'
+import { SettingsStore } from '@/stores/Settings'
+import icon from '../UI/icon.vue'
+import { ref } from 'vue'
 
 const settingsStore = SettingsStore()
 
 const props = defineProps<{
-    movie: Movie
+  movie: Movie
 }>()
 
 const emit = defineEmits<{
-    (e: 'updateFavorites', value: string): void
+  (e: 'updateFavorites', value: string): void
 }>()
 
 let isFavorites = ref<boolean>(settingsStore.user.favoritesMovies.includes(props.movie?._id))
 
 const updateFavorites = () => {
-    emit('updateFavorites', props.movie._id) 
-    isFavorites.value = !isFavorites.value
+  emit('updateFavorites', props.movie._id)
+  isFavorites.value = !isFavorites.value
 }
 
-const countries = props.movie != undefined ? props?.movie.countries.map(country => (Object.values(country))).join(',') : ''
-const genres = props.movie != undefined ? props?.movie.genres.map(genre => (Object.values(genre))).join(',') : ''
+const countries = props.movie.countries.map((country) => Object.values(country)).join(',')
+const genres = props.movie.genres.map((genre) => Object.values(genre)).join(',')
 </script>
 
 <template>
-    <div class="container" v-if="movie?._id">
-        <div class="movie">
-            <div class="movie__bloks">
-                <section class="movie__block img">
-                    <div class="movie__img" :style="{ 'background-image': 'url(' + movie.poster[0].previewUrl + ')'}"></div>
-                </section>
-                <section class="movie__block info">
-                    <h2 class="movie__name">{{ movie.name  }}</h2>
-                    <p class="movie__genres info__margin">Genre: {{ genres }}</p>
-                    <p class="movie__year info__margin">Year: {{ movie.year }}</p>
-                    <p class="movie__countries info__margin">Country: {{ countries }}</p>
-                    <p  class="movie__description">{{ movie.description }}</p>   
-                </section>
-            </div> 
-            <icon 
-                class="movies__favorites" 
-                :icon="'mdi mdi-heart'" 
-                color="'#9f9fa1'" 
-                :hover="'#394C60'" 
-                :active="isFavorites"
-                @click="updateFavorites"
-                :size="'21px'"
-            ></icon>
-       </div>
+  <div class="container" v-if="movie?._id">
+    <div class="movie">
+      <div class="movie__bloks">
+        <section class="movie__block img">
+          <div
+            class="movie__img"
+            :style="{ 'background-image': 'url(' + movie.poster[0].previewUrl + ')' }"
+          ></div>
+        </section>
+        <section class="movie__block info">
+          <h2 class="movie__name">{{ movie.name }}</h2>
+          <p class="movie__genres info__margin">Genre: {{ genres }}</p>
+          <p class="movie__year info__margin">Year: {{ movie.year }}</p>
+          <p class="movie__countries info__margin">Country: {{ countries }}</p>
+          <p class="movie__description">{{ movie.description }}</p>
+        </section>
+      </div>
+      <icon
+        class="movies__favorites"
+        :icon="'mdi mdi-heart'"
+        color="'#9f9fa1'"
+        :hover="'#394C60'"
+        :active="isFavorites"
+        @click="updateFavorites"
+        :size="'21px'"
+      ></icon>
     </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .movie {
-    padding: 0px 10px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  padding: 0px 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 
-// .movie__bloks
-.movies__favorites{
+  // .movie__bloks
+  .movies__favorites {
     position: absolute;
     top: -20px;
     right: 45px;
     cursor: pointer;
-}
-&__bloks {
+  }
+  &__bloks {
     width: 100%;
     height: 100%;
     display: flex;
-}
+  }
 
-// .movie__block
+  // .movie__block
 
-&__block {
+  &__block {
     &:not(:last-child) {
-        margin-right: 10px;
+      margin-right: 10px;
     }
     &.info {
-        margin-top: 10px;
-    }    
-
-    &.img{   
-        .movie__img{
-            border-radius: 12px;
-        }
+      margin-top: 10px;
     }
-}
 
-p{
-    word-break: break-all
-}
+    &.img {
+      .movie__img {
+        border-radius: 12px;
+      }
+    }
+  }
 
-.info__margin{
+  p {
+    word-break: break-all;
+  }
+
+  .info__margin {
     display: flex;
     text-transform: capitalize;
     flex-direction: row;
 
     &:not(:last-child) {
-        margin-bottom: 13px;
+      margin-bottom: 13px;
     }
-}
-// .movie__img
+  }
+  // .movie__img
 
-&__img {
+  &__img {
     width: 300px;
     height: 441px;
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover;    
-}
+    background-size: cover;
+  }
 
-// .movie__name
+  // .movie__name
 
-&__name {
+  &__name {
     font-size: 19px;
     font-weight: 700;
     margin-bottom: 10px;
-}
+  }
 
-// .movie__description
+  // .movie__description
 
-&__description {
+  &__description {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 20px;
-}
-}
-
-@media (max-width:768px) {
-    .movie {
-
-// .movie__bloks
-
-&__bloks {
-   margin: 0px;
-   font-size: 14px;
-   display: block;
+  }
 }
 
-&__block {
-    &.info {
-        margin-top: 5px;
-    }    
-}
+@media (max-width: 768px) {
+  .movie {
+    // .movie__bloks
 
-// .movie__block
-
-&__img{
-    width: 200px;
-    height: 300px;
-    margin: 0px 6px 6px 0px;
-    float: left;
-}
-
-
-.info__margin{
-    &:not(:last-child) {
-        margin-bottom: 7px;
+    &__bloks {
+      margin: 0px;
+      font-size: 14px;
+      display: block;
     }
-}
-// .movie__name
-&__name {
-    font-size: 17px;
-    font-weight: 600;
-}
 
-// .movie__description
+    &__block {
+      &.info {
+        margin-top: 5px;
+      }
+    }
 
-&__description {
-    font-size: 14px;
-    font-weight: 400;
-}
-// .movie__where
-}
+    // .movie__block
+
+    &__img {
+      width: 200px;
+      height: 300px;
+      margin: 0px 6px 6px 0px;
+      float: left;
+    }
+
+    .info__margin {
+      &:not(:last-child) {
+        margin-bottom: 7px;
+      }
+    }
+    // .movie__name
+    &__name {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    // .movie__description
+
+    &__description {
+      font-size: 14px;
+      font-weight: 400;
+    }
+    // .movie__where
+  }
 }
 
 @media (max-width: 480px) {
-    .movie {
-
+  .movie {
     &__img {
-        width: 120px;
-        height: 240px;
+      width: 120px;
+      height: 240px;
     }
-    }
+  }
 }
 </style>

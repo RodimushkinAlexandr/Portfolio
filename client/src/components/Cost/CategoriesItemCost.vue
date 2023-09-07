@@ -12,16 +12,14 @@ const emit = defineEmits<{
     (e: "selected", value: string):void
 }>()
 
-const isSelected = computed(() =>  props.category.value == props.selected ? true : false )
+const isSelected = computed(() =>  props.category.value == props.selected)
 
 </script>
 
 <template>
-    <li @click="$emit('selected', selected)" :class="category.color" class="wallet__payment-wrapper_item">
-        <div :class="{selected: isSelected}" class="wallet__payment-item">
-            <p>{{ category.value }}</p>
-            <Icon :icon="category.icon" ></Icon>
-        </div>
+    <li @click="$emit('selected', selected)" :class="[{selected: isSelected}, category.color]" class="wallet__payment-item">
+        <p>{{ category.value }}</p>
+        <Icon :icon="category.icon" ></Icon>
     </li>
 </template>
 
@@ -29,7 +27,7 @@ const isSelected = computed(() =>  props.category.value == props.selected ? true
 
 .wallet {
 
-    &__payment-wrapper_item{
+    &__payment-item{
     
     margin: 0 auto;
     border-radius: 15px;
@@ -39,40 +37,30 @@ const isSelected = computed(() =>  props.category.value == props.selected ? true
     cursor: pointer;
     box-shadow: 0px 5px 30px 2px rgba(0, 0, 0, 0.64); 
     transition: all .3s ease;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    text-align: center;
+    background-color: none;
+    box-shadow: 0px 5px 30px 2px rgba(0, 0, 0, 0.64);        
+    transition: all ease .4s;
 
-    &:hover {
-        transform: scale(1.05);
-        
-    }
-   }
-
-    &__payment-item {
-        display: flex;
-        flex-direction: column-reverse;
-        justify-content: center;
-        text-align: center;
-        width: 100%;
-        height: 100%;
-        background-color: none;
-        box-shadow: 0px 5px 30px 2px rgba(0, 0, 0, 0.64);        
-        transition: all ease .4s;
-
+        &:hover {
+            transform: scale(1.05);
+        }
 
         input {
             text-align: inherit;
             cursor: pointer;
             font-size: 14px;
         }
-
         p {
             text-align: inherit;
             display: block;
         }
-
         &.selected {
             background-color: black;
         }
-
         &:hover{
             transform: scale(1.1);
             background-color: black;

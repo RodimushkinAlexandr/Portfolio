@@ -16,8 +16,8 @@ const router = createRouter({
       component: Main,
       meta: {
         enterClass: 'animate__animated animate__fadeInLeft',
-        leaveClass: 'animate__animated animate__fadeOutRight',
-    }
+        leaveClass: 'animate__animated animate__fadeOutRight'
+      }
     },
     {
       path: '/Cost',
@@ -25,8 +25,8 @@ const router = createRouter({
       component: Cost,
       meta: {
         enterClass: 'animate__animated animate__fadeInLeft',
-        leaveClass: 'animate__animated animate__fadeOutRight',
-    }
+        leaveClass: 'animate__animated animate__fadeOutRight'
+      }
     },
     {
       path: '/Authorization',
@@ -34,8 +34,8 @@ const router = createRouter({
       component: Auth,
       meta: {
         enterClass: 'animate__animated animate__fadeInLeft',
-        leaveClass: 'animate__animated animate__fadeOutRight',
-    }
+        leaveClass: 'animate__animated animate__fadeOutRight'
+      }
     },
     {
       path: '/ToDo',
@@ -43,8 +43,8 @@ const router = createRouter({
       component: ToDo,
       meta: {
         enterClass: 'animate__animated animate__fadeInLeft',
-        leaveClass: 'animate__animated animate__fadeOutRight',
-    }
+        leaveClass: 'animate__animated animate__fadeOutRight'
+      }
     },
     {
       path: '/Weather',
@@ -52,8 +52,8 @@ const router = createRouter({
       component: Weather,
       meta: {
         enterClass: 'animate__animated animate__fadeInLeft',
-        leaveClass: 'animate__animated animate__fadeOutRight',
-    }
+        leaveClass: 'animate__animated animate__fadeOutRight'
+      }
     },
     {
       path: '/Settings',
@@ -61,8 +61,8 @@ const router = createRouter({
       component: Settings,
       meta: {
         enterClass: 'animate__animated animate__fadeInLeft',
-        leaveClass: 'animate__animated animate__fadeOutRight',
-    }
+        leaveClass: 'animate__animated animate__fadeOutRight'
+      }
     },
     {
       path: '/Movies',
@@ -70,8 +70,8 @@ const router = createRouter({
       component: Movies,
       meta: {
         enterClass: 'animate__animated animate__fadeInLeft',
-        leaveClass: 'animate__animated animate__fadeOutRight',
-    }
+        leaveClass: 'animate__animated animate__fadeOutRight'
+      }
     }
   ]
 })
