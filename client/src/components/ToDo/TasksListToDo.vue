@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type Task from '@/types/ToDo/ToDo'
+import type TaskRes from '@/types/ToDo/ToDoRes'
 import { ToDoStore } from '@/stores/ToDo'
 import TasksItemToDo from './TasksItemToDo.vue'
 import type ChangeTask from '@/types/ToDo/ToDoChanges'
@@ -7,25 +7,26 @@ import type ChangeTask from '@/types/ToDo/ToDoChanges'
 const todoStore = ToDoStore()
 todoStore.getAllToDo()
 
-const removeTask = (task: Task) => {
-  todoStore.deleteTask(task._id)
+const removeTask = async (task: TaskRes) => {
+  await todoStore.deleteTask(task._id)
+  await todoStore.getAllToDo()
 }
 
-const complitedTask = (task: Task) => {
+const complitedTask = async (task: TaskRes) => {
   task.complited = !task.complited
   task.selected = false
   todoStore.sortTasksSelected()
-  todoStore.complitedAndSelectedTask(task)
+  await todoStore.complitedAndSelectedTask(task)
 }
 
-const selectedTask = (task: Task) => {
+const selectedTask = async (task: TaskRes) => {
   todoStore.sortTasksSelected()
-  todoStore.complitedAndSelectedTask(task)
+  await todoStore.complitedAndSelectedTask(task)
 }
 
-const changeTextSave = (task: ChangeTask) => {
+const changeTextSave = async (task: ChangeTask) => {
   task.text = task.changeText
-  todoStore.complitedAndSelectedTask(task)
+  await todoStore.complitedAndSelectedTask(task)
 }
 </script>
 

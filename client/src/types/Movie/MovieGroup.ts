@@ -1,5 +1,5 @@
-import type Movie from '../Movie/MovieTypes'
+import type Movie from '../Movie/Movie'
 
 export default interface moviesGroup {
-    name: Movie[]
+  name: Movie[]
 }

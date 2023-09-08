@@ -7,12 +7,10 @@ import { UpdateToDoDto } from './dto/update-todo.dto';
 
 @Injectable()
 export class ToDoService {
-  constructor(
-    @InjectModel(ToDo.name) private toDoModel: Model<ToDoDocument>,
-  ) {}
+  constructor(@InjectModel(ToDo.name) private toDoModel: Model<ToDoDocument>) {}
 
   async findAll(): Promise<ToDo[]> {
-    return this.toDoModel.find()
+    return this.toDoModel.find();
   }
 
   async findOne(id: string): Promise<ToDo> {

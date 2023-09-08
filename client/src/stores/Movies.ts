@@ -73,8 +73,8 @@ export const MoviesStore = defineStore({
     },
     async nameSearchMovies(): Promise<void> {
       try {
+        this.moviesList = []
         const name = { name: this.searchMovies }
-
         const search = await api.get('/movie/search/', { params: { name: this.searchMovies } })
 
         if (search.data.length) {

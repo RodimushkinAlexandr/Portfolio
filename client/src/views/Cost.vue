@@ -6,10 +6,13 @@ import { ref } from 'vue'
 import type MenuHeaderGreyTypes from '@/types/MenuHeaderGrey'
 import MenuHeaderGreyVue from '@/components/Headers/MenuHeaderGrey/MenuHeaderGrey.vue'
 import { CostStore } from '@/stores/Cost'
+import { onMounted } from 'vue'
 
 const selectedMenu = ref<string>('Cost')
-const costStore = CostStore()
-costStore.getAllCosts()
+onMounted(async () => {
+  const costStore = CostStore()
+  await costStore.getAllCosts()
+})
 
 const contentMenu = ref<MenuHeaderGreyTypes[]>([
   {

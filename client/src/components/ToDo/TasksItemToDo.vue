@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type Task from '@/types/ToDo/ToDo'
+import type TaskRes from '@/types/ToDo/ToDoRes'
 import InputCheckbox from '../UI/inputCheckbox.vue'
 import icon from '../UI/icon.vue'
 import { ref } from 'vue'
@@ -7,13 +7,13 @@ import MyBtnSearchPush from '../UI/MyBtnSearchPush.vue'
 import type ChangeTask from '@/types/ToDo/ToDoChanges'
 
 const props = defineProps<{
-  task: Task
+  task: TaskRes
 }>()
 
 const emit = defineEmits<{
-  (e: 'complited', value: Task): void
-  (e: 'remove', value: Task): void
-  (e: 'selected', value: Task): void
+  (e: 'complited', value: TaskRes): void
+  (e: 'remove', value: TaskRes): void
+  (e: 'selected', value: TaskRes): void
   (e: 'changeTextSave', value: ChangeTask): void
 }>()
 

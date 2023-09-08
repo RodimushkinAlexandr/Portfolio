@@ -2,9 +2,10 @@ import { defineStore } from 'pinia'
 import api from '../api/axiosClient'
 import type Task from '@/types/ToDo/ToDo'
 import refreshTokenUser from '@/api/axiosRefreshToken'
+import type TaskRes from '@/types/ToDo/ToDoRes'
 
 interface ToDoState {
-  tasks: Task[]
+  tasks: TaskRes[]
   task: Task
 }
 
@@ -15,8 +16,7 @@ export const ToDoStore = defineStore({
     task: {
       text: '',
       complited: false,
-      selected: false,
-      _id: undefined
+      selected: false
     }
   }),
   getters: {
@@ -58,7 +58,7 @@ export const ToDoStore = defineStore({
         console.log(e)
       }
     },
-    async deleteTask(id: string | undefined): Promise<void> {
+    async deleteTask(id: string): Promise<void> {
       try {
         const token = await refreshTokenUser()
         const task = await api.delete(`/todo/${id}`, {
@@ -70,7 +70,7 @@ export const ToDoStore = defineStore({
         console.log(e)
       }
     },
-    async complitedAndSelectedTask(task: Task): Promise<void> {
+    async complitedAndSelectedTask(task: TaskRes): Promise<void> {
       try {
         const token = await refreshTokenUser()
         const taskChange = await api.patch(`/todo/${task._id}`, task, {
@@ -85,7 +85,7 @@ export const ToDoStore = defineStore({
       const notComplited = this.tasks.filter((item) => item.complited == true)
       const complited = this.tasks
         .filter((item) => item.complited == false)
-        .sort((a: Task, b: Task) => Number(b.selected) - Number(a.selected))
+        .sort((a: TaskRes, b: TaskRes) => Number(b.selected) - Number(a.selected))
       return (this.tasks = [...complited, ...notComplited])
     }
   }
