@@ -1,10 +1,20 @@
-Hello, this is my little web app - Widget.
+Hello 🙋‍♂️, this is my little web app - Widget.
 ======
+## To launch the application 💻
+
+Server terminal:
+* cd server
+* npm run start:dev
+
+Client terminal
+* cd client
+* npm run dev
+
+---
 Technology stack:
 ---
 * Backend: Nest.js, MongoDB
 * Frontend: Vue3, Vite, TS, Pinia, Vue-router, Compositon API, Vuetify
-
 
 ## Functional:
 * Login/Registration
@@ -13,6 +23,8 @@ Technology stack:
 * ToDo - Creating, deleting, changing tasks
 * Cost - Creating, deleting, changing cost and history with diagramm
 * Main - All information from other blocks adjusted for the user
+
+
 
 
 
