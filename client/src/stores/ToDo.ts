@@ -60,12 +60,11 @@ export const ToDoStore = defineStore({
     },
     async deleteTask(id: string): Promise<void> {
       try {
+        this.tasks = this.tasks.filter((item) => item._id !== id)
         const token = await refreshTokenUser()
         const task = await api.delete(`/todo/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         })
-
-        this.sortTasksSelected()
       } catch (e) {
         console.log(e)
       }
@@ -76,7 +75,6 @@ export const ToDoStore = defineStore({
         const taskChange = await api.patch(`/todo/${task._id}`, task, {
           headers: { Authorization: `Bearer ${token}` }
         })
-        await this.getAllToDo()
       } catch (e) {
         console.log(e)
       }
