@@ -2,12 +2,19 @@ Hello 🙋‍♂️, this is my little web app - Widget.
 ======
 ## To launch the application 💻
 
+General:
+* git clone https://github.com/RodimushkinAlexandr/Widget-Test_Task.git
+  
 Server terminal:
+* cd Widget-Test_Task
+* npm i
 * cd server
 * npm run start:dev
 
 Client terminal
+* cd Widget-Test_Task
 * cd client
+* npm i
 * npm run dev
 
 ---
