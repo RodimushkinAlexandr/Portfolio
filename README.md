@@ -7,8 +7,8 @@ General:
   
 Server terminal:
 * cd Widget-Test_Task
-* npm i
 * cd server
+* npm i
 * npm run start:dev
 
 Client terminal
