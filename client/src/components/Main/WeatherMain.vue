@@ -43,13 +43,13 @@ const routerlink = () => {
     <main class="weatherMain__main main-main" :class="{ margin: showComponent }">
       <transition name="main" mode="out-in">
         <div class="weatherMain__blocks blocks" v-if="showComponent">
-          <div v-if="!myCity" class="noMyCity weatherMain__block">
+          <div v-if="!myCity.length" class="noMyCity weatherMain__block">
             <p>Choose your City</p>
             <MyBtnSearchPush @click="routerlink">Settings</MyBtnSearchPush>
           </div>
           <div class="weatherMain__block">
             <WeatherInfo
-              v-if="weatherStore.weather"
+              v-if="weatherStore.weather.temp"
               :main="true"
               :weather="weatherStore.weather"
               :date="weatherStore.dateBuilder()"
