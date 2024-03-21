@@ -24,7 +24,7 @@ Technology stack:
 * Frontend: Vue3, Vite, TS, Pinia, Vue-router, Compositon API, Vuetify
 
 ## Functional:
-* Login/Registration
+* Login/Registration/Authentication
 * Movie Poster Search, search with filter movies, user's favorite filters
 * Weather - Search weather
 * ToDo - Creating, deleting, changing tasks
