@@ -1,4 +1,4 @@
-Hello 🙋‍♂️, this is my little web app - Widget.
+Hello 🙋‍♂️
 ======
 ## To launch the application 💻
 
